@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1",
-    "build": "next build",
+    "build": "tsx scripts/validate-scene.ts && next build",
     "start": "next start --hostname 127.0.0.1",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
@@ -12,7 +12,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "seed:validate": "tsx scripts/validate-content.ts",
-    "seed:sql": "tsx scripts/seed-sql.ts"
+    "seed:sql": "tsx scripts/seed-sql.ts",
+    "scene:validate": "tsx scripts/validate-scene.ts"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "1.1.23",

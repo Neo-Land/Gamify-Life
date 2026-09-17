@@ -1,6 +1,7 @@
 import type {Metadata,Viewport} from 'next';
 import './globals.css';
 import './retro.css';
+import './home-scene.css';
 import {RetroComputerFrame} from '@/components/computer-frame';
 import {App} from '@/components/app';
 import {Provider} from '@/components/provider';

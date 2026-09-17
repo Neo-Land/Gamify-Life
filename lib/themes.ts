@@ -4,3 +4,10 @@ export type AnimationIntensity='off'|'low'|'normal';
 export type ThemeChoice={themeId:SeasonalThemeId;animationIntensity:AnimationIntensity};
 export type SeasonalTheme={id:SeasonalThemeId;name:string;palette:Record<string,string>;backgroundLayers:string[];animationLayers:{kind:string;normal:number;low:number};characterLighting:{shadowColor:string;highlightColor:string}};
 export const seasonalThemes:SeasonalTheme[]=seasonIds.map(id=>({id,name:({fall:'Amber woodland',summer:'Mountain lake',winter:'Snowlight city',spring:'Blossom meadow'})[id],palette:{sky:({fall:'#e8b28e',summer:'#99c5cf',winter:'#a9b4cc',spring:'#c1d5cc'})[id]},backgroundLayers:['sky','landscape','foreground'].map(layer=>`/themes/${id}-${layer}.svg`),animationLayers:{kind:({fall:'leaf',summer:'shimmer',winter:'snow',spring:'bee'})[id],normal:id==='winter'?24:id==='fall'?16:10,low:id==='winter'?8:4},characterLighting:{shadowColor:({fall:'#65523a',summer:'#375e69',winter:'#63768e',spring:'#587148'})[id],highlightColor:({fall:'#f3cf9a',summer:'#ddedde',winter:'#dfeafa',spring:'#f4e2bf'})[id]}}));
+export type ThemeControlAccents={buttonBorder:string;buttonHighlight:string;buttonPressed:string;focusRing:string;windowTitlePattern:string;cornerSprite:string};
+export const themeControlAccents:Record<SeasonalThemeId,ThemeControlAccents>={
+ fall:{buttonBorder:'#735037',buttonHighlight:'#d9b77a',buttonPressed:'#ead4b5',focusRing:'#664020',windowTitlePattern:'#bc9366',cornerSprite:'#b97845'},
+ winter:{buttonBorder:'#4e6476',buttonHighlight:'#c5dce3',buttonPressed:'#c9d6dc',focusRing:'#254b6b',windowTitlePattern:'#b7ccd7',cornerSprite:'#83afbd'},
+ spring:{buttonBorder:'#506c4d',buttonHighlight:'#ccdab8',buttonPressed:'#d3dec9',focusRing:'#32532b',windowTitlePattern:'#b8c7a5',cornerSprite:'#ba8594'},
+ summer:{buttonBorder:'#456b71',buttonHighlight:'#e0cf94',buttonPressed:'#c8dcd9',focusRing:'#245663',windowTitlePattern:'#aac8c7',cornerSprite:'#c1a35c'}
+};

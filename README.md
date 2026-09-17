@@ -1,5 +1,7 @@
 # Gamify.Life
 
+> **Continuing this project?** Read [CONTINUE_HERE.md](docs/CONTINUE_HERE.md). The current branch includes a September 17, 2026 character-centered homepage work-in-progress checkpoint. The feature list and screenshots below describe the earlier stable retro checkpoint; the continuation guide distinguishes current changes, test evidence, and unfinished work.
+
 A cozy Macintosh-inspired progression app for Tennis, Cycling / Fixed Gear, Swimming, and Journaling. Built from `GamifyLife_Codex_Build_Spec.md` with 72 canonical skills and hand-authored draft lessons.
 
 ## Run locally
