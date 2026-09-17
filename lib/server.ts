@@ -1,0 +1,3 @@
+import {createClient} from '@supabase/supabase-js';
+export function adminClient(){const url=process.env.NEXT_PUBLIC_SUPABASE_URL,key=process.env.SUPABASE_SERVICE_ROLE_KEY;if(!url||!key)throw new Error('Cloud persistence is not configured on the server.');return createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});}
+export async function authenticate(request:Request){const token=request.headers.get('Authorization')?.replace(/^Bearer /,'');if(!token)throw new Error('Unauthorized');const db=adminClient();const {data,error}=await db.auth.getUser(token);if(error||!data.user)throw new Error('Unauthorized');return {db,user:data.user};}

@@ -1,0 +1,47 @@
+{
+  "name": "gamify-life",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "seed:validate": "tsx scripts/validate-content.ts",
+    "seed:sql": "tsx scripts/seed-sql.ts"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "1.1.23",
+    "@supabase/supabase-js": "2.116.0",
+    "@xyflow/react": "12.11.6",
+    "lucide-react": "1.46.0",
+    "next": "16.3.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@electric-sql/pglite": "^0.5.8",
+    "@playwright/test": "1.63.0",
+    "@tailwindcss/postcss": "4.3.3",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
+    "@types/node": "22.20.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "^9.39.0",
+    "eslint-config-next": "16.3.5",
+    "jsdom": "30.0.1",
+    "lighthouse": "^13.4.1",
+    "tailwindcss": "4.3.3",
+    "tsx": "4.23.13",
+    "typescript": "~6.0.0",
+    "vitest": "5.0.0"
+  },
+  "packageManager": "pnpm@11.19.0"
+}

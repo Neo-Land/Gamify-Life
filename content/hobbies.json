@@ -1,0 +1,34 @@
+[
+  {
+    "id": "tennis",
+    "name": "Tennis",
+    "icon": "\ud83c\udfbe",
+    "color": "#D98C8C",
+    "description": "Find your rhythm. One rally at a time.",
+    "prefix": "ten"
+  },
+  {
+    "id": "cycling",
+    "name": "Cycling / Fixed Gear",
+    "icon": "\ud83d\udeb2",
+    "color": "#D6B65C",
+    "description": "A little farther. A little more freedom.",
+    "prefix": "cyc"
+  },
+  {
+    "id": "swimming",
+    "name": "Swimming",
+    "icon": "\ud83c\udfca",
+    "color": "#72B7A4",
+    "description": "Build confidence, one length at a time.",
+    "prefix": "swi"
+  },
+  {
+    "id": "journaling",
+    "name": "Journaling",
+    "icon": "\ud83d\udcd4",
+    "color": "#AE9BC8",
+    "description": "Make a little space for your thoughts.",
+    "prefix": "jou"
+  }
+]
