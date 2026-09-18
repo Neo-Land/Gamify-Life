@@ -1,5 +1,24 @@
 # Gamify.Life — continuation handoff
 
+## September 18, 2026 update: sprite-pack character (read this first)
+
+The character is now rendered from the author's own AI-generated sprite pack, not the SVG paper doll described below. The SVG system (`components/avatar.tsx`, `lib/body-rigs.ts`, `components/rig-layers.tsx`, 157 items, 9 body rigs, painted editing) is still in the repo but **nothing mounts it**; its tests are skipped, not deleted. Body types are removed from the UI by design.
+
+- Renderer: `components/sprite-avatar.tsx` composites PNG layers from `public/sprites/` onto a 104×150 canvas (2× intrinsic, `image-rendering: pixelated`). Front view only; "face left" is a CSS mirror. Idle/gesture/celebration are CSS bobs.
+- Catalog: `lib/sprites.ts` (`spriteItems`, body-relative offsets, per-layer `scale`, `covers` for full outfits). Items are also registered in `avatarItems` via `spriteWardrobe` so the progression engine accepts equipping them. Closet tabs come from `spriteSlots`; old `-none` ids and the `skin-*` / `color-*` catalogs are reused.
+- Recolor: `recolorPixels` assigns each pixel to the sprite's own base skin or hair color by nearest hue/saturation/lightness (`Palette` per item; body uses `all:'skin'`; `keep` colors are left alone, e.g. the bandana red) and carries shading as a luminance offset. Every head sprite has a different base skin, so palettes are measured per file, not assumed.
+- Pack contents used: 6 heads (hair + face), 3 tees, 4 pants, 3 clothing sets + 3 work suits (full outfits), cap, mask, backpack, wrench. Not used: the 3 overalls and 8 character bases (complete characters, can't mix with skin/hair choices), side/three-quarter bodies (no matching clothes), and the 2 sleeve sets (arms drawn at a larger scale than `body_front`, so they land on the chest — they need redrawing on the template, not offset tuning).
+- Generated to fill gaps the pack has no art for: backpack straps (the pack alone is fully hidden behind a front-facing body), three shoe colours (the body is barefoot), and three companion effects. All are script-drawn in the pack palette and listed in `docs/reference/character-template.md` as the first candidates for hand-drawn replacements.
+- Earned cosmetics: all 19 skill-tree/achievement rewards predate the pack, so `spriteAliases` maps each onto the nearest existing art. A unit test asserts none of them render as nothing. Sprites with `hidden:true` are alias art only and are not equippable on their own.
+- Closet thumbnails (`components/item-preview.tsx`) render the item on the player's own character, cropped per slot.
+- Verification technique that works: Playwright element screenshots of `.appearance-preview .sprite-avatar` with `reducedMotion` on and `animations:'disabled'`; full-page shots are not deterministic (menubar clock).
+- Reference copy of the pack with provenance note: `docs/reference/gamify_sprites/`.
+- Animation: the authored 15-frame table (idle 1–4, walk 5–10, action 11–15) with per-frame durations and head/pelvis anchors lives in `lib/sprites.ts` (`spriteFrames`, `spriteTags`, `anchorDelta`). Modular layers are drawn once and translated by each frame's anchor delta. `BODY_FRAMES` is empty, so the static body and CSS bob are still in use; fill it with 15 full-canvas PNGs to switch on. Spec and drawing template: `docs/reference/character-template.md` + `character-template-104x150.png`.
+- Still open from the design direction: hobby nodes collapsing to a side rail on small screens (use the unused `dashboardEdge` preference), richer seasonal backgrounds, reward toasts. The Home character now fills 52% of the workspace height (`characterSceneAnchor`), up from 40%.
+- Dormant slots: `face` and `accessory` are still saved on every profile but appear in no UI and have no sprite art, so the Character page's equipped list is driven by `spriteSlots` rather than raw state. Re-adding either slot means drawing art for it first.
+
+The sections below describe the earlier SVG checkpoint and remain accurate for everything except the character.
+
 Updated September 17, 2026. The user is transferring to another Codex/AI account because of usage limits. **This is a work-in-progress checkpoint, not a completed handoff release.** Read this first, then inspect the code and design directive. All current source code is in this repository; no previous chat is needed to start.
 
 ## Start here

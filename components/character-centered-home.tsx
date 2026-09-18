@@ -3,7 +3,7 @@ import {useState,useReducer,useEffect,type CSSProperties} from 'react';
 import dynamic from 'next/dynamic';
 import {characterSceneAnchor,constellationReducer} from '@/lib/home-scene';
 import {HobbyConstellation} from './hobby-constellation';
-import {Avatar} from './avatar';
+import {SpriteAvatar} from './sprite-avatar';
 import {useGame} from './provider';
 import {Modal,XpBar} from './ui';
 import {QuickStart} from './quick-start';
@@ -17,7 +17,7 @@ export function CharacterCenteredHome({width,height,onOpen,onSave,paused=false}:
  return <section className="character-centered-home" data-expanded={expanded} data-paused={motionPaused} aria-label="Character-centered home" style={{'--character-x':`${anchor.x*100}%`,'--character-height':`${characterHeight}px`,'--character-ground':`${centerY}px`} as CSSProperties} onKeyDown={e=>{if(e.key==='Escape'){dispatch({type:'ESCAPE'});setDetails(false);}}} onClick={e=>{if(e.target===e.currentTarget)dispatch({type:'ESCAPE'});}}>
  <SeasonalScene width={width} height={height} anchor={anchor} choice={choice} paused={motionPaused} safeZones={[character,{x:0,y:0,width,height:60},{x:0,y:height-96,width,height:96},...(expanded?[{x:0,y:64,width,height:height-160}]:[])]}/>
  <div className="home-utilities"><button className="text-button" onClick={()=>setList(true)}>HOBBY PROGRESS</button><button className="text-button" aria-label="Edit character" onClick={()=>onOpen('loadout','/loadout/appearance/top')}>EDIT CHARACTER</button></div>
- <div className="home-character characterStage"><button className="characterSprite" aria-label="View your hobbies" aria-expanded={expanded} onClick={()=>dispatch({type:'TOGGLE_CENTER'})}><Avatar bodyRigId={state.profile.bodyRigId} selection={state.avatar} large/></button></div>
+ <div className="home-character characterStage"><button className="characterSprite" aria-label="View your hobbies" aria-expanded={expanded} onClick={()=>dispatch({type:'TOGGLE_CENTER'})}><SpriteAvatar selection={state.avatar}/></button></div>
  <button className="central-progress" aria-label="Your path: view your hobbies" aria-expanded={expanded} onClick={()=>dispatch({type:'TOGGLE_CENTER'})}><span aria-hidden="true">✦</span>YOUR PATH</button>
  <HobbyConstellation value={constellation} dispatch={dispatch} width={width} height={height} character={character} onNode={(h,id)=>onOpen('map',`/hobbies/${h}/nodes/${id}`)} onChoose={()=>setList(true)}/>
  <div className={`current-quest-ribbon ${details?'expanded':''}`}><button className="quest-ribbon-label" aria-expanded={details} onClick={()=>setDetails(!details)}><small>{quest?'CURRENT QUEST':next&&!next.id.endsWith('-start')?'YOUR NEXT STEP':'CHOOSE YOUR NEXT STEP'}</small><strong>{quest?quest.title:next&&!next.id.endsWith('-start')?next.title:'One small real-world action'}</strong>{quest&&<span>{questState(state,quest.id).value}/{quest.target} {quest.unit}</span>}</button>{quest?<button className="button primary" onClick={()=>onOpen('quests')}>CONTINUE</button>:next&&!next.id.endsWith('-start')?<button className="button primary" onClick={()=>onOpen('map',`/hobbies/${next.hobbyId}/nodes/${next.id}`)}>CONTINUE</button>:<QuickStart onOpen={(h,id)=>onOpen('map',`/hobbies/${h}/nodes/${id}`)}/>}{details&&<div className="quest-ribbon-details"><p>{quest?.description||next?.shortDescription||'Choose a hobby, then take your first small step.'}</p><span>{mode==='cloud'?'Cloud account':'Guest · this tab only'}</span>{mode==='demo'&&<button className="text-button" onClick={onSave}>SAVE PROGRESS</button>}</div>}</div>

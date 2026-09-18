@@ -1,4 +1,4 @@
-import {extraWardrobe} from './wardrobe';
+import {extraWardrobe,spriteWardrobe} from './wardrobe';
 import { z } from 'zod';
 import rawNodes from '@/content/nodes.json';
 import rawHobbies from '@/content/hobbies.json';
@@ -35,6 +35,7 @@ export const achievements=[
  {id:'ten-sessions',name:'Ten Sessions',description:'Log ten practice sessions.',xp:100,icon:'▤'}
 ];
 export const avatarItems=[
+ ...spriteWardrobe,
  ...extraWardrobe,
  ...['sand','warm','bronze','umber','deep','rose'].map((id,i)=>({id:`skin-${id}`,name:id,slot:'body',color:['#F1CEAA','#DCAE83','#BD825A','#935F42','#604333','#ECC4B6'][i],level:0})),
  ...['crop','curls','coils','long','bald','braids','bun','sidepart'].map(id=>({id:`hair-${id}`,name:id,slot:'hair',color:'#594638',level:0})),

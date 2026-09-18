@@ -63,8 +63,8 @@ test('all loadout tabs and owned/wishlist/not-needed controls persist',async({pa
  await page.reload();expect(Object.values((await saved(page)).gear).filter(v=>v==='owned')).toHaveLength(4);
 });
 test('every closet category equips an available item and locked cosmetics stay disabled',async({page})=>{
- await page.goto('/character');for(const name of ['Skin','Hair','Hair color','Tops','Bottoms','Shoes','Accessories','Hobby props']){await page.getByRole('tab',{name,exact:true}).click();const item=page.locator('.closet-item:not(:disabled)').last();await item.click();await expect(item).toHaveAttribute('aria-pressed','true');}
- await page.getByRole('tab',{name:'Accessories',exact:true}).click();await expect(page.getByRole('button',{name:/Mint visor/})).toBeDisabled();const before=(await saved(page)).avatar;await page.reload();expect((await saved(page)).avatar).toEqual(before);
+ await page.goto('/character');for(const name of ['Skin','Hair','Hair color','Tops','Bottoms','Shoes','Outfits','Headwear','Face accessories','Bags','Hobby props']){await page.getByRole('tab',{name,exact:true}).click();const item=page.locator('.closet-item:not(:disabled)').last();await item.click();await expect(item).toHaveAttribute('aria-pressed','true');}
+ await page.getByRole('tab',{name:'Hobby props',exact:true}).click();await expect(page.getByRole('button',{name:/Fountain-pen sword/})).toBeDisabled();const before=(await saved(page)).avatar;await page.reload();expect((await saved(page)).avatar).toEqual(before);
 });
 test('settings save/toggles/export and reset cancel/confirm work in an isolated profile',async({page})=>{
  await seed(page,readyState());await page.goto('/settings');await page.getByLabel('Your name',{exact:true}).fill('Button Tester');await page.getByRole('button',{name:'Save name',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'Name saved.'})).toBeVisible();

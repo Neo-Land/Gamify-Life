@@ -1,0 +1,27 @@
+import {it,expect} from 'vitest';
+import {BASE_FRAME,GROUND_Y,SPRITE_CANVAS,anchorDelta,anchorFor,bodyIsAnimated,resolveSpriteLayers,spriteAliases,spriteById,spriteFrames,spriteSlots,spriteTags} from '../lib/sprites';
+import {avatarItems} from '../lib/content';
+it('keeps the authored frame table intact and every tag inside it',()=>{expect(spriteFrames).toHaveLength(15);expect(SPRITE_CANVAS).toEqual({width:104,height:150});expect(GROUND_Y).toBe(131);for(const [tag,{from,to}] of Object.entries(spriteTags)){expect(from,tag).toBeGreaterThanOrEqual(0);expect(to,tag).toBeLessThan(spriteFrames.length);expect(to,tag).toBeGreaterThan(from);}for(const f of spriteFrames)expect(f.ms).toBeGreaterThan(0);
+ expect(spriteFrames.slice(spriteTags.idle.from,spriteTags.idle.to+1).map(f=>f.ms)).toEqual([200,200,200,200]);
+ expect(spriteFrames.slice(spriteTags.walk.from,spriteTags.walk.to+1).map(f=>f.ms)).toEqual([120,120,120,120,120,120]);
+ expect(spriteFrames.slice(spriteTags.action.from,spriteTags.action.to+1).map(f=>f.ms)).toEqual([100,80,60,120,150]);});
+it('moves layers by each frame delta from the base pose, and nothing at the base',()=>{for(const anchor of ['head','pelvis','torso'] as const)expect(anchorDelta(BASE_FRAME,anchor)).toEqual({x:0,y:0});
+ expect(anchorDelta(1,'head')).toEqual({x:0,y:-2});expect(anchorDelta(1,'pelvis')).toEqual({x:0,y:0});expect(anchorDelta(1,'torso')).toEqual({x:0,y:-1});
+ expect(anchorDelta(5,'head')).toEqual({x:0,y:2});expect(anchorDelta(5,'pelvis')).toEqual({x:0,y:2});
+ expect(anchorDelta(12,'head')).toEqual({x:8,y:4});expect(anchorDelta(12,'pelvis')).toEqual({x:6,y:4});expect(anchorDelta(12,'torso')).toEqual({x:7,y:4});});
+it('routes each slot to a sensible anchor',()=>{expect(anchorFor(spriteById['sp-hair-04'])).toBe('head');expect(anchorFor(spriteById['sp-cap'])).toBe('head');expect(anchorFor(spriteById['sp-pants-jeans'])).toBe('pelvis');expect(anchorFor(spriteById['sp-chest-green'])).toBe('torso');expect(anchorFor(null)).toBe('pelvis');});
+it('falls back to the static body until fifteen body frames exist',()=>{const layers=resolveSpriteLayers({hair:'sp-hair-01',top:'sp-chest-orange',bottoms:'sp-pants-jeans'});const body=layers.find(l=>!l.item)!;expect(body.z).toBe(0);expect(layers[0]).toBe(body);expect(bodyIsAnimated()).toBe(body.layer.frames!==undefined);if(!bodyIsAnimated())expect(body.layer.full).toBeUndefined();});
+it('gives every earned cosmetic something to render',()=>{const earned=avatarItems.filter(i=>('rewardNode' in i&&i.rewardNode)||('achievement' in i&&i.achievement)||(('level' in i)&&(i as {level:number}).level>0));
+ expect(earned.length).toBeGreaterThan(0);
+ const invisible=earned.filter(i=>!spriteById[i.id]&&!spriteById[spriteAliases[i.id]||'']);
+ expect(invisible.map(i=>i.id)).toEqual([]);
+ for(const [from,to] of Object.entries(spriteAliases))expect(spriteById[to],`${from} → ${to}`).toBeDefined();});
+it('draws the aliased art when an earned cosmetic is equipped',()=>{const sword=resolveSpriteLayers({prop:'prop-pen-sword'});
+ expect(sword.some(l=>l.item?.id==='sp-wrench')).toBe(true);
+ const ball=resolveSpriteLayers({prop:'prop-ball'});
+ expect(ball.some(l=>l.item?.id==='sp-companion-ball')).toBe(true);
+ const both=resolveSpriteLayers({prop:'prop-tennis-bag',backItem:'sp-backpack'});
+ expect(both.filter(l=>l.item?.id==='sp-backpack')).toHaveLength(2);});
+it('keeps the character shod, including on saves that predate the sprite pack',()=>{for(const selection of [{} as Record<string,string>,{shoes:'shoe-cream'},{shoes:'sp-shoe-brown'}]){const shoes=resolveSpriteLayers(selection).filter(l=>l.item?.slot==='shoes');expect(shoes,JSON.stringify(selection)).toHaveLength(1);}
+ expect(spriteSlots.map(([s])=>s)).toContain('shoes');});
+it('hides covered slots when a full outfit is worn',()=>{const layers=resolveSpriteLayers({top:'sp-chest-orange',bottoms:'sp-pants-jeans',outerwear:'sp-suit-hazmat'});const slots=layers.filter(l=>l.item).map(l=>l.item!.slot);expect(slots).toContain('outerwear');expect(slots).not.toContain('top');expect(slots).not.toContain('bottoms');});
