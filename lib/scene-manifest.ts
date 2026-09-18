@@ -5,7 +5,7 @@ import {seasonalThemes,themeControlAccents} from './themes';
  * Clothing uses authored rig geometry with fixed-size pixel details. */
 export const sceneAssetManifest={
  bodyRigs,animations:animationFrames,
- avatarItems:Object.fromEntries(avatarItems.map(item=>[item.id,bodyRigIds.map(bodyRigId=>({bodyRigId,renderer:'components/rig-layers.tsx',frameSize:{width:128,height:192},animations:['idle','gesture','celebration']}))])),
+ avatarItems:Object.fromEntries(avatarItems.map(item=>[item.id,bodyRigIds.map(bodyRigId=>({bodyRigId,renderer:'components/rig-layers.tsx',frameSize:{width:256,height:384},animations:['idle','gesture','celebration']}))])),
  themes:Object.fromEntries(seasonalThemes.map(t=>[t.id,{renderer:'components/seasonal-scene.tsx',layers:['sky','distant','perspective','midground','ground','foreground','ambient'],compositions:['portrait','landscape'],previewAssets:t.backgroundLayers,controls:themeControlAccents[t.id]}])),
  hobbyIcons:Object.fromEntries(hobbies.map(h=>[h.id,h.icon]))
 };
