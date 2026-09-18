@@ -1,21 +1,42 @@
 # Gamify.Life — continuation handoff
 
-## September 18, 2026 update: sprite-pack character (read this first)
+## September 18, 2026 update: SVG character, chibi proportions (read this first)
 
-The character is now rendered from the author's own AI-generated sprite pack, not the SVG paper doll described below. The SVG system (`components/avatar.tsx`, `lib/body-rigs.ts`, `components/rig-layers.tsx`, 157 items, 9 body rigs, painted editing) is still in the repo but **nothing mounts it**; its tests are skipped, not deleted. Body types are removed from the UI by design.
+The sprite-pack experiment is **reverted**. The character is the original SVG paper doll again
+(`components/avatar.tsx`, `lib/body-rigs.ts`, `components/rig-layers.tsx`) with its full 157-item
+modular wardrobe, all 13 slots, all four poses, and every earned cosmetic rendering its own art.
+Reason: the pack needed per-item offset tuning, had no art for shoes or straps, its sleeve sets were
+drawn at the wrong scale, and going back removed the whole authoring loop.
 
-- Renderer: `components/sprite-avatar.tsx` composites PNG layers from `public/sprites/` onto a 104×150 canvas (2× intrinsic, `image-rendering: pixelated`). Front view only; "face left" is a CSS mirror. Idle/gesture/celebration are CSS bobs.
-- Catalog: `lib/sprites.ts` (`spriteItems`, body-relative offsets, per-layer `scale`, `covers` for full outfits). Items are also registered in `avatarItems` via `spriteWardrobe` so the progression engine accepts equipping them. Closet tabs come from `spriteSlots`; old `-none` ids and the `skin-*` / `color-*` catalogs are reused.
-- Recolor: `recolorPixels` assigns each pixel to the sprite's own base skin or hair color by nearest hue/saturation/lightness (`Palette` per item; body uses `all:'skin'`; `keep` colors are left alone, e.g. the bandana red) and carries shading as a luminance offset. Every head sprite has a different base skin, so palettes are measured per file, not assumed.
-- Pack contents used: 6 heads (hair + face), 3 tees, 4 pants, 3 clothing sets + 3 work suits (full outfits), cap, mask, backpack, wrench. Not used: the 3 overalls and 8 character bases (complete characters, can't mix with skin/hair choices), side/three-quarter bodies (no matching clothes), and the 2 sleeve sets (arms drawn at a larger scale than `body_front`, so they land on the chest — they need redrawing on the template, not offset tuning).
-- Generated to fill gaps the pack has no art for: backpack straps (the pack alone is fully hidden behind a front-facing body), three shoe colours (the body is barefoot), and three companion effects. All are script-drawn in the pack palette and listed in `docs/reference/character-template.md` as the first candidates for hand-drawn replacements.
-- Earned cosmetics: all 19 skill-tree/achievement rewards predate the pack, so `spriteAliases` maps each onto the nearest existing art. A unit test asserts none of them render as nothing. Sprites with `hidden:true` are alias art only and are not equippable on their own.
-- Closet thumbnails (`components/item-preview.tsx`) render the item on the player's own character, cropped per slot.
-- Verification technique that works: Playwright element screenshots of `.appearance-preview .sprite-avatar` with `reducedMotion` on and `animations:'disabled'`; full-page shots are not deterministic (menubar clock).
-- Reference copy of the pack with provenance note: `docs/reference/gamify_sprites/`.
-- Animation: the authored 15-frame table (idle 1–4, walk 5–10, action 11–15) with per-frame durations and head/pelvis anchors lives in `lib/sprites.ts` (`spriteFrames`, `spriteTags`, `anchorDelta`). Modular layers are drawn once and translated by each frame's anchor delta. `BODY_FRAMES` is empty, so the static body and CSS bob are still in use; fill it with 15 full-canvas PNGs to switch on. Spec and drawing template: `docs/reference/character-template.md` + `character-template-104x150.png`.
-- Still open from the design direction: hobby nodes collapsing to a side rail on small screens (use the unused `dashboardEdge` preference), richer seasonal backgrounds, reward toasts. The Home character now fills 52% of the workspace height (`characterSceneAnchor`), up from 40%.
-- Dormant slots: `face` and `accessory` are still saved on every profile but appear in no UI and have no sprite art, so the Character page's equipped list is driven by `spriteSlots` rather than raw state. Re-adding either slot means drawing art for it first.
+- **Chibi proportions.** `avatar.tsx` scales the head up (`HEAD_SCALE`) about the neck and the body
+  down (`BODY_SCALE`) about the feet, so both halves meet at the same neck point. No authored path
+  was rewritten — every rig, clothing pattern and attachment follows because they all derive from rig
+  anchors. Tune the two constants to change the look.
+- **The head is its own layer.** `RigLayer` used to draw the head inside `body`; it is now a separate
+  `head` layer so it scales with the face and hair instead of with the torso. Layer count is 17.
+- **The left profile is a CSS mirror on the `<svg>`** (`.avatar[data-pose=left]`). It cannot live on
+  `.avatar-idle`, which sets `transform-box:fill-box; transform-origin:center bottom` for the idle
+  bob — that re-anchors an SVG `transform` attribute and the flip comes out translated, not mirrored.
+  Symptom if this regresses: the character renders unmirrored and 256 units to the right, spilling
+  outside its panel.
+- **Still open on the character:** hair and headwear have no side-specific art, so in left/right
+  profile they keep their front silhouette on a profile head. That is the "awkward hair" to fix next,
+  and it wants side variants per hairstyle family rather than a global tweak.
+- Closet thumbnails (`components/item-preview.tsx`) render each item on the player's own character,
+  cropped per slot; the crop windows are in authored canvas units **after** the chibi scaling.
+- Body types stay out of the UI by choice; the 9 rigs still exist and `bodyRigId` still defaults to
+  `average-average`. `tests/e2e/centered-home.spec.ts` keeps its body-type test skipped.
+- Verification that works: Playwright element screenshots of `.appearance-preview>.avatar` with
+  `reducedMotion` on and `animations:'disabled'`; full-page shots are not deterministic (menubar clock).
+- **The sprite pack is stowed, not deleted:** originals in `docs/reference/gamify_sprites/`, the
+  script-generated pieces (straps, three shoes, three companions) in
+  `docs/reference/sprite-pack-runtime/`. The renderer, catalog and its tests were removed; they are
+  recoverable from git history at `ba9402c`. The 104×150 drawing template and the 15-frame animation
+  spec in `docs/reference/character-template.md` were written for that pack and do **not** describe
+  the current SVG character.
+- Still open from the design direction: hobby nodes collapsing to a side rail on small screens (use
+  the unused `dashboardEdge` preference), richer seasonal backgrounds, reward toasts. The Home
+  character fills 52% of the workspace height (`characterSceneAnchor`), up from 40%.
 
 The sections below describe the earlier SVG checkpoint and remain accurate for everything except the character.
 
