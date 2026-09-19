@@ -38,6 +38,28 @@ drawn at the wrong scale, and going back removed the whole authoring loop.
 - **Blinking closes a lid, it does not hide the eye.** `.avatar-lid` is a skin-coloured rect plus a
   lash line, normally `opacity:0`, flashed in by `@keyframes avatar-blink` in `retro.css`. The old
   keyframe faded `.avatar-eyes` out, which only worked while the eye was a solid dot.
+## Modular head art (`lib/hair.ts`, `lib/headwear.ts`)
+
+Added September 18, 2026. Every hairstyle, hat and pair of glasses is a data table of axis-aligned
+boxes, not a hand-written `d` string.
+
+- **Boxes, not paths.** `boxPath()` turns `[x,y,w,h]` lists into a `d`. Authoring as boxes keeps
+  every edge orthogonal; a diagonal in a `d` attribute renders as a visibly wrong stair under
+  `shapeRendering:crispEdges`, which is how the old hair paths kept going wrong.
+- **Each hairstyle carries front, side and back art.** Left and right are the same side art mirrored
+  in CSS, so there are three views per style, not four. Fifteen styles plus bald. Back views matter:
+  the bun, the ponytail's fall and the braids are only legible from behind.
+- **Hats and glasses are individually drawn.** Before this, bandana and rain hood both fell through
+  to the baseball cap, bucket and sun hat shared one shape, and all six pairs of glasses were the
+  same frame with a different lens tint.
+- **Glasses rims must be rings, not filled discs.** A filled disc hides the eye it sits in front of
+  and no lens opacity brings it back. `ring()` and `rectRing()` exist for this.
+- **Keep everything inside x∈[66,190].** At `HEAD_SCALE=2` anything past that leaves the 256-wide
+  canvas. The pom on the beanie and the ponytail's tail both had to be pulled back in.
+- Contact sheets are the fast way to review a change: render each variant's avatar `outerHTML` into
+  one `page.setContent` grid and screenshot it once. Add `.avatar-lid{opacity:0}` to that page's CSS
+  or every eye renders shut — the blink lid relies on app CSS that `setContent` throws away.
+
 - **All face/head art is authored in the pre-scale coordinate space** (head box x86–170, y44–134),
   so hair, headwear and face accessories keep aligning automatically — they scale by the same
   `HEAD_SCALE` about the same point. Do not author head art in final canvas coordinates.
@@ -74,6 +96,11 @@ Rewritten September 18, 2026 for much denser art. Read this before touching it.
   with swell rows, a wavy foam edge, sand underfoot, palms, a parasol and a towel.
 - **The back mountain range is placed edge to edge, not overlapped**, so its snow caps are never
   buried by the next peak. The front range overlaps and is uncapped.
+- **Layer order is sky, celestial, distant, ground, scatter, ambient, midground, foreground.** Trees
+  paint over the floor texture and the particles; only the big near foreground props sit in front of
+  them. Putting midground before scatter is what let beach sand draw over the palm trunks.
+- **Conifers are their own generator and their own palette** (`pine`), because an evergreen does not
+  follow the season's leaf colour — fall's conifers came out amber the first time.
 - **`[data-scene-layer]` count is 9** and `polish.spec.ts` asserts it. `sceneAssetManifest` lists the
   same names. Update both if you add a layer.
 - **Particle counts live in `lib/themes.ts`** (`animationLayers`), and `polish.spec.ts` asserts fall's
