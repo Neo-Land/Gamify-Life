@@ -8,7 +8,10 @@ modular wardrobe, all 13 slots, all four poses, and every earned cosmetic render
 Reason: the pack needed per-item offset tuning, had no art for shoes or straps, its sleeve sets were
 drawn at the wrong scale, and going back removed the whole authoring loop.
 
-- **Chibi proportions.** `avatar.tsx` scales the head up (`HEAD_SCALE=2`) about the neck and the body
+- **There is no neck.** `seat` in `avatar.tsx` drops the head until its chin meets the shoulder line,
+  and `HEAD_SCALE` absorbed the height the neck used to hold, so the head is now ~65% of the figure.
+  `rig-layers.tsx` no longer draws a neck rect at all.
+- **Chibi proportions.** `avatar.tsx` scales the head up (`HEAD_SCALE=2.18`) about the neck and the body
   down about the feet, non-uniformly (`BODY_W=.8`, `BODY_H=.48`) so the body reads stubby rather than
   merely small. Both halves meet at the same neck point. No clothing path was rewritten — every rig,
   clothing pattern and attachment follows because they all derive from rig anchors. Tune those three
@@ -17,9 +20,10 @@ drawn at the wrong scale, and going back removed the whole authoring loop.
 - **The body is wider than it is tall, so authored detail is not square.** A detail only looks square
   on screen when it is authored half again as tall as it is wide (`BODY_W/BODY_H` = 1.67). Buttons,
   stripes, pockets and hands in `rig-layers.tsx` are authored to that ratio on purpose.
-- **Anything past x=190 authored falls off the canvas** at `HEAD_SCALE=2` (the canvas is 256 wide and
-  the head scales about x=128). Hat brims, the ponytail and the long-hair fall were pulled back
-  inside for this reason. Keep new head art within x∈[66,190].
+- **Keep head art within x∈[70,186].** At `HEAD_SCALE=2.18` the canvas is 256 wide and the head
+  scales about x=128, so anything outside that range is clipped. There is a scratch script pattern
+  for checking this: walk every box in `hair.ts`/`headwear.ts` through `128+(x-128)*HEAD_SCALE` and
+  assert it lands in 0..256. Worth re-running whenever `HEAD_SCALE` changes.
 - **The head is its own layer.** `RigLayer` used to draw the head inside `body`; it is now a separate
   `head` layer so it scales with the face and hair instead of with the torso. Layer count is 17.
 - **The chibi character base.** The head is a rounded square built from four stacked rects so the
@@ -46,6 +50,11 @@ boxes, not a hand-written `d` string.
 - **Boxes, not paths.** `boxPath()` turns `[x,y,w,h]` lists into a `d`. Authoring as boxes keeps
   every edge orthogonal; a diagonal in a `d` attribute renders as a visibly wrong stair under
   `shapeRendering:crispEdges`, which is how the old hair paths kept going wrong.
+- **`hair-back` is ordered behind the head**, between `body` and `head`. It used to sit after `face`,
+  which meant a full back sheet — the thing that makes long hair read as long — painted straight over
+  the face. Canonical layer order and count (18) are asserted in two unit tests.
+- **`bottoms-cuff` is a second bottoms pass after `shoes`**, so a wide leg falls over the shoe instead
+  of being cut off by it. It renders only for wide-leg trousers.
 - **Each hairstyle carries front, side and back art.** Left and right are the same side art mirrored
   in CSS, so there are three views per style, not four. Fifteen styles plus bald. Back views matter:
   the bun, the ponytail's fall and the braids are only legible from behind.

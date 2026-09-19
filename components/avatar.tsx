@@ -7,7 +7,7 @@ import {hairArt,boxPath} from '@/lib/hair';
 import {hatArt,glassArt} from '@/lib/headwear';
 export type AvatarPose='front'|'left'|'right'|'back';
 /** Ground and neck in authored canvas units, then how far each half is pushed from there. */
-const GROUND=364,NECK=140,HEAD_SCALE=2,BODY_W=.8,BODY_H=.48;
+const GROUND=364,NECK=140,HEAD_SCALE=2.18,BODY_W=.8,BODY_H=.48;
 /** Original 256 × 384 paper doll. Painted SVG pixels are also the hit masks:
  * browser hit testing returns the topmost painted shape, never its transparent box. */
 export function Avatar({selection,large=false,pose='front',onPart,interactive=false,bodyRigId='average-average',animation='idle',viewBox='0 0 256 384',decorative=false}:{selection:Record<string,string>;bodyRigId?:BodyRigId;animation?:'idle'|'gesture'|'celebration';large?:boolean;pose?:AvatarPose;onPart?:(slot:string|null,activate:boolean,touch:boolean)=>void;interactive?:boolean;viewBox?:string;decorative?:boolean}){
@@ -24,8 +24,10 @@ export function Avatar({selection,large=false,pose='front',onPart,interactive=fa
   * pattern and attachment follows automatically because they are all derived from rig anchors. */
  const neckY=NECK+rig.headOffset,headDrop=GROUND+(neckY-GROUND)*BODY_H-neckY;
  const bodyTransform=`translate(128 ${GROUND}) scale(${BODY_W} ${BODY_H}) translate(-128 ${-GROUND})`;
- const headTransform=`translate(0 ${headDrop+rig.headOffset}) translate(128 ${NECK}) scale(${HEAD_SCALE}) translate(-128 ${-NECK})`;
- const part=(name:string,slot:string|null,children:ReactNode)=>{const headLayer=['head','face','hair-back','hair-front','headwear','face-accessory'].includes(name);const attachment=name==='back-item'?{x:rig.anchors.back.x-192,y:rig.anchors.back.y-206}:name==='held-item'&&!prop.includes('toolbelt')?{x:Math.min(12,rig.anchors.rightHand.x-188),y:rig.anchors.rightHand.y-252}:name==='neck-accessory'?{x:0,y:rig.headOffset}:null;return <g data-layer={name} data-slot={slot||undefined} transform={name==='shadow'?undefined:headLayer?headTransform:attachment?`${bodyTransform} translate(${attachment.x} ${attachment.y})`:bodyTransform} data-highlighted={interactive&&slot===hover?'true':undefined} className={interactive&&slot?'editable-pixels':undefined}>{['head','body','top','bottoms','socks','shoes','outerwear'].includes(name)?<RigLayer layer={name} rig={rig} side={side} back={back} id={selection[slot||'']||''} color={color(slot||'','#819776')} skin={skin}/>:children}</g>;};
+ /** Drop the head until its chin meets the shoulder line, so there is no neck to see. */
+ const seat=GROUND+(rig.anchors.leftShoulder.y-GROUND)*BODY_H-(headDrop+rig.headOffset+NECK+(134-NECK)*HEAD_SCALE);
+ const headTransform=`translate(0 ${headDrop+rig.headOffset+seat}) translate(128 ${NECK}) scale(${HEAD_SCALE}) translate(-128 ${-NECK})`;
+ const part=(name:string,slot:string|null,children:ReactNode)=>{const headLayer=['head','face','hair-back','hair-front','headwear','face-accessory'].includes(name);const attachment=name==='back-item'?{x:rig.anchors.back.x-192,y:rig.anchors.back.y-206}:name==='held-item'&&!prop.includes('toolbelt')?{x:Math.min(12,rig.anchors.rightHand.x-188),y:rig.anchors.rightHand.y-252}:name==='neck-accessory'?{x:0,y:rig.headOffset}:null;return <g data-layer={name} data-slot={slot||undefined} transform={name==='shadow'?undefined:headLayer?headTransform:attachment?`${bodyTransform} translate(${attachment.x} ${attachment.y})`:bodyTransform} data-highlighted={interactive&&slot===hover?'true':undefined} className={interactive&&slot?'editable-pixels':undefined}>{['head','body','top','bottoms','bottoms-cuff','socks','shoes','outerwear'].includes(name)?<RigLayer layer={name} rig={rig} side={side} back={back} id={selection[slot||'']||''} color={color(slot||'','#819776')} skin={skin}/>:children}</g>;};
  function pointer(e:PointerEvent<SVGSVGElement>,activate:boolean){if(!interactive)return;const slot=(e.target as Element).closest('[data-slot]')?.getAttribute('data-slot')||null;setHover(slot);onPart?.(slot,activate,e.pointerType==='touch');}
  const description=['top','bottoms','shoes','hair','headwear','faceAccessory','backItem','prop'].map(s=>item(s)?.name).filter(n=>n&&!n.toLowerCase().startsWith('no ')&&n!=='none').join(', ');
  const hairPieces=hairArt(hair,back?'back':side?'side':'front');
@@ -37,6 +39,7 @@ export function Avatar({selection,large=false,pose='front',onPart,interactive=fa
  {part('shadow',null,<path d="M86 354h84v4H86zM70 358h116v6H70zM62 364h132v5H62zM74 369h108v4H74zM92 373h72v3H92z" fill="var(--season-shadow,#53634e)" opacity=".28"/>)}
  <g className="avatar-idle">
  {part('body','body',null)}
+ {part('hair-back','hair',<g fill={hairColor}><path d={boxPath(hairPieces.back)}/></g>)}
  {part('head','body',null)}
  {part('face','face',!back&&<g>{side?<>
   <path d="M150 76h17v22h-17z" fill={lash}/><path d="M152 78h14v18h-14z" fill="#f8f4e8"/>
@@ -62,11 +65,11 @@ export function Avatar({selection,large=false,pose='front',onPart,interactive=fa
  {face.includes('freckles')&&<path d={side?'M150 104h4v4h-4zM158 110h4v4h-4z':'M96 102h4v4h-4zM103 109h4v4h-4zM111 103h3v3h-3zM156 102h4v4h-4zM149 109h4v4h-4z'} fill={shade(skin,.3)}/>}
  {face.includes('moles')&&<path d="M152 113h4v4h-4z" fill={shade(skin,.5)}/>}
  </g>)}
- {part('hair-back','hair',<g fill={hairColor}><path d={boxPath(hairPieces.back)}/></g>)}
  {part('top','top',null)}
  {part('bottoms','bottoms',null)}
  {part('socks','shoes',null)}
  {part('shoes','shoes',null)}
+ {part('bottoms-cuff','bottoms',null)}
  {part('outerwear','outerwear',null)}
  {part('hair-front','hair',<g fill={hairColor}><path d={boxPath(hairPieces.front)}/><path d={boxPath(hairPieces.light)} fill={shade(hairColor,-.22)}/><path d={boxPath(hairPieces.tie)} fill={shade(hairColor,.4)}/></g>)}
  {part('headwear',has(head)?'headwear':['cap','visor','helmet'].includes(legacy)?'accessory':null,(has(head)||['cap','visor','helmet'].includes(legacy))&&(()=>{const c=has(head)?color('headwear','#788f79'):color('accessory','#788f79');return <g fill={c}><path d={boxPath(hat.main)}/><path d={boxPath(hat.accent)} fill={shade(c,-.28)}/><path d={boxPath(hat.dark)} fill={shade(c,.34)}/></g>;})())}

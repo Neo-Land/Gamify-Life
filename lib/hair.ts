@@ -67,15 +67,15 @@ const styles:Record<string,Record<HairView,HairArt>>={
   side:{back:[[86,44,54,116]],front:[...capS,...browS,[84,54,14,104],[80,126,20,32]],light:liteS,tie:[]},
   back:{back:[],front:[...capB,[82,44,92,114],[78,128,20,30],[158,128,20,30]],light:[[96,58,24,6],[138,70,22,6]],tie:[]}},
  braids:{
-  front:{back:[],front:[...capF,...browF,...strands([80,176],58,7,14,3)],light:liteF,tie:[[74,56,14,6],[170,56,14,6]]},
+  front:{back:[],front:[...capF,...browF,...strands([82,174],58,7,14,3)],light:liteF,tie:[[74,56,14,6],[170,56,14,6]]},
   side:{back:[],front:[...capS,...napeS,...strands([84],58,7,14,3),[148,62,24,7]],light:liteS,tie:[[78,56,14,6]]},
   back:{back:[],front:[...capB,...strands([104,152],92,6,16,3)],light:liteB,tie:[[96,90,18,6],[144,90,18,6]]}},
  locs:{
-  front:{back:[],front:[...capF,...browF,...strands([80,96,160,176],56,6,10,0)],light:liteF,tie:[]},
+  front:{back:[],front:[...capF,...browF,...strands([80,96,158,174],56,6,10,0)],light:liteF,tie:[]},
   side:{back:[],front:[...capS,...napeS,...strands([84,100,116],56,6,10,0),[150,62,22,7]],light:liteS,tie:[]},
   back:{back:[],front:[...capB,...strands([94,112,130,148,166],88,5,11,0)],light:liteB,tie:[]}},
  twists:{
-  front:{back:[],front:[...capF,...browF,...strands([80,98,158,176],56,6,13,2)],light:liteF,tie:[]},
+  front:{back:[],front:[...capF,...browF,...strands([82,100,154,172],56,6,13,2)],light:liteF,tie:[]},
   side:{back:[],front:[...capS,...napeS,...strands([84,102],56,6,13,2),[150,62,22,7]],light:liteS,tie:[]},
   back:{back:[],front:[...capB,...strands([98,124,150],88,5,14,2)],light:liteB,tie:[]}},
  bun:{
@@ -85,7 +85,7 @@ const styles:Record<string,Record<HairView,HairArt>>={
  ponytail:{
   // Gathered high at the back of the skull, then falling away behind the shoulder.
   front:{back:[[166,54,14,54],[162,104,16,30]],front:[...capF,...browF],light:liteF,tie:[]},
-  side:{back:[[84,58,24,18],[76,74,22,20],[70,92,20,22],[68,112,18,24],[70,134,18,20],[76,152,18,12]],
+  side:{back:[[84,58,24,18],[76,74,22,20],[70,92,20,22],[70,112,18,24],[70,134,18,20],[76,152,18,12]],
    front:[...capS,[92,50,42,24],...browS],light:liteS,tie:[[88,54,20,10]]},
   back:{back:[],front:[...capB,[112,66,32,14],[110,80,36,24],[106,102,44,28],[110,128,36,24],[116,150,24,14]],light:[[100,40,26,5]],tie:[[110,62,36,8]]}}
 };
