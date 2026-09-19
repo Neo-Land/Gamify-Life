@@ -6,6 +6,7 @@ export const extraWardrobe=[
  ...styles('hair',['pixie','afro','locs','ponytail','bob','waves','undercut','twists']),
  ...['black','auburn','honey','ash','violet','teal'].map((name,i)=>({id:`color-${name}`,name,slot:'hairColor',color:['#242727','#894c38','#c9ac75','#88877d','#78627d','#426d68'][i],level:0})),
  ...styles('face',['neutral','happy','focused','curious','tired','victory','brows','moles','rosy']),
+ ...['umber','hazel','amber','moss','slate','sky','olive','ink'].map((name,i)=>({id:`eye-${name}`,name,slot:'eyeColor',color:['#4b3320','#7a5330','#a9762f','#4f6b3c','#566c78','#5a7f96','#6d7a3a','#2f3a46'][i],level:0})),
  ...styles('top',['striped tee','hoodie','button up','tank','long sleeve','polo','henley','sailor shirt']),
  ...styles('bottoms',['joggers','shorts','skirt','wide leg','athletic pants'], 'bottom'),
  ...styles('outerwear',['none','light jacket','cardigan','raincoat','varsity jacket','utility vest','denim jacket','towel cape','knit coat']),
@@ -17,5 +18,5 @@ export const extraWardrobe=[
  ...[{id:'prop-tennis-tube',name:'Ball tube',hobbyId:'tennis',level:1},{id:'prop-tennis-bag',name:'Racket bag',hobbyId:'tennis',level:3},{id:'prop-cycle-pump',name:'Mini pump',hobbyId:'cycling',level:1},{id:'prop-cycle-wheel',name:'Spoke companion',hobbyId:'cycling',level:3},{id:'prop-swim-board',name:'Kickboard',hobbyId:'swimming',level:1},{id:'prop-swim-towel',name:'Pool towel',hobbyId:'swimming',level:2},{id:'prop-page-aura',name:'Floating pages',hobbyId:'journaling',level:3}].map(i=>({...i,slot:'prop',color:'#a9b99a'}))
 ];
 
-export const avatarSlots=[['body','Skin'],['hair','Hair'],['hairColor','Hair color'],['face','Face'],['top','Tops'],['bottoms','Bottoms'],['outerwear','Outerwear'],['shoes','Shoes'],['headwear','Headwear'],['faceAccessory','Face accessories'],['backItem','Bags'],['accessory','Accessories'],['prop','Hobby props']];
+export const avatarSlots=[['body','Skin'],['hair','Hair'],['hairColor','Hair color'],['face','Face'],['eyeColor','Eye color'],['top','Tops'],['bottoms','Bottoms'],['outerwear','Outerwear'],['shoes','Shoes'],['headwear','Headwear'],['faceAccessory','Face accessories'],['backItem','Bags'],['accessory','Accessories'],['prop','Hobby props']];
 export const avatarAnchors={canvas:{width:256,height:384},baseline:364,head:{x:128,y:76},hand:{x:192,y:232},back:{x:168,y:180}};

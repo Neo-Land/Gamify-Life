@@ -8,12 +8,39 @@ modular wardrobe, all 13 slots, all four poses, and every earned cosmetic render
 Reason: the pack needed per-item offset tuning, had no art for shoes or straps, its sleeve sets were
 drawn at the wrong scale, and going back removed the whole authoring loop.
 
-- **Chibi proportions.** `avatar.tsx` scales the head up (`HEAD_SCALE`) about the neck and the body
-  down (`BODY_SCALE`) about the feet, so both halves meet at the same neck point. No authored path
-  was rewritten — every rig, clothing pattern and attachment follows because they all derive from rig
-  anchors. Tune the two constants to change the look.
+- **Chibi proportions.** `avatar.tsx` scales the head up (`HEAD_SCALE=2`) about the neck and the body
+  down about the feet, non-uniformly (`BODY_W=.8`, `BODY_H=.48`) so the body reads stubby rather than
+  merely small. Both halves meet at the same neck point. No clothing path was rewritten — every rig,
+  clothing pattern and attachment follows because they all derive from rig anchors. Tune those three
+  constants to change the whole look; the head is currently ~60% of the figure's height, which is
+  `90*HEAD_SCALE / (96*HEAD_SCALE + 224*BODY_H)`.
+- **The body is wider than it is tall, so authored detail is not square.** A detail only looks square
+  on screen when it is authored half again as tall as it is wide (`BODY_W/BODY_H` = 1.67). Buttons,
+  stripes, pockets and hands in `rig-layers.tsx` are authored to that ratio on purpose.
+- **Anything past x=190 authored falls off the canvas** at `HEAD_SCALE=2` (the canvas is 256 wide and
+  the head scales about x=128). Hat brims, the ponytail and the long-hair fall were pulled back
+  inside for this reason. Keep new head art within x∈[66,190].
 - **The head is its own layer.** `RigLayer` used to draw the head inside `body`; it is now a separate
   `head` layer so it scales with the face and hair instead of with the torso. Layer count is 17.
+- **The chibi character base.** The head is a rounded square built from four stacked rects so the
+  corners step instead of anti-aliasing — `shapeRendering:crispEdges` means real arcs would look
+  wrong. Small ears sit at eye level. The neck is 44 units wide so it does not look spindly under the
+  larger head. Back-of-head hair uses the same rounded-square stepping.
+- **Eyes are structured, not dots.** Each eye is a dark ring, a cream sclera, a coloured iris with a
+  darker top band and a lighter lower band, a small near-black pupil and two glints — layered in that
+  order. Solid dark dots were the first attempt and read as spooky. Only `calm`/`tired` get closed
+  lash-line eyes; brows appear only for `focused`/`curious`/`brows`. The mouth is a three-step curve;
+  two steps read as a staple.
+- **Eye colour is its own wardrobe slot** (`eyeColor`, 8 items in `lib/wardrobe.ts`). Characters saved
+  before it existed have no value stored, so `avatar.tsx` derives an iris colour from their hair
+  colour instead. Do not remove that fallback — it is what keeps old guest sessions from rendering
+  black eyes.
+- **Blinking closes a lid, it does not hide the eye.** `.avatar-lid` is a skin-coloured rect plus a
+  lash line, normally `opacity:0`, flashed in by `@keyframes avatar-blink` in `retro.css`. The old
+  keyframe faded `.avatar-eyes` out, which only worked while the eye was a solid dot.
+- **All face/head art is authored in the pre-scale coordinate space** (head box x86–170, y44–134),
+  so hair, headwear and face accessories keep aligning automatically — they scale by the same
+  `HEAD_SCALE` about the same point. Do not author head art in final canvas coordinates.
 - **The left profile is a CSS mirror on the `<svg>`** (`.avatar[data-pose=left]`). It cannot live on
   `.avatar-idle`, which sets `transform-box:fill-box; transform-origin:center bottom` for the idle
   bob — that re-anchors an SVG `transform` attribute and the flip comes out translated, not mirrored.
@@ -21,7 +48,43 @@ drawn at the wrong scale, and going back removed the whole authoring loop.
   outside its panel.
 - **Still open on the character:** hair and headwear have no side-specific art, so in left/right
   profile they keep their front silhouette on a profile head. That is the "awkward hair" to fix next,
-  and it wants side variants per hairstyle family rather than a global tweak.
+  and it wants side variants per hairstyle family rather than a global tweak. Some hair/skin colour
+  pairs also read as one flat mass now that the head is large (e.g. auburn hair on mahogany skin) —
+  worth a contrast pass over the palettes. Skin-derived tones now come from a `shade()` helper in
+  `avatar.tsx` rather than one hard-coded mid-brown, so the nose and blush read on every skin tone.
+
+## The seasonal scene (`components/seasonal-scene.tsx`)
+
+Rewritten September 18, 2026 for much denser art. Read this before touching it.
+
+- **Detail is cheap because shapes are merged by colour.** Every layer builds arrays of
+  `[x,y,w,h]` boxes and `rects()` concatenates each colour's boxes into a single `<path d>`. A
+  skyline of forty lit windows costs one DOM node. Do not emit a node per rect.
+- **Trees are the exception.** Each tree keeps its own `<g>` so a near tree paints over a far one;
+  they are generated far-to-near. Everything else is merged, where depth order does not matter.
+- **The scene is deterministic.** `seeded(width*31 + height*7 + season.length)` drives every random
+  placement, so the same viewport always draws the same scene and screenshots stay stable. Never use
+  `Math.random()` here.
+- **Geometry is on a two-pixel grid** (`q()`), down from four. That is what "less blocky" meant.
+- `disc()` renders a filled ellipse as stacked horizontal bands — it is what gives canopies, clouds,
+  rocks and snow mounds their pixel edge.
+- **Per-season shape:** fall and spring get two rolling ridges plus a treeline standing on the nearer
+  one; winter gets a procedural city skyline with lit windows, roof snow, antennae and water towers,
+  plus lamp posts and bare snow-laden trees; summer is a shoreline — mountains, an opaque sea band
+  with swell rows, a wavy foam edge, sand underfoot, palms, a parasol and a towel.
+- **The back mountain range is placed edge to edge, not overlapped**, so its snow caps are never
+  buried by the next peak. The front range overlaps and is uncapped.
+- **`[data-scene-layer]` count is 9** and `polish.spec.ts` asserts it. `sceneAssetManifest` lists the
+  same names. Update both if you add a layer.
+- **Particle counts live in `lib/themes.ts`** (`animationLayers`), and `polish.spec.ts` asserts fall's
+  normal count exactly. Currently fall 24, winter 28, spring 18, summer 14.
+- **The bottom ~108px of the scene is always masked** by the quest-ribbon safe zone, so foreground
+  props placed near `height` are invisible. Keep them above `depthY(.9)`.
+- The trail keeps the anchored perspective path and `data-anchor-x`; `centered-home.spec.ts` asserts
+  the character's centre lines up with it.
+- The painted-layer e2e test in `polish.spec.ts` used to hover a hard-coded point to prove clicking a
+  jacket opens Outerwear, and broke the moment the body scale changed. It now derives the point from
+  the outerwear path's own client rect, so it survives proportion changes.
 - Closet thumbnails (`components/item-preview.tsx`) render each item on the player's own character,
   cropped per slot; the crop windows are in authored canvas units **after** the chibi scaling.
 - Body types stay out of the UI by choice; the 9 rigs still exist and `bodyRigId` still defaults to
