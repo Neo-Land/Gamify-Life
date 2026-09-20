@@ -41,22 +41,23 @@ export function Avatar({selection,large=false,pose='front',onPart,interactive=fa
  {part('body','body',null)}
  {part('hair-back','hair',<g fill={hairColor}><path d={boxPath(hairPieces.back)}/></g>)}
  {part('head','body',null)}
- {part('face','face',!back&&<g>{side?<>
-  <path d="M150 76h17v22h-17z" fill={lash}/><path d="M152 78h14v18h-14z" fill="#f8f4e8"/>
-  <path d="M154 78h12v18h-12z" fill={iris}/><path d="M154 78h12v4h-12z" fill={shade(iris,.35)}/><path d="M154 90h12v5h-12z" fill={shade(iris,-.28)}/><path d="M157 82h6v10h-6z" fill="#241d18"/><path d="M154 79h4v4h-4z" fill="#fffdf5"/>
-  <g className="avatar-lid"><path d="M150 76h17v22h-17z" fill={skin}/><path d="M151 86h15v4h-15z" fill={lash}/></g>
+ {part('face','face',!back&&<g>{side?closedEyes?<path d="M151 88h16v4h-16zM148 85h3v3h-3zM167 85h3v3h-3z" fill={lash}/>:<>
+  <path d="M152 80h14v15h-14zM154 95h10v3h-10z" fill="#f8f4e8"/>
+  <path d="M156 81h10v13h-10zM158 94h6v3h-6z" fill={iris}/><path d="M158 91h8v4h-8z" fill={shade(iris,-.28)}/><path d="M159 83h5v8h-5z" fill="#241d18"/>
+  <path d="M151 77h16v4h-16zM153 74h12v3h-12zM150 81h3v4h-3zM166 74h3v5h-3z" fill={lash}/><path d="M156 82h3v3h-3z" fill="#fffdf5"/>
+  <g className="avatar-lid"><path d="M151 77h16v21h-16z" fill={skin}/><path d="M152 88h14v4h-14z" fill={lash}/></g>
  </>:eyes.map(cx=>closedEyes
-  ?<path key={cx} d={`M${cx-12} 88h24v5h-24zM${cx-16} 84h5v4h-5zM${cx+11} 84h5v4h-5zM${cx-19} 80h4v4h-4zM${cx+15} 80h4v4h-4z`} fill={lash}/>
-  :<g key={cx}>
-    <path d={`M${cx-14} 76h28v22h-28zM${cx-11} 72h22v30h-22z`} fill={lash}/>
-    <path d={`M${cx-12} 78h24v18h-24zM${cx-9} 74h18v26h-18z`} fill="#f8f4e8"/>
-    <path d={`M${cx-10} 80h20v12h-20zM${cx-8} 77h16v19h-16zM${cx-6} 75h12v23h-12z`} fill={iris}/>
-    <path d={`M${cx-8} 75h16v5h-16z`} fill={shade(iris,.35)}/>
-    <path d={`M${cx-6} 90h12v7h-12z`} fill={shade(iris,-.28)}/>
-    <path d={`M${cx-4} 83h8v9h-8zM${cx-3} 81h6v13h-6z`} fill="#241d18"/>
-    <path d={`M${cx-6} 79h6v6h-6zM${cx+2} 90h4v4h-4z`} fill="#fffdf5"/>
-    <g className="avatar-lid"><path d={`M${cx-14} 72h28v30h-28z`} fill={skin}/><path d={`M${cx-13} 86h26v5h-26z`} fill={lash}/></g>
-   </g>)}
+  ?<path key={cx} d={`M${cx-10} 88h20v5h-20zM${cx-13} 85h4v3h-4zM${cx+9} 85h4v3h-4zM${cx-16} 82h3v3h-3zM${cx+13} 82h3v3h-3z`} fill={lash}/>
+  :(cx=>{const out=cx<128?-1:1;return <g key={cx}>
+    <path d={`M${cx-10} 78h20v17h-20zM${cx-8} 95h16v4h-16z`} fill="#f8f4e8"/>
+    <path d={`M${cx-8} 79h16v14h-16zM${cx-6} 93h12v4h-12z`} fill={iris}/>
+    <path d={`M${cx-6} 90h12v5h-12z`} fill={shade(iris,-.28)}/>
+    <path d={`M${cx-3} 82h6v9h-6zM${cx-2} 80h4v13h-4z`} fill="#241d18"/>
+    {/* The dark line is an upper lash, not a ring: nothing outlines the lower lid. */}
+    <path d={`M${cx-10} 76h20v5h-20zM${cx-8} 73h16v3h-16zM${cx-11} 80h3v5h-3zM${cx+8} 80h3v5h-3zM${cx+(out<0?-14:11)} 73h3v6h-3z`} fill={lash}/>
+    <path d={`M${cx-6} 81h4v4h-4zM${cx+3} 90h3v3h-3z`} fill="#fffdf5"/>
+    <g className="avatar-lid"><path d={`M${cx-11} 76h22v24h-22z`} fill={skin}/><path d={`M${cx-10} 88h20v5h-20z`} fill={lash}/></g>
+   </g>;})(cx))}
  {brows&&<path d={side?'M150 64h20v5h-20z':face.includes('curious')?'M95 58h24v5H95zM137 64h24v5h-24z':'M95 62h24v5H95zM137 62h24v5h-24z'} fill={shade(hairColor,.15)}/>}
  <path d={side?'M170 108h8v4h-8z':'M124 105h8v4h-8zM122 109h12v4h-12z'} fill={shade(skin,.24)}/>{!side&&<path d="M126 106h5v2h-5z" fill={shade(skin,-.14)}/>}
  <path d={side?'M160 120h11v5h-11zM155 116h5v4h-5z':face.includes('victory')?'M116 118h24v6h-24zM120 124h16v5h-16z':face.includes('happy')||face.includes('bright')?'M118 120h20v4h-20zM114 116h5v4h-5zM137 116h5v4h-5zM110 112h4v4h-4zM142 112h4v4h-4z':'M119 120h18v4h-18z'} fill={lash}/>

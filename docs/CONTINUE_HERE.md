@@ -30,9 +30,11 @@ drawn at the wrong scale, and going back removed the whole authoring loop.
   corners step instead of anti-aliasing — `shapeRendering:crispEdges` means real arcs would look
   wrong. Small ears sit at eye level. The neck is 44 units wide so it does not look spindly under the
   larger head. Back-of-head hair uses the same rounded-square stepping.
-- **Eyes are structured, not dots.** Each eye is a dark ring, a cream sclera, a coloured iris with a
-  darker top band and a lighter lower band, a small near-black pupil and two glints — layered in that
-  order. Solid dark dots were the first attempt and read as spooky. Only `calm`/`tired` get closed
+- **Eyes are structured, not dots.** Each eye is a cream sclera, a coloured iris with a lighter lower
+  band, a small near-black pupil, then an **upper lash** and a glint on top. The dark line covers only
+  the top edge and upper corners with a flick at the outer corner; there is deliberately no outline
+  under the lower lid. Solid dark dots were the first attempt and read as spooky; a full dark ring
+  was the second and read as a domino. Only `calm`/`tired` get closed
   lash-line eyes; brows appear only for `focused`/`curious`/`brows`. The mouth is a three-step curve;
   two steps read as a staple.
 - **Eye colour is its own wardrobe slot** (`eyeColor`, 8 items in `lib/wardrobe.ts`). Characters saved
