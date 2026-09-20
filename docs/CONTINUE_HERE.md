@@ -17,6 +17,14 @@ drawn at the wrong scale, and going back removed the whole authoring loop.
   clothing pattern and attachment follows because they all derive from rig anchors. Tune those three
   constants to change the whole look; the head is currently ~60% of the figure's height, which is
   `90*HEAD_SCALE / (96*HEAD_SCALE + 224*BODY_H)`.
+- **Held props are placed by their grip, not by the body transform.** `propGrips` in `avatar.tsx`
+  names the authored point of each prop that has to land in the hand, and `heldTransform` puts it
+  there at a uniform `PROP_SCALE`. Props used to ride `bodyTransform`, which both squashed them
+  (.8 across, .48 down) and let them drift off the hand every time the proportions changed. Adding a
+  prop means adding its grip; the fallback is the middle of the old authored area.
+- **Back items are drawn per view.** From the front a pack is two shoulder straps plus a sliver at
+  each side, from the side it is the pack behind the shoulder, from the back it is the pack itself.
+  The single front-facing slab it used to draw sat half off the ribs.
 - **The body is wider than it is tall, so authored detail is not square.** A detail only looks square
   on screen when it is authored half again as tall as it is wide (`BODY_W/BODY_H` = 1.67). Buttons,
   stripes, pockets and hands in `rig-layers.tsx` are authored to that ratio on purpose.
