@@ -7,10 +7,20 @@
     "description": "Find your rhythm. One rally at a time.",
     "prefix": "ten",
     "safetyNote": "Check the court, warm up gently, keep clear of others and stop if you feel pain.",
-    "resource": {
-      "title": "USTA learning resources",
-      "url": "https://www.usta.com/en/home/improve.html"
-    },
+    "resources": [
+      {
+        "title": "USTA Tennis 101",
+        "url": "https://www.usta.com/en/home/stay-current/midwest/tennis101.html",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      },
+      {
+        "title": "Intuitive Tennis: Beginner forehand and two-handed backhand (video)",
+        "url": "https://www.youtube.com/watch?v=kbmsyOGR6Cc",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      }
+    ],
     "practicePrerequisites": [
       "ten-safety"
     ],
@@ -24,10 +34,20 @@
     "description": "A little farther. A little more freedom.",
     "prefix": "cyc",
     "safetyNote": "Check air, brakes and chain before every ride. Use a fitted helmet and follow local traffic rules. Fixed-gear road use needs a functional front brake; do not learn brakeless street riding.",
-    "resource": {
-      "title": "League of American Bicyclists",
-      "url": "https://bikeleague.org/ridesmart/"
-    },
+    "resources": [
+      {
+        "title": "Sheldon Brown: Fixed Gear for the Road",
+        "url": "https://www.sheldonbrown.com/fixed.html",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      },
+      {
+        "title": "League of American Bicyclists: Learn to Ride (free course)",
+        "url": "https://learn.bikeleague.org/p/learntoride",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      }
+    ],
     "practicePrerequisites": [
       "cyc-safety",
       "cyc-check"
@@ -42,10 +62,20 @@
     "description": "Build confidence, one length at a time.",
     "prefix": "swi",
     "safetyNote": "Practice with qualified supervision in a swim-safe environment. Never swim alone, hyperventilate or do breath-holding contests. Restrictive knee bands are not a default freestyle correction.",
-    "resource": {
-      "title": "American Red Cross water safety",
-      "url": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/types-of-emergencies/water-safety.html"
-    },
+    "resources": [
+      {
+        "title": "Red Cross Adult Swim Lessons",
+        "url": "https://www.redcross.org/take-a-class/swimming/swim-lessons/adult-swim-lessons",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      },
+      {
+        "title": "MySwimPro: How to swim freestyle for beginners",
+        "url": "https://blog.myswimpro.com/2021/06/04/how-to-swim-freestyle-for-beginners-5-step-guide/",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      }
+    ],
     "practicePrerequisites": [
       "swi-safety"
     ],
@@ -59,10 +89,20 @@
     "description": "Make a little space for your thoughts.",
     "prefix": "jou",
     "safetyNote": "",
-    "resource": {
-      "title": "Purdue OWL writing resources",
-      "url": "https://owl.purdue.edu/owl/general_writing/index.html"
-    },
+    "resources": [
+      {
+        "title": "Bullet Journal: How to start a simple bullet journal",
+        "url": "https://bulletjournal.com/blogs/bulletjournalist/how-to-start-a-simple-bullet-journal",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      },
+      {
+        "title": "UC Berkeley Greater Good in Action: Expressive writing",
+        "url": "https://ggia.berkeley.edu/practice/expressive_writing",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      }
+    ],
     "practicePrerequisites": [],
     "startSummary": "Existing paper + pen · EASY TO START"
   },
@@ -74,10 +114,20 @@
     "description": "Understand the machine, then build it.",
     "prefix": "pcb",
     "safetyNote": "Unplug at the wall and hold the power button before opening anything. Ground yourself against the bare case or use a strap before touching a board, and never open a power supply — it holds charge long after it is unplugged.",
-    "resource": {
-      "title": "iFixit repair guides",
-      "url": "https://www.ifixit.com/Guide"
-    },
+    "resources": [
+      {
+        "title": "PCPartPicker Build Guides",
+        "url": "https://pcpartpicker.com/guide/",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      },
+      {
+        "title": "Linus Tech Tips: How to build a PC (video)",
+        "url": "https://www.youtube.com/watch?v=BL4DCEp7blY",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      }
+    ],
     "practicePrerequisites": [
       "pcb-safety"
     ],
@@ -91,10 +141,20 @@
     "description": "Look closely. The hand follows.",
     "prefix": "drw",
     "safetyNote": "Keep the wrist neutral and draw from the shoulder for large shapes. Take a short break every twenty to thirty minutes, work with light across the page, and stop if your hand aches.",
-    "resource": {
-      "title": "Drawabox free drawing course",
-      "url": "https://drawabox.com/"
-    },
+    "resources": [
+      {
+        "title": "Drawabox Lesson 0: Getting started",
+        "url": "https://drawabox.com/lesson/0",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      },
+      {
+        "title": "Proko: Drawing Basics (video playlist)",
+        "url": "https://www.youtube.com/playlist?list=PLtG4P3lq8RHHMNwxuVk0IcGRtPGHi4vN9",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      }
+    ],
     "practicePrerequisites": [],
     "startSummary": "Pencil and paper · FREE TO TRY"
   },
@@ -106,10 +166,20 @@
     "description": "Mix it, and see what the colour really is.",
     "prefix": "pnt",
     "safetyNote": "Work where air moves, keep solvents sealed and away from heat, and never pour them down a drain. Do not eat or point a brush with your mouth. Acrylic and watercolour avoid nearly all of this while you learn.",
-    "resource": {
-      "title": "Art and Creative Materials Institute",
-      "url": "https://acmiart.org/"
-    },
+    "resources": [
+      {
+        "title": "The Art Sherpa: Beginner acrylic painting course",
+        "url": "https://theartsherpa.com/BeginnerAcrylicPaintingCourse",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      },
+      {
+        "title": "Will Kemp Art School: Acrylic painting for beginners",
+        "url": "https://willkempartschool.com/acrylic-painting/",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      }
+    ],
     "practicePrerequisites": [
       "pnt-safety"
     ],
@@ -123,10 +193,20 @@
     "description": "Slower than you think. Further than you expect.",
     "prefix": "run",
     "safetyNote": "Build distance gradually and take a lighter week roughly every fourth. Run facing traffic where there is no path, wear something reflective in low light, plan water in heat, and treat new sharp pain as a reason to stop.",
-    "resource": {
-      "title": "Road Runners Club of America",
-      "url": "https://www.rrca.org/"
-    },
+    "resources": [
+      {
+        "title": "RRCA 10-week training plan for new runners",
+        "url": "https://www.rrca.org/education/for-runners/10-week-training-plan/",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      },
+      {
+        "title": "NHS: Get running with Couch to 5K",
+        "url": "https://www.nhs.uk/better-health/get-active/get-running-with-couch-to-5k/",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      }
+    ],
     "practicePrerequisites": [
       "run-safety"
     ],
@@ -140,10 +220,20 @@
     "description": "Three touches, and everyone is involved.",
     "prefix": "vol",
     "safetyNote": "Warm the shoulders, wrists and ankles before hitting. Set with firm fingers, land on two feet, keep out of the space under the net, and call loudly so nobody collides.",
-    "resource": {
-      "title": "USA Volleyball",
-      "url": "https://usavolleyball.org/"
-    },
+    "resources": [
+      {
+        "title": "USA Volleyball: A beginner's guide (PDF)",
+        "url": "https://usavolleyball.org/wp-content/uploads/2022/03/Volleyball-Beginners-Guide-by-SportsEngine.pdf",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      },
+      {
+        "title": "Elevate Yourself: Volleyball tutorials (video)",
+        "url": "https://www.youtube.com/@ElevateYourselfOfficial",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      }
+    ],
     "practicePrerequisites": [
       "vol-safety"
     ],
@@ -157,10 +247,20 @@
     "description": "A few pages, most days.",
     "prefix": "rdg",
     "safetyNote": "Read with light on the page rather than behind it, hold the book near eye level, and look at something distant every twenty minutes. Dim screens in the evening and prefer paper near bedtime.",
-    "resource": {
-      "title": "American Library Association",
-      "url": "https://www.ala.org/"
-    },
+    "resources": [
+      {
+        "title": "Libby: Getting started with free library ebooks",
+        "url": "https://help.libbyapp.com/en-us/6103.htm",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      },
+      {
+        "title": "Book Riot: How to start reading (if you've never liked it)",
+        "url": "https://bookriot.com/how-to-start-reading/",
+        "placeholder": false,
+        "checkedAt": "2026-09-21"
+      }
+    ],
     "practicePrerequisites": [],
     "startSummary": "A library card · FREE TO TRY"
   }

@@ -1,4 +1,5 @@
 import {test,expect} from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 test.beforeEach(async({page})=>{await page.addInitScript(()=>{sessionStorage.setItem('gamify-life:booted','true');});});
 async function guest(page:import('@playwright/test').Page){
  await page.goto('/');
@@ -45,4 +46,27 @@ test('every step after the character is skippable',async({page})=>{
  await page.getByRole('button',{name:'SKIP THIS STEP'}).click();
  await expect(page).toHaveURL(/\/home$/);
  expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!).ledger)).toEqual([]);
+});
+test('retaking the check-in from a hobby map prefills, saves a new suggestion, earns nothing and cancel changes nothing',async({page})=>{
+ const {initialState}=await import('../../lib/domain');const {applyCommand}=await import('../../lib/progression');
+ let s=initialState();s.profile.onboardingComplete=true;s.profile.characterCreated=true;s=applyCommand(s,{type:'enroll',hobbyIds:['running']}).state;s=applyCommand(s,{type:'placement',hobbyId:'running',answers:{'run-freq':1},skipped:false}).state;
+ await page.addInitScript(s=>{sessionStorage.setItem('gamify-life:guest-active','true');if(!sessionStorage.getItem('gamify-life:v1'))sessionStorage.setItem('gamify-life:v1',JSON.stringify(s));},s);
+ const saved=()=>page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!));
+ await page.goto('/hobbies/running');const open=page.getByRole('button',{name:/Retake check-in/});await expect(open).toContainText('Suggested start: start');
+ await open.click();const dialog=page.getByRole('dialog');await expect(dialog.getByRole('radio',{name:'Once or twice'}).first()).toBeChecked();
+ await dialog.getByRole('radio',{name:'Several times a week'}).click();await dialog.getByRole('button',{name:'CANCEL'}).click();await expect(dialog).toHaveCount(0);
+ expect((await saved()).placements.running.answers).toEqual({'run-freq':1});
+ await open.click();for(const label of ['Several times a week','Six miles or more','Well over half an hour','Trainers I run in regularly'])await dialog.getByRole('radio',{name:label}).click();
+ await dialog.getByRole('radio').last().click();await dialog.getByRole('button',{name:'SAVE CHECK-IN'}).click();await expect(dialog).toHaveCount(0);
+ await expect.poll(async()=>(await saved()).placements.running.level).toBe(3);await expect(open).toContainText('Suggested start: advanced');
+ const after=await saved();expect(after.ledger).toEqual([]);expect(Object.keys(after.progress)).toEqual([]);
+});
+test('every onboarding step and the check-in dialog pass an accessibility audit',async({page})=>{
+ test.setTimeout(90000);const audit=async(step:string)=>{const r=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();expect(r.violations.filter(v=>['serious','critical'].includes(v.impact||'')).map(v=>({step,id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}))).toEqual([]);};
+ await guest(page);await expect(page.getByText('1 / 4')).toBeVisible();await audit('character');
+ await page.getByRole('button',{name:'SKIP FOR NOW'}).click();await expect(page.getByText('2 / 4')).toBeVisible();await page.getByRole('button',{name:/Cycling/}).click();await audit('hobbies');
+ await page.getByRole('button',{name:'CONTINUE',exact:true}).click();await expect(page.getByText('3 / 4')).toBeVisible();await page.getByRole('radio').first().check();await audit('check-in');
+ await page.getByRole('button',{name:'CONTINUE',exact:true}).click();await expect(page.getByText('4 / 4')).toBeVisible();await page.getByRole('button',{name:'I can borrow this'}).first().click();await audit('start kit');
+ await page.getByRole('button',{name:'OPEN MY DESKTOP'}).click();await expect(page).toHaveURL(/\/home$/);
+ await page.goto('/hobbies/cycling');await page.getByRole('button',{name:/check-in/i}).click();await expect(page.getByRole('dialog')).toBeVisible();await audit('retake dialog');
 });

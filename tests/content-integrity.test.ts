@@ -43,3 +43,4 @@ describe('content integrity',()=>{
    expect(nodes.some(n=>n.id===id),`${h.id} prerequisite ${id}`).toBe(true);
  });
 });
+it('every hobby cites verified https references, and every skill carries them',()=>{for(const h of hobbies){expect(h.resources.length).toBeGreaterThanOrEqual(2);for(const r of h.resources){expect(r.url).toMatch(/^https:\/\//);expect(r.placeholder,`${h.id}: ${r.url}`).toBe(false);expect(r.checkedAt).toMatch(/^\d{4}-\d{2}-\d{2}$/);}expect(new Set(h.resources.map(r=>r.url)).size).toBe(h.resources.length);}for(const n of nodes)expect(n.resources).toEqual(hobbies.find(h=>h.id===n.hobbyId)!.resources);});

@@ -3,7 +3,7 @@ import { z } from 'zod';
 import rawNodes from '@/content/nodes.json';
 import rawHobbies from '@/content/hobbies.json';
 import { lessons } from '@/content/lessons';
-export const hobbySchema = z.object({id:z.string(),name:z.string(),icon:z.string(),color:z.string(),description:z.string(),prefix:z.string().length(3),safetyNote:z.string(),resource:z.object({title:z.string(),url:z.string().url()}),practicePrerequisites:z.array(z.string()),startSummary:z.string()});
+export const hobbySchema = z.object({id:z.string(),name:z.string(),icon:z.string(),color:z.string(),description:z.string(),prefix:z.string().length(3),safetyNote:z.string(),resources:z.array(z.object({title:z.string(),url:z.string().url(),placeholder:z.boolean().default(true),checkedAt:z.string().optional()})).min(1),practicePrerequisites:z.array(z.string()),startSummary:z.string()});
 export const hobbies = z.array(hobbySchema).parse(rawHobbies);
 /** Kept as a tuple for z.enum, and checked against the JSON at module load so the two cannot drift. */
 export const hobbyIds = ['tennis','cycling','swimming','journaling','pc-building','drawing','painting','running','volleyball','reading'] as const;
@@ -14,7 +14,7 @@ export const nodeSchema = z.object({id:z.string(),hobbyId:z.enum(hobbyIds),slug:
 export const nodes = rawNodes.map(raw => {
  const n = nodeSchema.parse(raw); const [why,steps,mistake]=lessons[n.id].split('|');
  const hobby = hobbyById(n.hobbyId)!; const safety = hobby.safetyNote;
- return {...n,shortDescription:why,whyItMatters:why,instructions:steps.split(';'),learningObjectives:[steps.split(';')[0],n.completion.prompt,'Recognize and avoid the common mistake below.'],commonMistakes:[mistake],safetyNotes:safety?[safety]:[],mastery:{prompt:'Repeat this challenge on three separate days and describe what became more consistent.',evidenceMode:'note' as const},masteryXpReward:15,review_status:'draft',last_reviewed_at:null,resources:[{...hobby.resource,placeholder:true}]};
+ return {...n,shortDescription:why,whyItMatters:why,instructions:steps.split(';'),learningObjectives:[steps.split(';')[0],n.completion.prompt,'Recognize and avoid the common mistake below.'],commonMistakes:[mistake],safetyNotes:safety?[safety]:[],mastery:{prompt:'Repeat this challenge on three separate days and describe what became more consistent.',evidenceMode:'note' as const},masteryXpReward:15,review_status:'draft',last_reviewed_at:null,resources:hobby.resources};
 });
 export type SkillNode = typeof nodes[number];
 export const nodeById=(id:string)=>nodes.find(n=>n.id===id);
