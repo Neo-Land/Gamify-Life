@@ -6,7 +6,7 @@ import { lessons } from '@/content/lessons';
 export const hobbySchema = z.object({id:z.string(),name:z.string(),icon:z.string(),color:z.string(),description:z.string(),prefix:z.string().length(3),safetyNote:z.string(),resource:z.object({title:z.string(),url:z.string().url()}),practicePrerequisites:z.array(z.string()),startSummary:z.string()});
 export const hobbies = z.array(hobbySchema).parse(rawHobbies);
 /** Kept as a tuple for z.enum, and checked against the JSON at module load so the two cannot drift. */
-export const hobbyIds = ['tennis','cycling','swimming','journaling'] as const;
+export const hobbyIds = ['tennis','cycling','swimming','journaling','pc-building','drawing','painting','running','volleyball','reading'] as const;
 if(hobbies.length!==hobbyIds.length||hobbies.some(h=>!(hobbyIds as readonly string[]).includes(h.id)))throw new Error('hobbies.json and hobbyIds are out of sync');
 if(new Set(hobbies.map(h=>h.prefix)).size!==hobbies.length)throw new Error('hobby prefixes must be unique');
 export const hobbyById=(id:string)=>hobbies.find(h=>h.id===id);
@@ -23,13 +23,51 @@ export const gear = [
  ...['Racquet','Tennis balls','Athletic shoes','Court shoes','Overgrip','Water bottle','Polyester strings','Extra expensive racquets','Tournament bag'].map((name,i)=>({id:`tennis-${i}`,hobbyId:'tennis',name,necessity:i<3?'required':i<6?'optional':'not_needed',guidance:i<3?'Borrow or use what you have; fit and condition matter.':i<6?'Optional comfort, after your first sessions.':'Wait until your playing habits give you a clear reason.'})),
  ...['Certified helmet','Lights and reflectors','Pump','Tire levers','Spare tube','Hex keys','Functional front brake'].map((name,i)=>({id:`cycling-${i}`,hobbyId:'cycling',name,necessity:i<2||i===6?'required':'recommended',guidance:i===6?'Required for this beginner road-use path, including fixed gear.':'Choose compatible, functional equipment. Ask a bike shop if uncertain.'})),
  ...['Safe swimwear','Goggles','Swim cap','Fins','Kickboard'].map((name,i)=>({id:`swimming-${i}`,hobbyId:'swimming',name,necessity:i===0?'required':'optional',guidance:i===0?'Use safe attire accepted by your pool.':'Optional; ask your instructor before using training tools.'})),
+ ...[['CPU and motherboard','required','Match the socket exactly. A used pair from one generation back is the usual value pick.'],
+  ['Memory','required','Match the generation the board accepts. Two matched sticks beat one larger one.'],
+  ['Storage drive','required','One solid-state drive is enough to start; capacity matters less than having any at all.'],
+  ['Power supply','required','Buy this new. Leave headroom over what the parts draw, and never open one.'],
+  ['Case','required','Check cooler height and card length against its specification before buying.'],
+  ['Phillips screwdriver','recommended','One magnetic screwdriver does the whole build. A kit is not needed.'],
+  ['Anti-static wrist strap','optional','Touching the bare case works; a strap makes it harder to forget.'],
+  ['Extra case fans','optional','Add these once you have measured temperatures, not before.']].map(([name,necessity,guidance],i)=>({id:`pc-building-${i}`,hobbyId:'pc-building',name,necessity,guidance})),
+ ...[['Pencil','required','Any pencil already in the house. Harder grades smudge less, softer ones shade faster.'],
+  ['Paper','required','The cheapest paper you are willing to fill. Volume matters more than surface.'],
+  ['Eraser','recommended','A soft eraser lifts graphite without tearing cheap paper.'],
+  ['Sketchbook','optional','Useful for keeping work together; a loose stack works just as well.'],
+  ['Blending stump','optional','A rolled paper stump or a fingertip does the same job.']].map(([name,necessity,guidance],i)=>({id:`drawing-${i}`,hobbyId:'drawing',name,necessity,guidance})),
+ ...[['Acrylic paints','required','A red, a blue, a yellow and a white mix almost anything. Student grade is fine.'],
+  ['Brush','required','One medium round covers most of what a beginner needs.'],
+  ['Painting surface','required','Any primed board, canvas paper, or cardboard sealed with house paint.'],
+  ['Palette','recommended','A plate, a tile or baking paper works. Acrylic peels off glass cleanly.'],
+  ['Water container','recommended','Any jar. Change it more often than feels necessary.'],
+  ['Easel','optional','Useful once you paint standing; a propped board comes first.']].map(([name,necessity,guidance],i)=>({id:`painting-${i}`,hobbyId:'painting',name,necessity,guidance})),
+ ...[['Comfortable trainers','required','Fit and condition matter far more than model. Start with what you own.'],
+  ['Reflective item','recommended','Anything reflective on your moving parts. Needed for low light, not optional there.'],
+  ['Water bottle','recommended','Needed in heat and on longer runs; carry or plan a route past water.'],
+  ['Running watch','optional','Useful later for pacing. A phone or a clock does the same job at first.'],
+  ['Compression gear','not_needed','Comfortable if you like it. It will not make you faster or safer.']].map(([name,necessity,guidance],i)=>({id:`running-${i}`,hobbyId:'running',name,necessity,guidance})),
+ ...[['Non-marking indoor shoes','required','Most indoor courts require clean non-marking soles. Any clean trainers usually qualify.'],
+  ['Volleyball','recommended','Sessions almost always provide balls; one of your own helps solo wall practice.'],
+  ['Knee pads','recommended','Worth borrowing before buying, and unnecessary on sand.'],
+  ['Ankle braces','optional','Worth considering only if you have a history of rolling an ankle.']].map(([name,necessity,guidance],i)=>({id:`volleyball-${i}`,hobbyId:'volleyball',name,necessity,guidance})),
+ ...[['Library card or a book','required','A public library card makes this free, and most lend ebooks and audiobooks too.'],
+  ['Reading light','recommended','Light on the page rather than behind it. A lamp you already own is enough.'],
+  ['Bookmark','optional','Anything flat. A receipt has started many reading habits.'],
+  ['E-reader','optional','Convenient, not required. Libraries lend to phone apps for nothing.']].map(([name,necessity,guidance],i)=>({id:`reading-${i}`,hobbyId:'reading',name,necessity,guidance})),
  ...['Notebook','Writing tool','Premium stationery'].map((name,i)=>({id:`journaling-${i}`,hobbyId:'journaling',name,necessity:i<2?'required':'not_needed',guidance:i<2?'Use something already owned. Budget: $0 borrowed or existing; a basic replacement is enough.':'Learn your preferences before spending on premium stationery.'}))
 ];
 export const quests=[
  {id:'tennis-session',hobbyId:'tennis',title:'A little court time',description:'Complete one 20-minute court or wall session.',target:20,unit:'minutes',xp:60,requires:['ten-gear','ten-safety'],period:'week',max:1},
  {id:'cycling-checks',hobbyId:'cycling',title:'Good rides start here',description:'Perform two ABC pre-ride checks.',target:2,unit:'checks',xp:40,requires:['cyc-check'],period:'week',max:1},
  {id:'swimming-sessions',hobbyId:'swimming',title:'Find your flow',description:'Complete two supervised technique sessions.',target:2,unit:'sessions',xp:75,requires:['swi-safety'],period:'week',max:1},
- {id:'journaling-week',hobbyId:'journaling',title:'A few words for yourself',description:'Write three entries this week.',target:3,unit:'entries',xp:60,requires:['jou-tools'],period:'week',max:1}
+ {id:'journaling-week',hobbyId:'journaling',title:'A few words for yourself',description:'Write three entries this week.',target:3,unit:'entries',xp:60,requires:['jou-tools'],period:'week',max:1},
+ {id:'pc-building-sessions',hobbyId:'pc-building',title:'Hands on the hardware',description:'Complete two build or diagnosis sessions.',target:2,unit:'sessions',xp:60,requires:['pcb-safety'],period:'week',max:1},
+ {id:'drawing-pages',hobbyId:'drawing',title:'Fill the page',description:'Fill three practice pages.',target:3,unit:'pages',xp:50,requires:['drw-gear'],period:'week',max:1},
+ {id:'painting-studies',hobbyId:'painting',title:'Two small studies',description:'Complete two painting studies.',target:2,unit:'studies',xp:60,requires:['pnt-safety'],period:'week',max:1},
+ {id:'running-outings',hobbyId:'running',title:'Three times out',description:'Run on three separate days.',target:3,unit:'runs',xp:70,requires:['run-safety'],period:'week',max:1},
+ {id:'volleyball-sessions',hobbyId:'volleyball',title:'Get on court',description:'Play two sessions.',target:2,unit:'sessions',xp:70,requires:['vol-safety'],period:'week',max:1},
+ {id:'reading-days',hobbyId:'reading',title:'Most days',description:'Read on five separate days.',target:5,unit:'days',xp:50,requires:['rdg-gear'],period:'week',max:1}
 ];
 export const achievements=[
  {id:'first-step',name:'First Step',description:'Complete your first skill.',xp:25,icon:'✦'},

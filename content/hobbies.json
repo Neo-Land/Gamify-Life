@@ -65,5 +65,103 @@
     },
     "practicePrerequisites": [],
     "startSummary": "Existing paper + pen · EASY TO START"
+  },
+  {
+    "id": "pc-building",
+    "name": "PC Building",
+    "icon": "🖥️",
+    "color": "#7E93A8",
+    "description": "Understand the machine, then build it.",
+    "prefix": "pcb",
+    "safetyNote": "Unplug at the wall and hold the power button before opening anything. Ground yourself against the bare case or use a strap before touching a board, and never open a power supply — it holds charge long after it is unplugged.",
+    "resource": {
+      "title": "iFixit repair guides",
+      "url": "https://www.ifixit.com/Guide"
+    },
+    "practicePrerequisites": [
+      "pcb-safety"
+    ],
+    "startSummary": "Parts + one screwdriver · PLAN FIRST"
+  },
+  {
+    "id": "drawing",
+    "name": "Drawing",
+    "icon": "✏️",
+    "color": "#A8998A",
+    "description": "Look closely. The hand follows.",
+    "prefix": "drw",
+    "safetyNote": "Keep the wrist neutral and draw from the shoulder for large shapes. Take a short break every twenty to thirty minutes, work with light across the page, and stop if your hand aches.",
+    "resource": {
+      "title": "Drawabox free drawing course",
+      "url": "https://drawabox.com/"
+    },
+    "practicePrerequisites": [],
+    "startSummary": "Pencil and paper · FREE TO TRY"
+  },
+  {
+    "id": "painting",
+    "name": "Painting",
+    "icon": "🎨",
+    "color": "#C98B6B",
+    "description": "Mix it, and see what the colour really is.",
+    "prefix": "pnt",
+    "safetyNote": "Work where air moves, keep solvents sealed and away from heat, and never pour them down a drain. Do not eat or point a brush with your mouth. Acrylic and watercolour avoid nearly all of this while you learn.",
+    "resource": {
+      "title": "Art and Creative Materials Institute",
+      "url": "https://acmiart.org/"
+    },
+    "practicePrerequisites": [
+      "pnt-safety"
+    ],
+    "startSummary": "Three colours + a brush · LOW COST"
+  },
+  {
+    "id": "running",
+    "name": "Running",
+    "icon": "🏃",
+    "color": "#7FA86B",
+    "description": "Slower than you think. Further than you expect.",
+    "prefix": "run",
+    "safetyNote": "Build distance gradually and take a lighter week roughly every fourth. Run facing traffic where there is no path, wear something reflective in low light, plan water in heat, and treat new sharp pain as a reason to stop.",
+    "resource": {
+      "title": "Road Runners Club of America",
+      "url": "https://www.rrca.org/"
+    },
+    "practicePrerequisites": [
+      "run-safety"
+    ],
+    "startSummary": "Comfortable shoes · FREE TO TRY"
+  },
+  {
+    "id": "volleyball",
+    "name": "Volleyball",
+    "icon": "🏐",
+    "color": "#E0B15C",
+    "description": "Three touches, and everyone is involved.",
+    "prefix": "vol",
+    "safetyNote": "Warm the shoulders, wrists and ankles before hitting. Set with firm fingers, land on two feet, keep out of the space under the net, and call loudly so nobody collides.",
+    "resource": {
+      "title": "USA Volleyball",
+      "url": "https://usavolleyball.org/"
+    },
+    "practicePrerequisites": [
+      "vol-safety"
+    ],
+    "startSummary": "Mostly borrowed · JOIN A SESSION"
+  },
+  {
+    "id": "reading",
+    "name": "Reading",
+    "icon": "📖",
+    "color": "#8FA9A0",
+    "description": "A few pages, most days.",
+    "prefix": "rdg",
+    "safetyNote": "Read with light on the page rather than behind it, hold the book near eye level, and look at something distant every twenty minutes. Dim screens in the evening and prefer paper near bedtime.",
+    "resource": {
+      "title": "American Library Association",
+      "url": "https://www.ala.org/"
+    },
+    "practicePrerequisites": [],
+    "startSummary": "A library card · FREE TO TRY"
   }
 ]

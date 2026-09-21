@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import {PGlite} from '@electric-sql/pglite';
 import {initialState} from '../lib/domain';
 import {applyCommand} from '../lib/progression';
+import {nodes} from '../lib/content';
 const db=new PGlite();
 const alice='00000000-0000-4000-8000-000000000001',bob='00000000-0000-4000-8000-000000000002';
 beforeAll(async()=>{
@@ -12,7 +13,7 @@ beforeAll(async()=>{
  await db.exec(migration);await db.exec(readFileSync('supabase/migrations/002_retro_rewards.sql','utf8'));await db.exec(readFileSync('supabase/seed.sql','utf8'));
 },60000);
 afterAll(async()=>{await db.close();});
-it('seeds all canonical UUID-backed content and edges',async()=>{const {rows}=await db.query<{count:number}>('select count(*)::int as count from public.skill_nodes');expect(rows[0].count).toBe(72);});
+it('seeds all canonical UUID-backed content and edges',async()=>{const {rows}=await db.query<{count:number}>('select count(*)::int as count from public.skill_nodes');expect(rows[0].count).toBe(nodes.length);});
 it('commits completion, reward projections and cosmetics atomically with revision protection',async()=>{
  const s=initialState();await db.query('select public.commit_progress($1,0,$2::jsonb)',[alice,JSON.stringify(s)]);
  const next=applyCommand(s,{type:'complete',nodeId:'ten-start',evidence:{confirmed:true,note:'Learn a rally',confidence:3}}).state;

@@ -1,2663 +1,4414 @@
 [
-  {
-    "id": "ten-start",
-    "hobbyId": "tennis",
-    "slug": "ten-start",
-    "title": "Welcome to Tennis",
-    "tier": "start",
-    "nodeType": "orientation",
-    "xpReward": 20,
-    "requires": [],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Read overview and choose a first goal",
-      "evidenceMode": "note"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 0,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Orientation",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 0
-    }
-  },
-  {
-    "id": "ten-gear",
-    "hobbyId": "tennis",
-    "slug": "ten-gear",
-    "title": "First Racquet & Balls",
-    "tier": "start",
-    "nodeType": "gear",
-    "xpReward": 30,
-    "requires": [
-      "ten-start"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Record owned/borrowed racquet and balls",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 1,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Gear",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 180.0,
-      "y": 150
-    }
-  },
-  {
-    "id": "ten-safety",
-    "hobbyId": "tennis",
-    "slug": "ten-safety",
-    "title": "Court Safety & Etiquette",
-    "tier": "start",
-    "nodeType": "orientation",
-    "xpReward": 30,
-    "requires": [
-      "ten-start"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete safety checklist",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": true,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 2,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Orientation",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 150
-    }
-  },
-  {
-    "id": "ten-scoring",
-    "hobbyId": "tennis",
-    "slug": "ten-scoring",
-    "title": "Court, Rules & Scoring",
-    "tier": "start",
-    "nodeType": "orientation",
-    "xpReward": 30,
-    "requires": [
-      "ten-start"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Correctly log a sample game score",
-      "evidenceMode": "note"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 3,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Orientation",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 720.0,
-      "y": 150
-    }
-  },
-  {
-    "id": "ten-grip",
-    "hobbyId": "tennis",
-    "slug": "ten-grip",
-    "title": "Grip & Ready Position",
-    "tier": "beginner",
-    "nodeType": "lesson",
-    "xpReward": 50,
-    "requires": [
-      "ten-gear",
-      "ten-safety"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Demonstrate/confirm ready position for 10 reps",
-      "evidenceMode": "count",
-      "targetValue": 10,
-      "targetUnit": "repetitions"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 4,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Technique",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 300
-    }
-  },
-  {
-    "id": "ten-contact",
-    "hobbyId": "tennis",
-    "slug": "ten-contact",
-    "title": "Contact & Ball Tracking",
-    "tier": "beginner",
-    "nodeType": "practice",
-    "xpReward": 60,
-    "requires": [
-      "ten-grip"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Self-drop and contact 20 balls under control",
-      "evidenceMode": "count",
-      "targetValue": 20,
-      "targetUnit": "repetitions"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 5,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 315.0,
-      "y": 450
-    }
-  },
-  {
-    "id": "ten-forehand",
-    "hobbyId": "tennis",
-    "slug": "ten-forehand",
-    "title": "Forehand Fundamentals",
-    "tier": "beginner",
-    "nodeType": "challenge",
-    "xpReward": 100,
-    "requires": [
-      "ten-contact"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Land 10 controlled forehands in court",
-      "evidenceMode": "count",
-      "targetValue": 10,
-      "targetUnit": "repetitions"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 6,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 180.0,
-      "y": 600
-    }
-  },
-  {
-    "id": "ten-backhand",
-    "hobbyId": "tennis",
-    "slug": "ten-backhand",
-    "title": "Backhand Fundamentals",
-    "tier": "beginner",
-    "nodeType": "challenge",
-    "xpReward": 100,
-    "requires": [
-      "ten-contact"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Land 10 controlled backhands in court",
-      "evidenceMode": "count",
-      "targetValue": 10,
-      "targetUnit": "repetitions"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 7,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 600
-    }
-  },
-  {
-    "id": "ten-footwork",
-    "hobbyId": "tennis",
-    "slug": "ten-footwork",
-    "title": "Split Step & Recovery",
-    "tier": "beginner",
-    "nodeType": "practice",
-    "xpReward": 75,
-    "requires": [
-      "ten-grip"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete three 60-second shadow-footwork rounds",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 8,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 585.0,
-      "y": 450
-    }
-  },
-  {
-    "id": "ten-rally5",
-    "hobbyId": "tennis",
-    "slug": "ten-rally5",
-    "title": "Five-Shot Rally",
-    "tier": "beginner",
-    "nodeType": "milestone",
-    "xpReward": 150,
-    "requires": [
-      "ten-forehand",
-      "ten-backhand",
-      "ten-footwork"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Sustain five cooperative shots",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 9,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Milestones",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 315.0,
-      "y": 750
-    }
-  },
-  {
-    "id": "ten-serve1",
-    "hobbyId": "tennis",
-    "slug": "ten-serve1",
-    "title": "Serve Fundamentals",
-    "tier": "intermediate",
-    "nodeType": "lesson",
-    "xpReward": 100,
-    "requires": [
-      "ten-rally5",
-      "ten-scoring"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Land 10 of 30 controlled serves",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 10,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Technique",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 45.0,
-      "y": 900
-    }
-  },
-  {
-    "id": "ten-return",
-    "hobbyId": "tennis",
-    "slug": "ten-return",
-    "title": "Return of Serve",
-    "tier": "intermediate",
-    "nodeType": "practice",
-    "xpReward": 100,
-    "requires": [
-      "ten-rally5"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Return 10 cooperative serves",
-      "evidenceMode": "count",
-      "targetValue": 10,
-      "targetUnit": "repetitions"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 11,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 315.0,
-      "y": 900
-    }
-  },
-  {
-    "id": "ten-volley",
-    "hobbyId": "tennis",
-    "slug": "ten-volley",
-    "title": "Net Play & Volley",
-    "tier": "intermediate",
-    "nodeType": "challenge",
-    "xpReward": 110,
-    "requires": [
-      "ten-rally5"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Land 10 controlled volleys",
-      "evidenceMode": "count",
-      "targetValue": 10,
-      "targetUnit": "repetitions"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 12,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 585.0,
-      "y": 900
-    }
-  },
-  {
-    "id": "ten-spin",
-    "hobbyId": "tennis",
-    "slug": "ten-spin",
-    "title": "Topspin & Slice",
-    "tier": "intermediate",
-    "nodeType": "lesson",
-    "xpReward": 120,
-    "requires": [
-      "ten-forehand",
-      "ten-backhand"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Produce intentional topspin and slice in practice",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 13,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Technique",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 585.0,
-      "y": 750
-    }
-  },
-  {
-    "id": "ten-position",
-    "hobbyId": "tennis",
-    "slug": "ten-position",
-    "title": "Court Positioning",
-    "tier": "intermediate",
-    "nodeType": "lesson",
-    "xpReward": 100,
-    "requires": [
-      "ten-rally5"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete a positioning scenario quiz/drill",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 14,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Technique",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 855.0,
-      "y": 900
-    }
-  },
-  {
-    "id": "ten-match",
-    "hobbyId": "tennis",
-    "slug": "ten-match",
-    "title": "First Full Match",
-    "tier": "intermediate",
-    "nodeType": "milestone",
-    "xpReward": 250,
-    "requires": [
-      "ten-serve1",
-      "ten-return",
-      "ten-position"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Play and log one full match",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 15,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Milestones",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 1050
-    }
-  },
-  {
-    "id": "ten-consistency",
-    "hobbyId": "tennis",
-    "slug": "ten-consistency",
-    "title": "Rally Consistency",
-    "tier": "advanced",
-    "nodeType": "challenge",
-    "xpReward": 175,
-    "requires": [
-      "ten-match",
-      "ten-spin"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Sustain a 20-shot cooperative rally",
-      "evidenceMode": "count",
-      "targetValue": 20,
-      "targetUnit": "repetitions"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 16,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 315.0,
-      "y": 1200
-    }
-  },
-  {
-    "id": "ten-patterns",
-    "hobbyId": "tennis",
-    "slug": "ten-patterns",
-    "title": "Point Construction",
-    "tier": "advanced",
-    "nodeType": "specialization",
-    "xpReward": 150,
-    "requires": [
-      "ten-match",
-      "ten-position"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Use and journal three planned patterns",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": false,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 17,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Specialization",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 585.0,
-      "y": 1200
-    }
-  },
-  {
-    "id": "ten-conditioning",
-    "hobbyId": "tennis",
-    "slug": "ten-conditioning",
-    "title": "Tennis Movement Plan",
-    "tier": "advanced",
-    "nodeType": "practice",
-    "xpReward": 125,
-    "requires": [
-      "ten-footwork"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete a four-week movement plan",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 18,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 720.0,
-      "y": 600
-    }
-  },
-  {
-    "id": "cyc-start",
-    "hobbyId": "cycling",
-    "slug": "cyc-start",
-    "title": "Welcome to Cycling",
-    "tier": "start",
-    "nodeType": "orientation",
-    "xpReward": 20,
-    "requires": [],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Choose riding goal and environment",
-      "evidenceMode": "note"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 19,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Orientation",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 0
-    }
-  },
-  {
-    "id": "cyc-types",
-    "hobbyId": "cycling",
-    "slug": "cyc-types",
-    "title": "Bike Types & Use Cases",
-    "tier": "start",
-    "nodeType": "orientation",
-    "xpReward": 25,
-    "requires": [
-      "cyc-start"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Identify current/preferred bike type",
-      "evidenceMode": "note"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 20,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Orientation",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 180.0,
-      "y": 150
-    }
-  },
-  {
-    "id": "cyc-anatomy",
-    "hobbyId": "cycling",
-    "slug": "cyc-anatomy",
-    "title": "Bike Anatomy",
-    "tier": "start",
-    "nodeType": "lesson",
-    "xpReward": 35,
-    "requires": [
-      "cyc-start"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Identify 10 major parts",
-      "evidenceMode": "count",
-      "targetValue": 10,
-      "targetUnit": "repetitions"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 21,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Technique",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 150
-    }
-  },
-  {
-    "id": "cyc-safety",
-    "hobbyId": "cycling",
-    "slug": "cyc-safety",
-    "title": "Helmet, Visibility & Traffic Safety",
-    "tier": "start",
-    "nodeType": "orientation",
-    "xpReward": 40,
-    "requires": [
-      "cyc-start"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete mandatory safety checklist",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": true,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 22,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Orientation",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 720.0,
-      "y": 150
-    }
-  },
-  {
-    "id": "cyc-fit",
-    "hobbyId": "cycling",
-    "slug": "cyc-fit",
-    "title": "Basic Bike Fit",
-    "tier": "start",
-    "nodeType": "gear",
-    "xpReward": 40,
-    "requires": [
-      "cyc-anatomy"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Record saddle height check and reach comfort",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 23,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Gear",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 315.0,
-      "y": 300
-    }
-  },
-  {
-    "id": "cyc-check",
-    "hobbyId": "cycling",
-    "slug": "cyc-check",
-    "title": "Pre-Ride ABC Check",
-    "tier": "beginner",
-    "nodeType": "maintenance",
-    "xpReward": 50,
-    "requires": [
-      "cyc-safety",
-      "cyc-anatomy"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Perform air/brakes/chain check",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": true,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 24,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Maintenance",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 585.0,
-      "y": 300
-    }
-  },
-  {
-    "id": "cyc-control",
-    "hobbyId": "cycling",
-    "slug": "cyc-control",
-    "title": "Starting, Stopping & Steering",
-    "tier": "beginner",
-    "nodeType": "practice",
-    "xpReward": 60,
-    "requires": [
-      "cyc-fit",
-      "cyc-check"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete 20-minute low-traffic control session",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 25,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 450
-    }
-  },
-  {
-    "id": "cyc-brake",
-    "hobbyId": "cycling",
-    "slug": "cyc-brake",
-    "title": "Controlled Braking",
-    "tier": "beginner",
-    "nodeType": "challenge",
-    "xpReward": 75,
-    "requires": [
-      "cyc-control"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete 10 smooth controlled stops",
-      "evidenceMode": "count",
-      "targetValue": 10,
-      "targetUnit": "repetitions"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 26,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 600
-    }
-  },
-  {
-    "id": "cyc-first5",
-    "hobbyId": "cycling",
-    "slug": "cyc-first5",
-    "title": "First Five-Mile Ride",
-    "tier": "beginner",
-    "nodeType": "milestone",
-    "xpReward": 150,
-    "requires": [
-      "cyc-brake"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Log a safe five-mile ride",
-      "evidenceMode": "count",
-      "targetValue": 5,
-      "targetUnit": "miles"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 27,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Milestones",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 750
-    }
-  },
-  {
-    "id": "cyc-flat",
-    "hobbyId": "cycling",
-    "slug": "cyc-flat",
-    "title": "Fix a Flat",
-    "tier": "intermediate",
-    "nodeType": "maintenance",
-    "xpReward": 125,
-    "requires": [
-      "cyc-anatomy",
-      "cyc-first5"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Remove/reinstall wheel and repair/replace tube",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 28,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Maintenance",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 45.0,
-      "y": 900
-    }
-  },
-  {
-    "id": "cyc-clean",
-    "hobbyId": "cycling",
-    "slug": "cyc-clean",
-    "title": "Clean the Drivetrain",
-    "tier": "intermediate",
-    "nodeType": "maintenance",
-    "xpReward": 75,
-    "requires": [
-      "cyc-first5"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete and log a cleaning",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 29,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Maintenance",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 315.0,
-      "y": 900
-    }
-  },
-  {
-    "id": "cyc-cadence",
-    "hobbyId": "cycling",
-    "slug": "cyc-cadence",
-    "title": "Cadence & Efficient Pedaling",
-    "tier": "intermediate",
-    "nodeType": "practice",
-    "xpReward": 100,
-    "requires": [
-      "cyc-first5"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete cadence-focused session",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 30,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 585.0,
-      "y": 900
-    }
-  },
-  {
-    "id": "cyc-10",
-    "hobbyId": "cycling",
-    "slug": "cyc-10",
-    "title": "Ten-Mile Ride",
-    "tier": "intermediate",
-    "nodeType": "milestone",
-    "xpReward": 200,
-    "requires": [
-      "cyc-cadence"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Log a safe ten-mile ride",
-      "evidenceMode": "count",
-      "targetValue": 10,
-      "targetUnit": "miles"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 31,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Milestones",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 180.0,
-      "y": 1050
-    }
-  },
-  {
-    "id": "fixie-intro",
-    "hobbyId": "cycling",
-    "slug": "fixie-intro",
-    "title": "Fixed Gear Fundamentals",
-    "tier": "intermediate",
-    "nodeType": "specialization",
-    "xpReward": 75,
-    "requires": [
-      "cyc-types",
-      "cyc-safety",
-      "cyc-first5"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Explain fixed vs freewheel and safe stopping options",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": false,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 32,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Specialization",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 855.0,
-      "y": 900
-    }
-  },
-  {
-    "id": "fixie-ratio",
-    "hobbyId": "cycling",
-    "slug": "fixie-ratio",
-    "title": "Gear Ratios & Skid Patches",
-    "tier": "intermediate",
-    "nodeType": "lesson",
-    "xpReward": 100,
-    "requires": [
-      "fixie-intro",
-      "cyc-anatomy"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Calculate current gear ratio and skid patches",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 33,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Technique",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 1050
-    }
-  },
-  {
-    "id": "fixie-retention",
-    "hobbyId": "cycling",
-    "slug": "fixie-retention",
-    "title": "Foot Retention",
-    "tier": "intermediate",
-    "nodeType": "gear",
-    "xpReward": 75,
-    "requires": [
-      "fixie-intro"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Fit and practice safe entry/exit",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 34,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Gear",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 720.0,
-      "y": 1050
-    }
-  },
-  {
-    "id": "fixie-control",
-    "hobbyId": "cycling",
-    "slug": "fixie-control",
-    "title": "Fixed-Gear Control",
-    "tier": "advanced",
-    "nodeType": "challenge",
-    "xpReward": 150,
-    "requires": [
-      "fixie-ratio",
-      "fixie-retention",
-      "cyc-brake"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete controlled cadence/stopping drill",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 35,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 315.0,
-      "y": 1200
-    }
-  },
-  {
-    "id": "cyc-route",
-    "hobbyId": "cycling",
-    "slug": "cyc-route",
-    "title": "Route Planning & Repair Kit",
-    "tier": "advanced",
-    "nodeType": "challenge",
-    "xpReward": 150,
-    "requires": [
-      "cyc-10",
-      "cyc-flat"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Plan and complete a supported route with kit",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 36,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 585.0,
-      "y": 1200
-    }
-  },
-  {
-    "id": "cyc-25",
-    "hobbyId": "cycling",
-    "slug": "cyc-25",
-    "title": "Twenty-Five-Mile Ride",
-    "tier": "advanced",
-    "nodeType": "milestone",
-    "xpReward": 300,
-    "requires": [
-      "cyc-route",
-      "cyc-cadence"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Log a safe 25-mile ride",
-      "evidenceMode": "count",
-      "targetValue": 25,
-      "targetUnit": "miles"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 37,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Milestones",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 1350
-    }
-  },
-  {
-    "id": "swi-start",
-    "hobbyId": "swimming",
-    "slug": "swi-start",
-    "title": "Welcome to Swimming",
-    "tier": "start",
-    "nodeType": "orientation",
-    "xpReward": 20,
-    "requires": [],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Choose comfort level and pool access",
-      "evidenceMode": "note"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 38,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Orientation",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 0
-    }
-  },
-  {
-    "id": "swi-safety",
-    "hobbyId": "swimming",
-    "slug": "swi-safety",
-    "title": "Water Safety & Pool Rules",
-    "tier": "start",
-    "nodeType": "orientation",
-    "xpReward": 40,
-    "requires": [
-      "swi-start"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Confirm supervised/swim-safe environment",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": true,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 39,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Orientation",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 315.0,
-      "y": 150
-    }
-  },
-  {
-    "id": "swi-gear",
-    "hobbyId": "swimming",
-    "slug": "swi-gear",
-    "title": "Suit, Goggles & Cap",
-    "tier": "start",
-    "nodeType": "gear",
-    "xpReward": 25,
-    "requires": [
-      "swi-start"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Record available gear; none beyond safe attire required",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 40,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Gear",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 585.0,
-      "y": 150
-    }
-  },
-  {
-    "id": "swi-comfort",
-    "hobbyId": "swimming",
-    "slug": "swi-comfort",
-    "title": "Water Comfort & Exhaling",
-    "tier": "start",
-    "nodeType": "practice",
-    "xpReward": 60,
-    "requires": [
-      "swi-safety"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete supervised face-in-water exhale drill",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 41,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 300
-    }
-  },
-  {
-    "id": "swi-float",
-    "hobbyId": "swimming",
-    "slug": "swi-float",
-    "title": "Front & Back Float",
-    "tier": "beginner",
-    "nodeType": "challenge",
-    "xpReward": 75,
-    "requires": [
-      "swi-comfort"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Hold relaxed front/back float with supervision",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 42,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 450
-    }
-  },
-  {
-    "id": "swi-streamline",
-    "hobbyId": "swimming",
-    "slug": "swi-streamline",
-    "title": "Body Line & Streamline",
-    "tier": "beginner",
-    "nodeType": "lesson",
-    "xpReward": 60,
-    "requires": [
-      "swi-float"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete 10 controlled wall glides",
-      "evidenceMode": "count",
-      "targetValue": 10,
-      "targetUnit": "repetitions"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 43,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Technique",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 600
-    }
-  },
-  {
-    "id": "swi-kick",
-    "hobbyId": "swimming",
-    "slug": "swi-kick",
-    "title": "Flutter Kick from the Hip",
-    "tier": "beginner",
-    "nodeType": "practice",
-    "xpReward": 75,
-    "requires": [
-      "swi-streamline"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete short kick sets without excessive knee bend",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 44,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 750
-    }
-  },
-  {
-    "id": "swi-freestyle",
-    "hobbyId": "swimming",
-    "slug": "swi-freestyle",
-    "title": "Freestyle Pull",
-    "tier": "beginner",
-    "nodeType": "lesson",
-    "xpReward": 90,
-    "requires": [
-      "swi-streamline",
-      "swi-kick"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Swim controlled short lengths focusing on pull",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 45,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Technique",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 900
-    }
-  },
-  {
-    "id": "swi-breathe",
-    "hobbyId": "swimming",
-    "slug": "swi-breathe",
-    "title": "Side Breathing",
-    "tier": "beginner",
-    "nodeType": "challenge",
-    "xpReward": 100,
-    "requires": [
-      "swi-freestyle",
-      "swi-comfort"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete repeatable side-breathing drill",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 46,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 1050
-    }
-  },
-  {
-    "id": "swi-25",
-    "hobbyId": "swimming",
-    "slug": "swi-25",
-    "title": "Continuous 25",
-    "tier": "beginner",
-    "nodeType": "milestone",
-    "xpReward": 150,
-    "requires": [
-      "swi-breathe"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Swim 25 yards/meters continuously and safely",
-      "evidenceMode": "count",
-      "targetValue": 25,
-      "targetUnit": "yards or meters"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 47,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Milestones",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 1200
-    }
-  },
-  {
-    "id": "swi-rotation",
-    "hobbyId": "swimming",
-    "slug": "swi-rotation",
-    "title": "Rotation & Timing",
-    "tier": "intermediate",
-    "nodeType": "practice",
-    "xpReward": 100,
-    "requires": [
-      "swi-25"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete rotation-focused set",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 48,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 45.0,
-      "y": 1350
-    }
-  },
-  {
-    "id": "swi-back",
-    "hobbyId": "swimming",
-    "slug": "swi-back",
-    "title": "Backstroke Basics",
-    "tier": "intermediate",
-    "nodeType": "lesson",
-    "xpReward": 100,
-    "requires": [
-      "swi-float",
-      "swi-25"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Swim a controlled 25 backstroke",
-      "evidenceMode": "count",
-      "targetValue": 25,
-      "targetUnit": "repetitions"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 49,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Technique",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 315.0,
-      "y": 1350
-    }
-  },
-  {
-    "id": "swi-breast",
-    "hobbyId": "swimming",
-    "slug": "swi-breast",
-    "title": "Breaststroke Basics",
-    "tier": "intermediate",
-    "nodeType": "lesson",
-    "xpReward": 110,
-    "requires": [
-      "swi-25"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Swim a controlled 25 breaststroke",
-      "evidenceMode": "count",
-      "targetValue": 25,
-      "targetUnit": "repetitions"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 50,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Technique",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 585.0,
-      "y": 1350
-    }
-  },
-  {
-    "id": "swi-turn",
-    "hobbyId": "swimming",
-    "slug": "swi-turn",
-    "title": "Wall Turns",
-    "tier": "intermediate",
-    "nodeType": "practice",
-    "xpReward": 100,
-    "requires": [
-      "swi-25"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete 10 safe touch/push or flip-turn attempts",
-      "evidenceMode": "count",
-      "targetValue": 10,
-      "targetUnit": "repetitions"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 51,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 855.0,
-      "y": 1350
-    }
-  },
-  {
-    "id": "swi-200",
-    "hobbyId": "swimming",
-    "slug": "swi-200",
-    "title": "Continuous 200",
-    "tier": "intermediate",
-    "nodeType": "milestone",
-    "xpReward": 250,
-    "requires": [
-      "swi-rotation",
-      "swi-turn"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Swim 200 continuously at sustainable effort",
-      "evidenceMode": "count",
-      "targetValue": 200,
-      "targetUnit": "yards or meters"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 52,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Milestones",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 1500
-    }
-  },
-  {
-    "id": "swi-endurance",
-    "hobbyId": "swimming",
-    "slug": "swi-endurance",
-    "title": "Structured Endurance Set",
-    "tier": "advanced",
-    "nodeType": "challenge",
-    "xpReward": 175,
-    "requires": [
-      "swi-200"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete a designed interval set",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 53,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 180.0,
-      "y": 1650
-    }
-  },
-  {
-    "id": "swi-butterfly",
-    "hobbyId": "swimming",
-    "slug": "swi-butterfly",
-    "title": "Butterfly Foundations",
-    "tier": "advanced",
-    "nodeType": "specialization",
-    "xpReward": 150,
-    "requires": [
-      "swi-200",
-      "swi-breast"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete supervised body-dolphin and single-arm drills",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": false,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 54,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Specialization",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 1650
-    }
-  },
-  {
-    "id": "swi-openwater",
-    "hobbyId": "swimming",
-    "slug": "swi-openwater",
-    "title": "Open-Water Readiness",
-    "tier": "advanced",
-    "nodeType": "specialization",
-    "xpReward": 200,
-    "requires": [
-      "swi-200",
-      "swi-safety"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete checklist and supervised group session; never solo",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": false,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 55,
-    "tags": [
-      "Athletics",
-      "Knowledge"
-    ],
-    "category": "Specialization",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 720.0,
-      "y": 1650
-    }
-  },
-  {
-    "id": "jou-start",
-    "hobbyId": "journaling",
-    "slug": "jou-start",
-    "title": "Why Journal?",
-    "tier": "start",
-    "nodeType": "orientation",
-    "xpReward": 20,
-    "requires": [],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Pick one personal reason to journal",
-      "evidenceMode": "note"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 56,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Orientation",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 0
-    }
-  },
-  {
-    "id": "jou-tools",
-    "hobbyId": "journaling",
-    "slug": "jou-tools",
-    "title": "Choose a Notebook & Pen",
-    "tier": "start",
-    "nodeType": "gear",
-    "xpReward": 25,
-    "requires": [
-      "jou-start"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Use something already owned or record a simple choice",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 57,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Gear",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 150
-    }
-  },
-  {
-    "id": "jou-first",
-    "hobbyId": "journaling",
-    "slug": "jou-first",
-    "title": "First Five-Minute Entry",
-    "tier": "start",
-    "nodeType": "challenge",
-    "xpReward": 60,
-    "requires": [
-      "jou-tools"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Write uninterrupted for five minutes",
-      "evidenceMode": "duration",
-      "targetValue": 5,
-      "targetUnit": "minutes"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 58,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 300
-    }
-  },
-  {
-    "id": "jou-friction",
-    "hobbyId": "journaling",
-    "slug": "jou-friction",
-    "title": "Make Starting Easy",
-    "tier": "beginner",
-    "nodeType": "lesson",
-    "xpReward": 40,
-    "requires": [
-      "jou-first"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Choose a visible place and minimum entry size",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 59,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Technique",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 45.0,
-      "y": 450
-    }
-  },
-  {
-    "id": "jou-daily",
-    "hobbyId": "journaling",
-    "slug": "jou-daily",
-    "title": "Daily Log",
-    "tier": "beginner",
-    "nodeType": "practice",
-    "xpReward": 75,
-    "requires": [
-      "jou-first"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete three daily logs",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 60,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 315.0,
-      "y": 450
-    }
-  },
-  {
-    "id": "jou-reflect",
-    "hobbyId": "journaling",
-    "slug": "jou-reflect",
-    "title": "Guided Reflection",
-    "tier": "beginner",
-    "nodeType": "practice",
-    "xpReward": 75,
-    "requires": [
-      "jou-first"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete three reflection prompts",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 61,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 585.0,
-      "y": 450
-    }
-  },
-  {
-    "id": "jou-gratitude",
-    "hobbyId": "journaling",
-    "slug": "jou-gratitude",
-    "title": "Gratitude Without Repetition",
-    "tier": "beginner",
-    "nodeType": "practice",
-    "xpReward": 75,
-    "requires": [
-      "jou-first"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete three specific gratitude entries",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 62,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 855.0,
-      "y": 450
-    }
-  },
-  {
-    "id": "jou-week",
-    "hobbyId": "journaling",
-    "slug": "jou-week",
-    "title": "Seven-Day Experiment",
-    "tier": "beginner",
-    "nodeType": "milestone",
-    "xpReward": 150,
-    "requires": [
-      "jou-friction"
-    ],
-    "orGroups": [
-      [
-        "jou-daily",
-        "jou-reflect",
-        "jou-gratitude"
-      ]
-    ],
-    "completion": {
-      "prompt": "Journal on five of seven days",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 63,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Milestones",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 600
-    }
-  },
-  {
-    "id": "jou-style",
-    "hobbyId": "journaling",
-    "slug": "jou-style",
-    "title": "Find Your Style",
-    "tier": "intermediate",
-    "nodeType": "specialization",
-    "xpReward": 75,
-    "requires": [
-      "jou-week"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Review entries and choose a preferred approach",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": false,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 64,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Specialization",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 315.0,
-      "y": 750
-    }
-  },
-  {
-    "id": "jou-bullet",
-    "hobbyId": "journaling",
-    "slug": "jou-bullet",
-    "title": "Bullet Journal Basics",
-    "tier": "intermediate",
-    "nodeType": "specialization",
-    "xpReward": 100,
-    "requires": [
-      "jou-style"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Create index, future log, and one daily page",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": false,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 65,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Specialization",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": -90.0,
-      "y": 900
-    }
-  },
-  {
-    "id": "jou-long",
-    "hobbyId": "journaling",
-    "slug": "jou-long",
-    "title": "Long-Form Diary",
-    "tier": "intermediate",
-    "nodeType": "specialization",
-    "xpReward": 100,
-    "requires": [
-      "jou-style"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete one 20-minute long-form entry",
-      "evidenceMode": "duration",
-      "targetValue": 20,
-      "targetUnit": "minutes"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": false,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 66,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Specialization",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 180.0,
-      "y": 900
-    }
-  },
-  {
-    "id": "jou-common",
-    "hobbyId": "journaling",
-    "slug": "jou-common",
-    "title": "Commonplace Book",
-    "tier": "intermediate",
-    "nodeType": "specialization",
-    "xpReward": 100,
-    "requires": [
-      "jou-style"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Capture and annotate five ideas",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": false,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 67,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Specialization",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 900
-    }
-  },
-  {
-    "id": "jou-review",
-    "hobbyId": "journaling",
-    "slug": "jou-review",
-    "title": "Monthly Review",
-    "tier": "intermediate",
-    "nodeType": "milestone",
-    "xpReward": 175,
-    "requires": [
-      "jou-week"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete one structured monthly review",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 68,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Milestones",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 585.0,
-      "y": 750
-    }
-  },
-  {
-    "id": "jou-tags",
-    "hobbyId": "journaling",
-    "slug": "jou-tags",
-    "title": "Themes, Tags & Retrieval",
-    "tier": "advanced",
-    "nodeType": "lesson",
-    "xpReward": 100,
-    "requires": [
-      "jou-review"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Create and use a personal tagging/index system",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 10,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 69,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Technique",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 720.0,
-      "y": 900
-    }
-  },
-  {
-    "id": "jou-project",
-    "hobbyId": "journaling",
-    "slug": "jou-project",
-    "title": "Project Journal",
-    "tier": "advanced",
-    "nodeType": "challenge",
-    "xpReward": 175,
-    "requires": [
-      "jou-review"
-    ],
-    "orGroups": [
-      [
-        "jou-bullet",
-        "jou-long",
-        "jou-common"
-      ]
-    ],
-    "completion": {
-      "prompt": "Track a project across four entries",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 70,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Practice",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 450.0,
-      "y": 1050
-    }
-  },
-  {
-    "id": "jou-90",
-    "hobbyId": "journaling",
-    "slug": "jou-90",
-    "title": "Ninety-Day Practice",
-    "tier": "advanced",
-    "nodeType": "milestone",
-    "xpReward": 300,
-    "requires": [
-      "jou-review"
-    ],
-    "orGroups": [],
-    "completion": {
-      "prompt": "Complete personally chosen cadence over 90 days; no perfect streak required",
-      "evidenceMode": "honor"
-    },
-    "estimatedMinutes": 20,
-    "isRequired": true,
-    "isSafetyCritical": false,
-    "isRecommended": true,
-    "status": "published",
-    "contentVersion": 1,
-    "sortOrder": 71,
-    "tags": [
-      "Creativity",
-      "Wellness"
-    ],
-    "category": "Milestones",
-    "review_status": "draft",
-    "source_urls": [],
-    "last_reviewed_at": null,
-    "position": {
-      "x": 990.0,
-      "y": 900
-    }
+ {
+  "id": "ten-start",
+  "hobbyId": "tennis",
+  "slug": "ten-start",
+  "title": "Welcome to Tennis",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 20,
+  "requires": [],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Read overview and choose a first goal",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 0,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 0
   }
+ },
+ {
+  "id": "ten-gear",
+  "hobbyId": "tennis",
+  "slug": "ten-gear",
+  "title": "First Racquet & Balls",
+  "tier": "start",
+  "nodeType": "gear",
+  "xpReward": 30,
+  "requires": [
+   "ten-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Record owned/borrowed racquet and balls",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 1,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Gear",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 180.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "ten-safety",
+  "hobbyId": "tennis",
+  "slug": "ten-safety",
+  "title": "Court Safety & Etiquette",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 30,
+  "requires": [
+   "ten-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete safety checklist",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": true,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 2,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "ten-scoring",
+  "hobbyId": "tennis",
+  "slug": "ten-scoring",
+  "title": "Court, Rules & Scoring",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 30,
+  "requires": [
+   "ten-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Correctly log a sample game score",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 3,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 720.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "ten-grip",
+  "hobbyId": "tennis",
+  "slug": "ten-grip",
+  "title": "Grip & Ready Position",
+  "tier": "beginner",
+  "nodeType": "lesson",
+  "xpReward": 50,
+  "requires": [
+   "ten-gear",
+   "ten-safety"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Demonstrate/confirm ready position for 10 reps",
+   "evidenceMode": "count",
+   "targetValue": 10,
+   "targetUnit": "repetitions"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 4,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "ten-contact",
+  "hobbyId": "tennis",
+  "slug": "ten-contact",
+  "title": "Contact & Ball Tracking",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 60,
+  "requires": [
+   "ten-grip"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Self-drop and contact 20 balls under control",
+   "evidenceMode": "count",
+   "targetValue": 20,
+   "targetUnit": "repetitions"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 5,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 315.0,
+   "y": 450
+  }
+ },
+ {
+  "id": "ten-forehand",
+  "hobbyId": "tennis",
+  "slug": "ten-forehand",
+  "title": "Forehand Fundamentals",
+  "tier": "beginner",
+  "nodeType": "challenge",
+  "xpReward": 100,
+  "requires": [
+   "ten-contact"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Land 10 controlled forehands in court",
+   "evidenceMode": "count",
+   "targetValue": 10,
+   "targetUnit": "repetitions"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 6,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 180.0,
+   "y": 600
+  }
+ },
+ {
+  "id": "ten-backhand",
+  "hobbyId": "tennis",
+  "slug": "ten-backhand",
+  "title": "Backhand Fundamentals",
+  "tier": "beginner",
+  "nodeType": "challenge",
+  "xpReward": 100,
+  "requires": [
+   "ten-contact"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Land 10 controlled backhands in court",
+   "evidenceMode": "count",
+   "targetValue": 10,
+   "targetUnit": "repetitions"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 7,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 600
+  }
+ },
+ {
+  "id": "ten-footwork",
+  "hobbyId": "tennis",
+  "slug": "ten-footwork",
+  "title": "Split Step & Recovery",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 75,
+  "requires": [
+   "ten-grip"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete three 60-second shadow-footwork rounds",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 8,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 585.0,
+   "y": 450
+  }
+ },
+ {
+  "id": "ten-rally5",
+  "hobbyId": "tennis",
+  "slug": "ten-rally5",
+  "title": "Five-Shot Rally",
+  "tier": "beginner",
+  "nodeType": "milestone",
+  "xpReward": 150,
+  "requires": [
+   "ten-forehand",
+   "ten-backhand",
+   "ten-footwork"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Sustain five cooperative shots",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 9,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Milestones",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 315.0,
+   "y": 750
+  }
+ },
+ {
+  "id": "ten-serve1",
+  "hobbyId": "tennis",
+  "slug": "ten-serve1",
+  "title": "Serve Fundamentals",
+  "tier": "intermediate",
+  "nodeType": "lesson",
+  "xpReward": 100,
+  "requires": [
+   "ten-rally5",
+   "ten-scoring"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Land 10 of 30 controlled serves",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 10,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 45.0,
+   "y": 900
+  }
+ },
+ {
+  "id": "ten-return",
+  "hobbyId": "tennis",
+  "slug": "ten-return",
+  "title": "Return of Serve",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 100,
+  "requires": [
+   "ten-rally5"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Return 10 cooperative serves",
+   "evidenceMode": "count",
+   "targetValue": 10,
+   "targetUnit": "repetitions"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 11,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 315.0,
+   "y": 900
+  }
+ },
+ {
+  "id": "ten-volley",
+  "hobbyId": "tennis",
+  "slug": "ten-volley",
+  "title": "Net Play & Volley",
+  "tier": "intermediate",
+  "nodeType": "challenge",
+  "xpReward": 110,
+  "requires": [
+   "ten-rally5"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Land 10 controlled volleys",
+   "evidenceMode": "count",
+   "targetValue": 10,
+   "targetUnit": "repetitions"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 12,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 585.0,
+   "y": 900
+  }
+ },
+ {
+  "id": "ten-spin",
+  "hobbyId": "tennis",
+  "slug": "ten-spin",
+  "title": "Topspin & Slice",
+  "tier": "intermediate",
+  "nodeType": "lesson",
+  "xpReward": 120,
+  "requires": [
+   "ten-forehand",
+   "ten-backhand"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Produce intentional topspin and slice in practice",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 13,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 585.0,
+   "y": 750
+  }
+ },
+ {
+  "id": "ten-position",
+  "hobbyId": "tennis",
+  "slug": "ten-position",
+  "title": "Court Positioning",
+  "tier": "intermediate",
+  "nodeType": "lesson",
+  "xpReward": 100,
+  "requires": [
+   "ten-rally5"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete a positioning scenario quiz/drill",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 14,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 855.0,
+   "y": 900
+  }
+ },
+ {
+  "id": "ten-match",
+  "hobbyId": "tennis",
+  "slug": "ten-match",
+  "title": "First Full Match",
+  "tier": "intermediate",
+  "nodeType": "milestone",
+  "xpReward": 250,
+  "requires": [
+   "ten-serve1",
+   "ten-return",
+   "ten-position"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Play and log one full match",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 15,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Milestones",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 1050
+  }
+ },
+ {
+  "id": "ten-consistency",
+  "hobbyId": "tennis",
+  "slug": "ten-consistency",
+  "title": "Rally Consistency",
+  "tier": "advanced",
+  "nodeType": "challenge",
+  "xpReward": 175,
+  "requires": [
+   "ten-match",
+   "ten-spin"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Sustain a 20-shot cooperative rally",
+   "evidenceMode": "count",
+   "targetValue": 20,
+   "targetUnit": "repetitions"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 16,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 315.0,
+   "y": 1200
+  }
+ },
+ {
+  "id": "ten-patterns",
+  "hobbyId": "tennis",
+  "slug": "ten-patterns",
+  "title": "Point Construction",
+  "tier": "advanced",
+  "nodeType": "specialization",
+  "xpReward": 150,
+  "requires": [
+   "ten-match",
+   "ten-position"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Use and journal three planned patterns",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 17,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Specialization",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 585.0,
+   "y": 1200
+  }
+ },
+ {
+  "id": "ten-conditioning",
+  "hobbyId": "tennis",
+  "slug": "ten-conditioning",
+  "title": "Tennis Movement Plan",
+  "tier": "advanced",
+  "nodeType": "practice",
+  "xpReward": 125,
+  "requires": [
+   "ten-footwork"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete a four-week movement plan",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 18,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 720.0,
+   "y": 600
+  }
+ },
+ {
+  "id": "cyc-start",
+  "hobbyId": "cycling",
+  "slug": "cyc-start",
+  "title": "Welcome to Cycling",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 20,
+  "requires": [],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Choose riding goal and environment",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 19,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 0
+  }
+ },
+ {
+  "id": "cyc-types",
+  "hobbyId": "cycling",
+  "slug": "cyc-types",
+  "title": "Bike Types & Use Cases",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 25,
+  "requires": [
+   "cyc-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Identify current/preferred bike type",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 20,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 180.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "cyc-anatomy",
+  "hobbyId": "cycling",
+  "slug": "cyc-anatomy",
+  "title": "Bike Anatomy",
+  "tier": "start",
+  "nodeType": "lesson",
+  "xpReward": 35,
+  "requires": [
+   "cyc-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Identify 10 major parts",
+   "evidenceMode": "count",
+   "targetValue": 10,
+   "targetUnit": "repetitions"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 21,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "cyc-safety",
+  "hobbyId": "cycling",
+  "slug": "cyc-safety",
+  "title": "Helmet, Visibility & Traffic Safety",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 40,
+  "requires": [
+   "cyc-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete mandatory safety checklist",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": true,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 22,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 720.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "cyc-fit",
+  "hobbyId": "cycling",
+  "slug": "cyc-fit",
+  "title": "Basic Bike Fit",
+  "tier": "start",
+  "nodeType": "gear",
+  "xpReward": 40,
+  "requires": [
+   "cyc-anatomy"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Record saddle height check and reach comfort",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 23,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Gear",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 315.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "cyc-check",
+  "hobbyId": "cycling",
+  "slug": "cyc-check",
+  "title": "Pre-Ride ABC Check",
+  "tier": "beginner",
+  "nodeType": "maintenance",
+  "xpReward": 50,
+  "requires": [
+   "cyc-safety",
+   "cyc-anatomy"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Perform air/brakes/chain check",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": true,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 24,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Maintenance",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 585.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "cyc-control",
+  "hobbyId": "cycling",
+  "slug": "cyc-control",
+  "title": "Starting, Stopping & Steering",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 60,
+  "requires": [
+   "cyc-fit",
+   "cyc-check"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete 20-minute low-traffic control session",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 25,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 450
+  }
+ },
+ {
+  "id": "cyc-brake",
+  "hobbyId": "cycling",
+  "slug": "cyc-brake",
+  "title": "Controlled Braking",
+  "tier": "beginner",
+  "nodeType": "challenge",
+  "xpReward": 75,
+  "requires": [
+   "cyc-control"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete 10 smooth controlled stops",
+   "evidenceMode": "count",
+   "targetValue": 10,
+   "targetUnit": "repetitions"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 26,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 600
+  }
+ },
+ {
+  "id": "cyc-first5",
+  "hobbyId": "cycling",
+  "slug": "cyc-first5",
+  "title": "First Five-Mile Ride",
+  "tier": "beginner",
+  "nodeType": "milestone",
+  "xpReward": 150,
+  "requires": [
+   "cyc-brake"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Log a safe five-mile ride",
+   "evidenceMode": "count",
+   "targetValue": 5,
+   "targetUnit": "miles"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 27,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Milestones",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 750
+  }
+ },
+ {
+  "id": "cyc-flat",
+  "hobbyId": "cycling",
+  "slug": "cyc-flat",
+  "title": "Fix a Flat",
+  "tier": "intermediate",
+  "nodeType": "maintenance",
+  "xpReward": 125,
+  "requires": [
+   "cyc-anatomy",
+   "cyc-first5"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Remove/reinstall wheel and repair/replace tube",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 28,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Maintenance",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 45.0,
+   "y": 900
+  }
+ },
+ {
+  "id": "cyc-clean",
+  "hobbyId": "cycling",
+  "slug": "cyc-clean",
+  "title": "Clean the Drivetrain",
+  "tier": "intermediate",
+  "nodeType": "maintenance",
+  "xpReward": 75,
+  "requires": [
+   "cyc-first5"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete and log a cleaning",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 29,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Maintenance",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 315.0,
+   "y": 900
+  }
+ },
+ {
+  "id": "cyc-cadence",
+  "hobbyId": "cycling",
+  "slug": "cyc-cadence",
+  "title": "Cadence & Efficient Pedaling",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 100,
+  "requires": [
+   "cyc-first5"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete cadence-focused session",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 30,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 585.0,
+   "y": 900
+  }
+ },
+ {
+  "id": "cyc-10",
+  "hobbyId": "cycling",
+  "slug": "cyc-10",
+  "title": "Ten-Mile Ride",
+  "tier": "intermediate",
+  "nodeType": "milestone",
+  "xpReward": 200,
+  "requires": [
+   "cyc-cadence"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Log a safe ten-mile ride",
+   "evidenceMode": "count",
+   "targetValue": 10,
+   "targetUnit": "miles"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 31,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Milestones",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 180.0,
+   "y": 1050
+  }
+ },
+ {
+  "id": "fixie-intro",
+  "hobbyId": "cycling",
+  "slug": "fixie-intro",
+  "title": "Fixed Gear Fundamentals",
+  "tier": "intermediate",
+  "nodeType": "specialization",
+  "xpReward": 75,
+  "requires": [
+   "cyc-types",
+   "cyc-safety",
+   "cyc-first5"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Explain fixed vs freewheel and safe stopping options",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 32,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Specialization",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 855.0,
+   "y": 900
+  }
+ },
+ {
+  "id": "fixie-ratio",
+  "hobbyId": "cycling",
+  "slug": "fixie-ratio",
+  "title": "Gear Ratios & Skid Patches",
+  "tier": "intermediate",
+  "nodeType": "lesson",
+  "xpReward": 100,
+  "requires": [
+   "fixie-intro",
+   "cyc-anatomy"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Calculate current gear ratio and skid patches",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 33,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 1050
+  }
+ },
+ {
+  "id": "fixie-retention",
+  "hobbyId": "cycling",
+  "slug": "fixie-retention",
+  "title": "Foot Retention",
+  "tier": "intermediate",
+  "nodeType": "gear",
+  "xpReward": 75,
+  "requires": [
+   "fixie-intro"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Fit and practice safe entry/exit",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 34,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Gear",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 720.0,
+   "y": 1050
+  }
+ },
+ {
+  "id": "fixie-control",
+  "hobbyId": "cycling",
+  "slug": "fixie-control",
+  "title": "Fixed-Gear Control",
+  "tier": "advanced",
+  "nodeType": "challenge",
+  "xpReward": 150,
+  "requires": [
+   "fixie-ratio",
+   "fixie-retention",
+   "cyc-brake"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete controlled cadence/stopping drill",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 35,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 315.0,
+   "y": 1200
+  }
+ },
+ {
+  "id": "cyc-route",
+  "hobbyId": "cycling",
+  "slug": "cyc-route",
+  "title": "Route Planning & Repair Kit",
+  "tier": "advanced",
+  "nodeType": "challenge",
+  "xpReward": 150,
+  "requires": [
+   "cyc-10",
+   "cyc-flat"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Plan and complete a supported route with kit",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 36,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 585.0,
+   "y": 1200
+  }
+ },
+ {
+  "id": "cyc-25",
+  "hobbyId": "cycling",
+  "slug": "cyc-25",
+  "title": "Twenty-Five-Mile Ride",
+  "tier": "advanced",
+  "nodeType": "milestone",
+  "xpReward": 300,
+  "requires": [
+   "cyc-route",
+   "cyc-cadence"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Log a safe 25-mile ride",
+   "evidenceMode": "count",
+   "targetValue": 25,
+   "targetUnit": "miles"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 37,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Milestones",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 1350
+  }
+ },
+ {
+  "id": "swi-start",
+  "hobbyId": "swimming",
+  "slug": "swi-start",
+  "title": "Welcome to Swimming",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 20,
+  "requires": [],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Choose comfort level and pool access",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 38,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 0
+  }
+ },
+ {
+  "id": "swi-safety",
+  "hobbyId": "swimming",
+  "slug": "swi-safety",
+  "title": "Water Safety & Pool Rules",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 40,
+  "requires": [
+   "swi-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Confirm supervised/swim-safe environment",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": true,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 39,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 315.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "swi-gear",
+  "hobbyId": "swimming",
+  "slug": "swi-gear",
+  "title": "Suit, Goggles & Cap",
+  "tier": "start",
+  "nodeType": "gear",
+  "xpReward": 25,
+  "requires": [
+   "swi-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Record available gear; none beyond safe attire required",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 40,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Gear",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 585.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "swi-comfort",
+  "hobbyId": "swimming",
+  "slug": "swi-comfort",
+  "title": "Water Comfort & Exhaling",
+  "tier": "start",
+  "nodeType": "practice",
+  "xpReward": 60,
+  "requires": [
+   "swi-safety"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete supervised face-in-water exhale drill",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 41,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "swi-float",
+  "hobbyId": "swimming",
+  "slug": "swi-float",
+  "title": "Front & Back Float",
+  "tier": "beginner",
+  "nodeType": "challenge",
+  "xpReward": 75,
+  "requires": [
+   "swi-comfort"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Hold relaxed front/back float with supervision",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 42,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 450
+  }
+ },
+ {
+  "id": "swi-streamline",
+  "hobbyId": "swimming",
+  "slug": "swi-streamline",
+  "title": "Body Line & Streamline",
+  "tier": "beginner",
+  "nodeType": "lesson",
+  "xpReward": 60,
+  "requires": [
+   "swi-float"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete 10 controlled wall glides",
+   "evidenceMode": "count",
+   "targetValue": 10,
+   "targetUnit": "repetitions"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 43,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 600
+  }
+ },
+ {
+  "id": "swi-kick",
+  "hobbyId": "swimming",
+  "slug": "swi-kick",
+  "title": "Flutter Kick from the Hip",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 75,
+  "requires": [
+   "swi-streamline"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete short kick sets without excessive knee bend",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 44,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 750
+  }
+ },
+ {
+  "id": "swi-freestyle",
+  "hobbyId": "swimming",
+  "slug": "swi-freestyle",
+  "title": "Freestyle Pull",
+  "tier": "beginner",
+  "nodeType": "lesson",
+  "xpReward": 90,
+  "requires": [
+   "swi-streamline",
+   "swi-kick"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Swim controlled short lengths focusing on pull",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 45,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 900
+  }
+ },
+ {
+  "id": "swi-breathe",
+  "hobbyId": "swimming",
+  "slug": "swi-breathe",
+  "title": "Side Breathing",
+  "tier": "beginner",
+  "nodeType": "challenge",
+  "xpReward": 100,
+  "requires": [
+   "swi-freestyle",
+   "swi-comfort"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete repeatable side-breathing drill",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 46,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 1050
+  }
+ },
+ {
+  "id": "swi-25",
+  "hobbyId": "swimming",
+  "slug": "swi-25",
+  "title": "Continuous 25",
+  "tier": "beginner",
+  "nodeType": "milestone",
+  "xpReward": 150,
+  "requires": [
+   "swi-breathe"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Swim 25 yards/meters continuously and safely",
+   "evidenceMode": "count",
+   "targetValue": 25,
+   "targetUnit": "yards or meters"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 47,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Milestones",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 1200
+  }
+ },
+ {
+  "id": "swi-rotation",
+  "hobbyId": "swimming",
+  "slug": "swi-rotation",
+  "title": "Rotation & Timing",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 100,
+  "requires": [
+   "swi-25"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete rotation-focused set",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 48,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 45.0,
+   "y": 1350
+  }
+ },
+ {
+  "id": "swi-back",
+  "hobbyId": "swimming",
+  "slug": "swi-back",
+  "title": "Backstroke Basics",
+  "tier": "intermediate",
+  "nodeType": "lesson",
+  "xpReward": 100,
+  "requires": [
+   "swi-float",
+   "swi-25"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Swim a controlled 25 backstroke",
+   "evidenceMode": "count",
+   "targetValue": 25,
+   "targetUnit": "repetitions"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 49,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 315.0,
+   "y": 1350
+  }
+ },
+ {
+  "id": "swi-breast",
+  "hobbyId": "swimming",
+  "slug": "swi-breast",
+  "title": "Breaststroke Basics",
+  "tier": "intermediate",
+  "nodeType": "lesson",
+  "xpReward": 110,
+  "requires": [
+   "swi-25"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Swim a controlled 25 breaststroke",
+   "evidenceMode": "count",
+   "targetValue": 25,
+   "targetUnit": "repetitions"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 50,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 585.0,
+   "y": 1350
+  }
+ },
+ {
+  "id": "swi-turn",
+  "hobbyId": "swimming",
+  "slug": "swi-turn",
+  "title": "Wall Turns",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 100,
+  "requires": [
+   "swi-25"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete 10 safe touch/push or flip-turn attempts",
+   "evidenceMode": "count",
+   "targetValue": 10,
+   "targetUnit": "repetitions"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 51,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 855.0,
+   "y": 1350
+  }
+ },
+ {
+  "id": "swi-200",
+  "hobbyId": "swimming",
+  "slug": "swi-200",
+  "title": "Continuous 200",
+  "tier": "intermediate",
+  "nodeType": "milestone",
+  "xpReward": 250,
+  "requires": [
+   "swi-rotation",
+   "swi-turn"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Swim 200 continuously at sustainable effort",
+   "evidenceMode": "count",
+   "targetValue": 200,
+   "targetUnit": "yards or meters"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 52,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Milestones",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 1500
+  }
+ },
+ {
+  "id": "swi-endurance",
+  "hobbyId": "swimming",
+  "slug": "swi-endurance",
+  "title": "Structured Endurance Set",
+  "tier": "advanced",
+  "nodeType": "challenge",
+  "xpReward": 175,
+  "requires": [
+   "swi-200"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete a designed interval set",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 53,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 180.0,
+   "y": 1650
+  }
+ },
+ {
+  "id": "swi-butterfly",
+  "hobbyId": "swimming",
+  "slug": "swi-butterfly",
+  "title": "Butterfly Foundations",
+  "tier": "advanced",
+  "nodeType": "specialization",
+  "xpReward": 150,
+  "requires": [
+   "swi-200",
+   "swi-breast"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete supervised body-dolphin and single-arm drills",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 54,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Specialization",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 1650
+  }
+ },
+ {
+  "id": "swi-openwater",
+  "hobbyId": "swimming",
+  "slug": "swi-openwater",
+  "title": "Open-Water Readiness",
+  "tier": "advanced",
+  "nodeType": "specialization",
+  "xpReward": 200,
+  "requires": [
+   "swi-200",
+   "swi-safety"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete checklist and supervised group session; never solo",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 55,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Specialization",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 720.0,
+   "y": 1650
+  }
+ },
+ {
+  "id": "jou-start",
+  "hobbyId": "journaling",
+  "slug": "jou-start",
+  "title": "Why Journal?",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 20,
+  "requires": [],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Pick one personal reason to journal",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 56,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 0
+  }
+ },
+ {
+  "id": "jou-tools",
+  "hobbyId": "journaling",
+  "slug": "jou-tools",
+  "title": "Choose a Notebook & Pen",
+  "tier": "start",
+  "nodeType": "gear",
+  "xpReward": 25,
+  "requires": [
+   "jou-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Use something already owned or record a simple choice",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 57,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Gear",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "jou-first",
+  "hobbyId": "journaling",
+  "slug": "jou-first",
+  "title": "First Five-Minute Entry",
+  "tier": "start",
+  "nodeType": "challenge",
+  "xpReward": 60,
+  "requires": [
+   "jou-tools"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Write uninterrupted for five minutes",
+   "evidenceMode": "duration",
+   "targetValue": 5,
+   "targetUnit": "minutes"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 58,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "jou-friction",
+  "hobbyId": "journaling",
+  "slug": "jou-friction",
+  "title": "Make Starting Easy",
+  "tier": "beginner",
+  "nodeType": "lesson",
+  "xpReward": 40,
+  "requires": [
+   "jou-first"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Choose a visible place and minimum entry size",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 59,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 45.0,
+   "y": 450
+  }
+ },
+ {
+  "id": "jou-daily",
+  "hobbyId": "journaling",
+  "slug": "jou-daily",
+  "title": "Daily Log",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 75,
+  "requires": [
+   "jou-first"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete three daily logs",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 60,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 315.0,
+   "y": 450
+  }
+ },
+ {
+  "id": "jou-reflect",
+  "hobbyId": "journaling",
+  "slug": "jou-reflect",
+  "title": "Guided Reflection",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 75,
+  "requires": [
+   "jou-first"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete three reflection prompts",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 61,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 585.0,
+   "y": 450
+  }
+ },
+ {
+  "id": "jou-gratitude",
+  "hobbyId": "journaling",
+  "slug": "jou-gratitude",
+  "title": "Gratitude Without Repetition",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 75,
+  "requires": [
+   "jou-first"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete three specific gratitude entries",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 62,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 855.0,
+   "y": 450
+  }
+ },
+ {
+  "id": "jou-week",
+  "hobbyId": "journaling",
+  "slug": "jou-week",
+  "title": "Seven-Day Experiment",
+  "tier": "beginner",
+  "nodeType": "milestone",
+  "xpReward": 150,
+  "requires": [
+   "jou-friction"
+  ],
+  "orGroups": [
+   [
+    "jou-daily",
+    "jou-reflect",
+    "jou-gratitude"
+   ]
+  ],
+  "completion": {
+   "prompt": "Journal on five of seven days",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 63,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Milestones",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 600
+  }
+ },
+ {
+  "id": "jou-style",
+  "hobbyId": "journaling",
+  "slug": "jou-style",
+  "title": "Find Your Style",
+  "tier": "intermediate",
+  "nodeType": "specialization",
+  "xpReward": 75,
+  "requires": [
+   "jou-week"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Review entries and choose a preferred approach",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 64,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Specialization",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 315.0,
+   "y": 750
+  }
+ },
+ {
+  "id": "jou-bullet",
+  "hobbyId": "journaling",
+  "slug": "jou-bullet",
+  "title": "Bullet Journal Basics",
+  "tier": "intermediate",
+  "nodeType": "specialization",
+  "xpReward": 100,
+  "requires": [
+   "jou-style"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Create index, future log, and one daily page",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 65,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Specialization",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": -90.0,
+   "y": 900
+  }
+ },
+ {
+  "id": "jou-long",
+  "hobbyId": "journaling",
+  "slug": "jou-long",
+  "title": "Long-Form Diary",
+  "tier": "intermediate",
+  "nodeType": "specialization",
+  "xpReward": 100,
+  "requires": [
+   "jou-style"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete one 20-minute long-form entry",
+   "evidenceMode": "duration",
+   "targetValue": 20,
+   "targetUnit": "minutes"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 66,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Specialization",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 180.0,
+   "y": 900
+  }
+ },
+ {
+  "id": "jou-common",
+  "hobbyId": "journaling",
+  "slug": "jou-common",
+  "title": "Commonplace Book",
+  "tier": "intermediate",
+  "nodeType": "specialization",
+  "xpReward": 100,
+  "requires": [
+   "jou-style"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Capture and annotate five ideas",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 67,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Specialization",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 900
+  }
+ },
+ {
+  "id": "jou-review",
+  "hobbyId": "journaling",
+  "slug": "jou-review",
+  "title": "Monthly Review",
+  "tier": "intermediate",
+  "nodeType": "milestone",
+  "xpReward": 175,
+  "requires": [
+   "jou-week"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete one structured monthly review",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 68,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Milestones",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 585.0,
+   "y": 750
+  }
+ },
+ {
+  "id": "jou-tags",
+  "hobbyId": "journaling",
+  "slug": "jou-tags",
+  "title": "Themes, Tags & Retrieval",
+  "tier": "advanced",
+  "nodeType": "lesson",
+  "xpReward": 100,
+  "requires": [
+   "jou-review"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Create and use a personal tagging/index system",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 69,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 720.0,
+   "y": 900
+  }
+ },
+ {
+  "id": "jou-project",
+  "hobbyId": "journaling",
+  "slug": "jou-project",
+  "title": "Project Journal",
+  "tier": "advanced",
+  "nodeType": "challenge",
+  "xpReward": 175,
+  "requires": [
+   "jou-review"
+  ],
+  "orGroups": [
+   [
+    "jou-bullet",
+    "jou-long",
+    "jou-common"
+   ]
+  ],
+  "completion": {
+   "prompt": "Track a project across four entries",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 70,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Practice",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 450.0,
+   "y": 1050
+  }
+ },
+ {
+  "id": "jou-90",
+  "hobbyId": "journaling",
+  "slug": "jou-90",
+  "title": "Ninety-Day Practice",
+  "tier": "advanced",
+  "nodeType": "milestone",
+  "xpReward": 300,
+  "requires": [
+   "jou-review"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete personally chosen cadence over 90 days; no perfect streak required",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 71,
+  "tags": [
+   "Creativity",
+   "Wellness"
+  ],
+  "category": "Milestones",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 990.0,
+   "y": 900
+  }
+ },
+ {
+  "id": "pcb-start",
+  "hobbyId": "pc-building",
+  "slug": "pcb-start",
+  "title": "Welcome to PC Building",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 20,
+  "requires": [],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Read the overview and name the machine you want to build",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 0,
+  "tags": [
+   "Practical",
+   "Knowledge"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 0
+  }
+ },
+ {
+  "id": "pcb-safety",
+  "hobbyId": "pc-building",
+  "slug": "pcb-safety",
+  "title": "Electrical and ESD Safety",
+  "tier": "beginner",
+  "nodeType": "safety",
+  "xpReward": 35,
+  "requires": [
+   "pcb-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Confirm you can work unplugged, grounded and on a safe surface",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 15,
+  "isRequired": true,
+  "isSafetyCritical": true,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 1,
+  "tags": [
+   "Practical",
+   "Knowledge"
+  ],
+  "category": "Safety",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "pcb-gear",
+  "hobbyId": "pc-building",
+  "slug": "pcb-gear",
+  "title": "Parts and Tools",
+  "tier": "beginner",
+  "nodeType": "gear",
+  "xpReward": 25,
+  "requires": [
+   "pcb-safety"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Record the parts and tools you have or can borrow",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 2,
+  "tags": [
+   "Practical"
+  ],
+  "category": "Gear",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 430.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "pcb-compat",
+  "hobbyId": "pc-building",
+  "slug": "pcb-compat",
+  "title": "Check Part Compatibility",
+  "tier": "beginner",
+  "nodeType": "knowledge",
+  "xpReward": 40,
+  "requires": [
+   "pcb-gear"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Verify socket, RAM type, wattage and clearances for your list",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 30,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 3,
+  "tags": [
+   "Knowledge",
+   "Practical"
+  ],
+  "category": "Planning",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 660.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "pcb-bench",
+  "hobbyId": "pc-building",
+  "slug": "pcb-bench",
+  "title": "Bench Test Before Assembly",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 45,
+  "requires": [
+   "pcb-compat"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Post the system outside the case with the minimum parts",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 45,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 4,
+  "tags": [
+   "Practical"
+  ],
+  "category": "Assembly",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 890.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "pcb-assemble",
+  "hobbyId": "pc-building",
+  "slug": "pcb-assemble",
+  "title": "First Full Assembly",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 75,
+  "requires": [
+   "pcb-bench"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete a working build and reach the firmware screen",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 120,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 5,
+  "tags": [
+   "Practical"
+  ],
+  "category": "Assembly",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "pcb-bios",
+  "hobbyId": "pc-building",
+  "slug": "pcb-bios",
+  "title": "Firmware and First Boot",
+  "tier": "intermediate",
+  "nodeType": "knowledge",
+  "xpReward": 60,
+  "requires": [
+   "pcb-assemble"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Set boot order, enable the memory profile, and install an operating system",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 60,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 6,
+  "tags": [
+   "Knowledge",
+   "Practical"
+  ],
+  "category": "Software",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 430.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "pcb-thermals",
+  "hobbyId": "pc-building",
+  "slug": "pcb-thermals",
+  "title": "Cable Management and Thermals",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 65,
+  "requires": [
+   "pcb-bios"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Record idle and load temperatures after tidying airflow",
+   "evidenceMode": "duration",
+   "targetValue": 20,
+   "targetUnit": "minutes"
+  },
+  "estimatedMinutes": 60,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 7,
+  "tags": [
+   "Practical",
+   "Knowledge"
+  ],
+  "category": "Tuning",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 660.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "pcb-diagnose",
+  "hobbyId": "pc-building",
+  "slug": "pcb-diagnose",
+  "title": "Diagnose a Faulty Build",
+  "tier": "advanced",
+  "nodeType": "milestone",
+  "xpReward": 90,
+  "requires": [
+   "pcb-thermals"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Work a no-POST or instability fault back to its cause",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 90,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 8,
+  "tags": [
+   "Knowledge",
+   "Practical"
+  ],
+  "category": "Troubleshooting",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 450
+  }
+ },
+ {
+  "id": "drw-start",
+  "hobbyId": "drawing",
+  "slug": "drw-start",
+  "title": "Welcome to Drawing",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 20,
+  "requires": [],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Read the overview and make one mark on paper",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 0,
+  "tags": [
+   "Creativity",
+   "Knowledge"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 0
+  }
+ },
+ {
+  "id": "drw-gear",
+  "hobbyId": "drawing",
+  "slug": "drw-gear",
+  "title": "Pencil, Paper, Eraser",
+  "tier": "beginner",
+  "nodeType": "gear",
+  "xpReward": 20,
+  "requires": [
+   "drw-safety"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Record the drawing materials you already have",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 1,
+  "tags": [
+   "Practical"
+  ],
+  "category": "Gear",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "drw-safety",
+  "hobbyId": "drawing",
+  "slug": "drw-safety",
+  "title": "Hands, Eyes and Posture",
+  "tier": "beginner",
+  "nodeType": "safety",
+  "xpReward": 25,
+  "requires": [
+   "drw-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Set up a position you can hold comfortably and confirm your breaks",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": true,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 2,
+  "tags": [
+   "Wellness"
+  ],
+  "category": "Safety",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 430.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "drw-lines",
+  "hobbyId": "drawing",
+  "slug": "drw-lines",
+  "title": "Line Confidence",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 40,
+  "requires": [
+   "drw-gear"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Fill a page with deliberate lines, circles and ellipses",
+   "evidenceMode": "duration",
+   "targetValue": 20,
+   "targetUnit": "minutes"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 3,
+  "tags": [
+   "Creativity"
+  ],
+  "category": "Fundamentals",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 660.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "drw-shapes",
+  "hobbyId": "drawing",
+  "slug": "drw-shapes",
+  "title": "Seeing in Basic Shapes",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 45,
+  "requires": [
+   "drw-lines"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Break three real objects down into simple shapes",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 30,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 4,
+  "tags": [
+   "Creativity",
+   "Knowledge"
+  ],
+  "category": "Fundamentals",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 890.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "drw-values",
+  "hobbyId": "drawing",
+  "slug": "drw-values",
+  "title": "Light and Shadow",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 65,
+  "requires": [
+   "drw-shapes"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Shade one object from a single light source",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 40,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 5,
+  "tags": [
+   "Creativity"
+  ],
+  "category": "Rendering",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "drw-gesture",
+  "hobbyId": "drawing",
+  "slug": "drw-gesture",
+  "title": "Gesture and Movement",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 65,
+  "requires": [
+   "drw-lines"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Draw twenty quick gesture studies of people or animals",
+   "evidenceMode": "count",
+   "targetValue": 20,
+   "targetUnit": "drawings"
+  },
+  "estimatedMinutes": 30,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 6,
+  "tags": [
+   "Creativity"
+  ],
+  "category": "Observation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 430.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "drw-study",
+  "hobbyId": "drawing",
+  "slug": "drw-study",
+  "title": "A Finished Study",
+  "tier": "advanced",
+  "nodeType": "milestone",
+  "xpReward": 90,
+  "requires": [
+   "drw-values",
+   "drw-gesture"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete one drawing you are willing to show someone",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 90,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 7,
+  "tags": [
+   "Creativity"
+  ],
+  "category": "Milestone",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 450
+  }
+ },
+ {
+  "id": "pnt-start",
+  "hobbyId": "painting",
+  "slug": "pnt-start",
+  "title": "Welcome to Painting",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 20,
+  "requires": [],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Read the overview and choose acrylic, watercolour or oil",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 0,
+  "tags": [
+   "Creativity",
+   "Knowledge"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 0
+  }
+ },
+ {
+  "id": "pnt-safety",
+  "hobbyId": "painting",
+  "slug": "pnt-safety",
+  "title": "Ventilation and Materials Safety",
+  "tier": "beginner",
+  "nodeType": "safety",
+  "xpReward": 35,
+  "requires": [
+   "pnt-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Confirm your ventilation, storage and clean-up plan",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 15,
+  "isRequired": true,
+  "isSafetyCritical": true,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 1,
+  "tags": [
+   "Practical",
+   "Wellness"
+  ],
+  "category": "Safety",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "pnt-gear",
+  "hobbyId": "painting",
+  "slug": "pnt-gear",
+  "title": "A Minimal Palette",
+  "tier": "beginner",
+  "nodeType": "gear",
+  "xpReward": 25,
+  "requires": [
+   "pnt-safety"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Record the paints, brushes and surface you have or can borrow",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 15,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 2,
+  "tags": [
+   "Practical"
+  ],
+  "category": "Gear",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 430.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "pnt-mixing",
+  "hobbyId": "painting",
+  "slug": "pnt-mixing",
+  "title": "Mixing What You See",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 45,
+  "requires": [
+   "pnt-gear"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Mix and record a ten-step value scale and three matched colours",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 40,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 3,
+  "tags": [
+   "Creativity",
+   "Knowledge"
+  ],
+  "category": "Fundamentals",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 660.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "pnt-strokes",
+  "hobbyId": "painting",
+  "slug": "pnt-strokes",
+  "title": "Brush Control",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 40,
+  "requires": [
+   "pnt-gear"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Fill a sheet with controlled strokes, edges and washes",
+   "evidenceMode": "duration",
+   "targetValue": 20,
+   "targetUnit": "minutes"
+  },
+  "estimatedMinutes": 30,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 4,
+  "tags": [
+   "Creativity"
+  ],
+  "category": "Fundamentals",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 890.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "pnt-still",
+  "hobbyId": "painting",
+  "slug": "pnt-still",
+  "title": "A Simple Still Life",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 70,
+  "requires": [
+   "pnt-mixing",
+   "pnt-strokes"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Paint one object from life with a single light source",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 60,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 5,
+  "tags": [
+   "Creativity"
+  ],
+  "category": "Composition",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "pnt-colour",
+  "hobbyId": "painting",
+  "slug": "pnt-colour",
+  "title": "Colour Relationships",
+  "tier": "intermediate",
+  "nodeType": "knowledge",
+  "xpReward": 65,
+  "requires": [
+   "pnt-mixing"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Paint the same subject twice in two different colour schemes",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 60,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 6,
+  "tags": [
+   "Creativity",
+   "Knowledge"
+  ],
+  "category": "Colour",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 430.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "pnt-finish",
+  "hobbyId": "painting",
+  "slug": "pnt-finish",
+  "title": "A Finished Painting",
+  "tier": "advanced",
+  "nodeType": "milestone",
+  "xpReward": 90,
+  "requires": [
+   "pnt-still",
+   "pnt-colour"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete and sign one painting",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 120,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 7,
+  "tags": [
+   "Creativity"
+  ],
+  "category": "Milestone",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 450
+  }
+ },
+ {
+  "id": "run-start",
+  "hobbyId": "running",
+  "slug": "run-start",
+  "title": "Welcome to Running",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 20,
+  "requires": [],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Read the overview and choose a first route",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 0,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 0
+  }
+ },
+ {
+  "id": "run-safety",
+  "hobbyId": "running",
+  "slug": "run-safety",
+  "title": "Load, Traffic and Heat",
+  "tier": "beginner",
+  "nodeType": "safety",
+  "xpReward": 40,
+  "requires": [
+   "run-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Confirm your progression rule, visibility and hydration plan",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 15,
+  "isRequired": true,
+  "isSafetyCritical": true,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 1,
+  "tags": [
+   "Athletics",
+   "Wellness"
+  ],
+  "category": "Safety",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "run-gear",
+  "hobbyId": "running",
+  "slug": "run-gear",
+  "title": "Shoes That Fit",
+  "tier": "beginner",
+  "nodeType": "gear",
+  "xpReward": 25,
+  "requires": [
+   "run-safety"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Record the shoes and visibility gear you have or can borrow",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 20,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 2,
+  "tags": [
+   "Practical"
+  ],
+  "category": "Gear",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 430.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "run-walkrun",
+  "hobbyId": "running",
+  "slug": "run-walkrun",
+  "title": "Walk-Run Intervals",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 45,
+  "requires": [
+   "run-gear"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete a twenty-minute walk-run session",
+   "evidenceMode": "duration",
+   "targetValue": 20,
+   "targetUnit": "minutes"
+  },
+  "estimatedMinutes": 25,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 3,
+  "tags": [
+   "Athletics"
+  ],
+  "category": "Fundamentals",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 660.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "run-easy",
+  "hobbyId": "running",
+  "slug": "run-easy",
+  "title": "Finding Easy Pace",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 50,
+  "requires": [
+   "run-walkrun"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete a continuous run at conversational pace",
+   "evidenceMode": "duration",
+   "targetValue": 20,
+   "targetUnit": "minutes"
+  },
+  "estimatedMinutes": 30,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 4,
+  "tags": [
+   "Athletics"
+  ],
+  "category": "Fundamentals",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 890.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "run-cadence",
+  "hobbyId": "running",
+  "slug": "run-cadence",
+  "title": "Cadence and Form",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 65,
+  "requires": [
+   "run-easy"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Run one session counting and adjusting your step rate",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 30,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 5,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "run-long",
+  "hobbyId": "running",
+  "slug": "run-long",
+  "title": "Building a Longer Run",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 75,
+  "requires": [
+   "run-easy"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete a run meaningfully longer than your usual one",
+   "evidenceMode": "duration",
+   "targetValue": 20,
+   "targetUnit": "minutes"
+  },
+  "estimatedMinutes": 60,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 6,
+  "tags": [
+   "Athletics"
+  ],
+  "category": "Endurance",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 430.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "run-race",
+  "hobbyId": "running",
+  "slug": "run-race",
+  "title": "A First Event or Distance Goal",
+  "tier": "advanced",
+  "nodeType": "milestone",
+  "xpReward": 95,
+  "requires": [
+   "run-long",
+   "run-cadence"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete a chosen distance or a local event",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 90,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 7,
+  "tags": [
+   "Athletics"
+  ],
+  "category": "Milestone",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 450
+  }
+ },
+ {
+  "id": "vol-start",
+  "hobbyId": "volleyball",
+  "slug": "vol-start",
+  "title": "Welcome to Volleyball",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 20,
+  "requires": [],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Read the overview and find somewhere people play",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 0,
+  "tags": [
+   "Athletics",
+   "Knowledge"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 0
+  }
+ },
+ {
+  "id": "vol-safety",
+  "hobbyId": "volleyball",
+  "slug": "vol-safety",
+  "title": "Warm-Up, Fingers and Ankles",
+  "tier": "beginner",
+  "nodeType": "safety",
+  "xpReward": 40,
+  "requires": [
+   "vol-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Confirm your warm-up and landing habits",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 15,
+  "isRequired": true,
+  "isSafetyCritical": true,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 1,
+  "tags": [
+   "Athletics",
+   "Wellness"
+  ],
+  "category": "Safety",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "vol-gear",
+  "hobbyId": "volleyball",
+  "slug": "vol-gear",
+  "title": "Shoes, Pads and a Ball",
+  "tier": "beginner",
+  "nodeType": "gear",
+  "xpReward": 25,
+  "requires": [
+   "vol-safety"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Record the kit you have or can borrow",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 15,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 2,
+  "tags": [
+   "Practical"
+  ],
+  "category": "Gear",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 430.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "vol-pass",
+  "hobbyId": "volleyball",
+  "slug": "vol-pass",
+  "title": "The Forearm Pass",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 45,
+  "requires": [
+   "vol-gear"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete fifty controlled passes against a wall or partner",
+   "evidenceMode": "count",
+   "targetValue": 50,
+   "targetUnit": "passes"
+  },
+  "estimatedMinutes": 25,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 3,
+  "tags": [
+   "Athletics"
+  ],
+  "category": "Fundamentals",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 660.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "vol-set",
+  "hobbyId": "volleyball",
+  "slug": "vol-set",
+  "title": "Setting Overhead",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 45,
+  "requires": [
+   "vol-pass"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete fifty controlled sets",
+   "evidenceMode": "count",
+   "targetValue": 50,
+   "targetUnit": "sets"
+  },
+  "estimatedMinutes": 25,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 4,
+  "tags": [
+   "Athletics"
+  ],
+  "category": "Fundamentals",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 890.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "vol-serve",
+  "hobbyId": "volleyball",
+  "slug": "vol-serve",
+  "title": "A Reliable Serve",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 60,
+  "requires": [
+   "vol-set"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Land seven of ten serves in play",
+   "evidenceMode": "count",
+   "targetValue": 7,
+   "targetUnit": "serves"
+  },
+  "estimatedMinutes": 30,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 5,
+  "tags": [
+   "Athletics"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "vol-attack",
+  "hobbyId": "volleyball",
+  "slug": "vol-attack",
+  "title": "Approach and Attack",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 70,
+  "requires": [
+   "vol-serve"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete a full approach and attack in a rally",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 45,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 6,
+  "tags": [
+   "Athletics"
+  ],
+  "category": "Technique",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 430.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "vol-game",
+  "hobbyId": "volleyball",
+  "slug": "vol-game",
+  "title": "Play a Full Game",
+  "tier": "advanced",
+  "nodeType": "milestone",
+  "xpReward": 90,
+  "requires": [
+   "vol-attack"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Play a complete game in rotation",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 90,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 7,
+  "tags": [
+   "Athletics"
+  ],
+  "category": "Milestone",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 450
+  }
+ },
+ {
+  "id": "rdg-start",
+  "hobbyId": "reading",
+  "slug": "rdg-start",
+  "title": "Welcome to Reading",
+  "tier": "start",
+  "nodeType": "orientation",
+  "xpReward": 20,
+  "requires": [],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Read the overview and choose one book to start",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 0,
+  "tags": [
+   "Knowledge"
+  ],
+  "category": "Orientation",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 0
+  }
+ },
+ {
+  "id": "rdg-gear",
+  "hobbyId": "reading",
+  "slug": "rdg-gear",
+  "title": "A Library Card",
+  "tier": "beginner",
+  "nodeType": "gear",
+  "xpReward": 20,
+  "requires": [
+   "rdg-safety"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Record your library access or the books you already own",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 15,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 1,
+  "tags": [
+   "Practical",
+   "Knowledge"
+  ],
+  "category": "Gear",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "rdg-safety",
+  "hobbyId": "reading",
+  "slug": "rdg-safety",
+  "title": "Eyes, Light and Sleep",
+  "tier": "beginner",
+  "nodeType": "safety",
+  "xpReward": 25,
+  "requires": [
+   "rdg-start"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Set up comfortable light and a screen habit you can keep",
+   "evidenceMode": "honor"
+  },
+  "estimatedMinutes": 10,
+  "isRequired": true,
+  "isSafetyCritical": true,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 2,
+  "tags": [
+   "Wellness"
+  ],
+  "category": "Safety",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 430.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "rdg-habit",
+  "hobbyId": "reading",
+  "slug": "rdg-habit",
+  "title": "A Daily Reading Slot",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 40,
+  "requires": [
+   "rdg-gear"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Read on five separate days this week",
+   "evidenceMode": "count",
+   "targetValue": 5,
+   "targetUnit": "days"
+  },
+  "estimatedMinutes": 25,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 3,
+  "tags": [
+   "Knowledge",
+   "Wellness"
+  ],
+  "category": "Habit",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 660.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "rdg-notes",
+  "hobbyId": "reading",
+  "slug": "rdg-notes",
+  "title": "Reading With a Pencil",
+  "tier": "beginner",
+  "nodeType": "practice",
+  "xpReward": 45,
+  "requires": [
+   "rdg-habit"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Finish a book while keeping brief notes",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 60,
+  "isRequired": true,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 4,
+  "tags": [
+   "Knowledge",
+   "Creativity"
+  ],
+  "category": "Comprehension",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 890.0,
+   "y": 150
+  }
+ },
+ {
+  "id": "rdg-range",
+  "hobbyId": "reading",
+  "slug": "rdg-range",
+  "title": "Reading Outside Your Lane",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 60,
+  "requires": [
+   "rdg-habit"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Finish a book from a genre or form you do not usually read",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 60,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 5,
+  "tags": [
+   "Knowledge"
+  ],
+  "category": "Range",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "rdg-discuss",
+  "hobbyId": "reading",
+  "slug": "rdg-discuss",
+  "title": "Talk About What You Read",
+  "tier": "intermediate",
+  "nodeType": "practice",
+  "xpReward": 65,
+  "requires": [
+   "rdg-notes"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Discuss a finished book with someone, or write a short review",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 45,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 6,
+  "tags": [
+   "Knowledge",
+   "Creativity"
+  ],
+  "category": "Reflection",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 430.0,
+   "y": 300
+  }
+ },
+ {
+  "id": "rdg-project",
+  "hobbyId": "reading",
+  "slug": "rdg-project",
+  "title": "A Reading Project",
+  "tier": "advanced",
+  "nodeType": "milestone",
+  "xpReward": 90,
+  "requires": [
+   "rdg-range",
+   "rdg-discuss"
+  ],
+  "orGroups": [],
+  "completion": {
+   "prompt": "Complete a self-set reading project",
+   "evidenceMode": "note"
+  },
+  "estimatedMinutes": 120,
+  "isRequired": false,
+  "isSafetyCritical": false,
+  "isRecommended": true,
+  "status": "published",
+  "contentVersion": 1,
+  "sortOrder": 7,
+  "tags": [
+   "Knowledge"
+  ],
+  "category": "Milestone",
+  "review_status": "draft",
+  "source_urls": [],
+  "last_reviewed_at": null,
+  "position": {
+   "x": 200.0,
+   "y": 450
+  }
+ }
 ]
