@@ -3,6 +3,7 @@ import {useEffect,useState,type ReactNode,type PointerEvent} from 'react';
 import {bodyRigs,type BodyRigId} from '@/lib/body-rigs';
 import {RigLayer} from './rig-layers';
 import {avatarItems} from '@/lib/content';
+import {tints,type TintId} from '@/lib/tints';
 import {hairArt,boxPath} from '@/lib/hair';
 import {hatArt,glassArt} from '@/lib/headwear';
 export type AvatarPose='front'|'left'|'right'|'back';
@@ -17,12 +18,19 @@ const propGrips:[string,[number,number]][]=[['racquet',[213,250]],['notebook',[2
  ['towel',[212,198]],['wheel',[219,265]]];
 /** Original 256 × 384 paper doll. Painted SVG pixels are also the hit masks:
  * browser hit testing returns the topmost painted shape, never its transparent box. */
-export function Avatar({selection,large=false,pose='front',onPart,interactive=false,bodyRigId='average-average',animation='idle',viewBox='0 0 256 384',decorative=false}:{selection:Record<string,string>;bodyRigId?:BodyRigId;animation?:'idle'|'gesture'|'celebration';large?:boolean;pose?:AvatarPose;onPart?:(slot:string|null,activate:boolean,touch:boolean)=>void;interactive?:boolean;viewBox?:string;decorative?:boolean}){
+export function Avatar({selection,large=false,pose='front',onPart,interactive=false,bodyRigId='average-average',animation='idle',viewBox='0 0 256 384',decorative=false,tint=null}:{selection:Record<string,string>;tint?:TintId|null;bodyRigId?:BodyRigId;animation?:'idle'|'gesture'|'celebration';large?:boolean;pose?:AvatarPose;onPart?:(slot:string|null,activate:boolean,touch:boolean)=>void;interactive?:boolean;viewBox?:string;decorative?:boolean}){
  const [hover,setHover]=useState<string|null>(null),[hidden,setHidden]=useState(false);
  useEffect(()=>{const update=()=>setHidden(document.hidden);document.addEventListener('visibilitychange',update);return()=>document.removeEventListener('visibilitychange',update);},[]);
- const item=(slot:string)=>avatarItems.find(i=>i.id===selection[slot]);const color=(slot:string,fallback:string)=>item(slot)?.color||fallback;
- const lum=(hex:string)=>{const n=parseInt(hex.slice(1),16);return ((n>>16&255)*.299+((n>>8)&255)*.587+(n&255)*.114)/255;};
  const shade=(hex:string,amount:number)=>{const n=parseInt(hex.slice(1),16);const mix=(c:number)=>Math.max(0,Math.min(255,Math.round(c*(1-amount))));return `#${[(n>>16)&255,(n>>8)&255,n&255].map(c=>mix(c).toString(16).padStart(2,'0')).join('')}`;};
+ const item=(slot:string)=>avatarItems.find(i=>i.id===selection[slot]);
+ /** A placeholder character is one hue at many values — flat single-colour loses the silhouette.
+  * Face and eye line work keep their authored near-black, or the face becomes a smudge. */
+ const tintRamp:Record<string,number>={body:-.25,top:0,outerwear:.1,bottoms:.22,shoes:.4,socks:.4,backItem:.4,accessory:.34,headwear:.3,faceAccessory:.3,prop:.36,hair:.48,hairColor:.48};
+ const color=(slot:string,fallback:string)=>tint&&slot in tintRamp?shade(tints[tint],tintRamp[slot]):item(slot)?.color||fallback;
+ /** Clothing accents are authored as fixed hexes. Re-map them onto the tint by luminance so a light
+  * seam stays light and a dark one stays dark. Pure black is a shadow, not a colour, so it passes through. */
+ const tone=tint?(hex:string)=>hex==='#000000'?hex:shade(tints[tint],.55-lum(hex)*1.1):(hex:string)=>hex;
+ const lum=(hex:string)=>{const n=parseInt(hex.slice(1),16);return ((n>>16&255)*.299+((n>>8)&255)*.587+(n&255)*.114)/255;};
  const skin=color('body','#DCAE83'),hairColor=color('hairColor','#3F342F'),hair=selection.hair?.replace('hair-','')||'curls',legacy=selection.accessory,prop=selection.prop||'prop-none',back=pose==='back',side=pose==='left'||pose==='right';
  const face=selection.face||'face-bright',head=selection.headwear||'',glasses=selection.faceAccessory||'',bag=selection.backItem||'';
  const rig=bodyRigs[bodyRigId]||bodyRigs['average-average'];
@@ -38,7 +46,7 @@ export function Avatar({selection,large=false,pose='front',onPart,interactive=fa
  const hand={x:128+(rig.anchors.rightHand.x-128)*BODY_W,y:GROUND+(rig.anchors.rightHand.y-GROUND)*BODY_H};
  const grip=propGrips.find(([k])=>prop.includes(k))?.[1]||[200,230];
  const heldTransform=`translate(${hand.x} ${hand.y}) scale(${PROP_SCALE}) translate(${-grip[0]} ${-grip[1]})`;
- const part=(name:string,slot:string|null,children:ReactNode)=>{const headLayer=['head','face','hair-back','hair-front','headwear','face-accessory'].includes(name);const held=name==='held-item'&&!prop.includes('toolbelt');const attachment=name==='back-item'?{x:rig.anchors.back.x-192,y:rig.anchors.back.y-206}:name==='neck-accessory'?{x:0,y:rig.headOffset}:null;return <g data-layer={name} data-slot={slot||undefined} transform={name==='shadow'?undefined:held?heldTransform:headLayer?headTransform:attachment?`${bodyTransform} translate(${attachment.x} ${attachment.y})`:bodyTransform} data-highlighted={interactive&&slot===hover?'true':undefined} className={interactive&&slot?'editable-pixels':undefined}>{['head','body','top','bottoms','bottoms-cuff','socks','shoes','outerwear','chin-shadow'].includes(name)?<RigLayer layer={name} rig={rig} side={side} back={back} id={selection[slot||'']||''} color={color(slot||'','#819776')} skin={skin}/>:children}</g>;};
+ const part=(name:string,slot:string|null,children:ReactNode)=>{const headLayer=['head','face','hair-back','hair-front','headwear','face-accessory'].includes(name);const held=name==='held-item'&&!prop.includes('toolbelt');const attachment=name==='back-item'?{x:rig.anchors.back.x-192,y:rig.anchors.back.y-206}:name==='neck-accessory'?{x:0,y:rig.headOffset}:null;return <g data-layer={name} data-slot={slot||undefined} transform={name==='shadow'?undefined:held?heldTransform:headLayer?headTransform:attachment?`${bodyTransform} translate(${attachment.x} ${attachment.y})`:bodyTransform} data-highlighted={interactive&&slot===hover?'true':undefined} className={interactive&&slot?'editable-pixels':undefined}>{['head','body','top','bottoms','bottoms-cuff','socks','shoes','outerwear','chin-shadow'].includes(name)?<RigLayer tone={tone} layer={name} rig={rig} side={side} back={back} id={selection[slot||'']||''} color={color(slot||'','#819776')} skin={skin}/>:children}</g>;};
  function pointer(e:PointerEvent<SVGSVGElement>,activate:boolean){if(!interactive)return;const slot=(e.target as Element).closest('[data-slot]')?.getAttribute('data-slot')||null;setHover(slot);onPart?.(slot,activate,e.pointerType==='touch');}
  const description=['top','bottoms','shoes','hair','headwear','faceAccessory','backItem','prop'].map(s=>item(s)?.name).filter(n=>n&&!n.toLowerCase().startsWith('no ')&&n!=='none').join(', ');
  const hairPieces=hairArt(hair,back?'back':side?'side':'front');

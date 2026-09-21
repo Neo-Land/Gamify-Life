@@ -47,3 +47,9 @@
 @media(prefers-reduced-motion:reduce){.reward-toast,.reward-toast[data-leaving]{animation:none}}
 [data-motion=reduced] .reward-toast,[data-motion=reduced] .reward-toast[data-leaving]{animation:none}
 @media(max-width:767px){.reward-toast{top:auto;bottom:104px;right:8px;left:8px;max-width:none}}
+
+/* Placeholder-character nudges. One line each, never a modal. */
+.placeholder-note{margin:0 0 8px;padding:7px 10px;font-size:12px;background:#f0e7c9;border:1px solid #c7b686}
+.customize-nudge{position:absolute;top:52px;left:50%;transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:4px;
+ padding:4px 6px 4px 10px;background:#f1eee2e0;border:1px solid #8a9180;font-size:12px;max-width:min(92%,420px)}
+.customize-nudge .text-button{font-size:12px;text-align:left}

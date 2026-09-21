@@ -71,8 +71,8 @@ export function applyCommand(current:State,input:Command,now=new Date()):Complet
   if(!s.practice.some(p=>p.id===c.id)){s.practice.push({id:c.id,hobbyId:c.hobbyId,nodeId:c.nodeId,duration:c.duration,note:c.note,at});const key=`practice:${c.hobbyId}:${at.slice(0,10)}`;award(key,c.hobbyId,20,'Practice session');event(c.id,`${c.duration} minutes of ${c.hobbyId} practice`);}
  }
  if(c.type==='gear'){if(!gear.some(g=>g.id===c.gearId))throw new Error('Gear item not found.');s.gear[c.gearId]=c.status;}
- if(c.type==='avatar'){const item=avatarItems.find(i=>i.id===c.itemId&&i.slot===c.slot);if(!item||!avatarUnlocked(item,s))throw new Error('This cosmetic has not unlocked yet.');s.avatar[c.slot]=c.itemId;}
- if(c.type==='avatar-preset'){for(const [slot,itemId] of Object.entries(c.items)){const item=avatarItems.find(i=>i.id===itemId&&i.slot===slot);if(!item||!avatarUnlocked(item,s))throw new Error('This cosmetic has not unlocked yet.');s.avatar[slot]=itemId;}}
+ if(c.type==='avatar'){const item=avatarItems.find(i=>i.id===c.itemId&&i.slot===c.slot);if(!item||!avatarUnlocked(item,s))throw new Error('This cosmetic has not unlocked yet.');s.avatar[c.slot]=c.itemId;s.profile={...s.profile,characterTint:null,characterSkipped:false};}
+ if(c.type==='avatar-preset'){for(const [slot,itemId] of Object.entries(c.items)){const item=avatarItems.find(i=>i.id===itemId&&i.slot===slot);if(!item||!avatarUnlocked(item,s))throw new Error('This cosmetic has not unlocked yet.');s.avatar[slot]=itemId;}s.profile={...s.profile,characterTint:null,characterSkipped:false};}
  if(c.type==='visit'){const n=recommend(s);if(n)s.recommendation={id:n.id,visits:s.recommendation.id===n.id?s.recommendation.visits+1:1};}
  const levels=hobbyIds.map(h=>hobbyLevel(hobbyXp(s,h)));
  const earned:Record<string,boolean>={'first-step':nodes.some(n=>done(s,n.id)),'curious-mind':s.enrollments.length>=3,'real-world':nodes.some(n=>n.nodeType==='practice'&&done(s,n.id)),'well-rounded':levels.filter(l=>l>=2).length>=2,'renaissance':levels.filter(l=>l>=2).length>=3,'ten-sessions':s.practice.length>=10};
