@@ -1,7 +1,7 @@
 import {describe,expect,it} from 'vitest';
 import {placementQuestions,scorePlacement} from '../content/placement';
 import {initialState,stateSchema} from '../lib/domain';
-import {applyCommand,available,recommend,suggestedStart} from '../lib/progression';
+import {applyCommand,available,myHobbies,otherHobbies,recommend,suggestedStart} from '../lib/progression';
 import {gear,hobbyIds,nodes,tiers,type GearItem} from '../lib/content';
 import {readiness} from '../lib/readiness';
 const answersFor=(hobbyId:string,score:number)=>Object.fromEntries(placementQuestions[hobbyId].map(q=>[q.id,score]));
@@ -100,5 +100,28 @@ describe('start kit readiness',()=>{
    s.gear[required[0].id]='need';
    expect(()=>applyCommand(s,{type:'complete',nodeId:gearNode.id,evidence:{confirmed:true,note:'have it',confidence:3}}),`${id} need`).toThrow();
   }
+ });
+});
+
+describe('desktop shows only chosen hobbies',()=>{
+ it('separates chosen from the rest, with nothing lost between them',()=>{
+  const s=applyCommand(initialState(),{type:'enroll',hobbyIds:['running','reading']}).state;
+  expect(myHobbies(s).map(h=>h.id).sort()).toEqual(['reading','running']);
+  expect(otherHobbies(s).map(h=>h.id)).not.toContain('running');
+  expect(myHobbies(s).length+otherHobbies(s).length).toBe(hobbyIds.length);
+ });
+ it('moves a hobby across when it is started, and back when it is paused',()=>{
+  let s=applyCommand(initialState(),{type:'enroll',hobbyIds:['reading']}).state;
+  expect(otherHobbies(s).map(h=>h.id)).toContain('painting');
+  s=applyCommand(s,{type:'enroll',hobbyIds:['painting']}).state;
+  expect(myHobbies(s).map(h=>h.id)).toContain('painting');
+  s=applyCommand(s,{type:'pause-hobby',hobbyId:'painting'}).state;
+  expect(myHobbies(s).map(h=>h.id)).not.toContain('painting');
+  expect(otherHobbies(s).map(h=>h.id)).toContain('painting');
+ });
+ it('offers the whole catalogue to a player who has none',()=>{
+  const s=initialState();
+  expect(myHobbies(s)).toEqual([]);
+  expect(otherHobbies(s)).toHaveLength(hobbyIds.length);
  });
 });

@@ -1,5 +1,5 @@
 import { scorePlacement } from '@/content/placement';
-import { achievements, avatarItems, gear, hobbyById, hobbyIds, nodeById, nodes, quests, tiers, type SkillNode } from './content';
+import { achievements, avatarItems, gear, hobbyById, hobbies, hobbyIds, nodeById, nodes, quests, tiers, type SkillNode } from './content';
 import { commandSchema, type Command, type CompletionResult, type State } from './domain';
 export const thresholds=[0,100,300,650,1100,1700,2500,3500,4800,6400,8500];
 export const levelNames=['Curious','Newcomer','Beginner','Capable Beginner','Recreational','Developing','Skilled','Experienced','Advanced','Specialist','Mentor'];
@@ -37,6 +37,10 @@ export function suggestedStart(s:State,hobbyId:string){
  const at=nodes.filter(n=>n.hobbyId===hobbyId&&available(n,s)).sort((a,b)=>a.sortOrder-b.sortOrder);
  return at.find(n=>tiers.indexOf(n.tier)>=level)||at[0];
 }
+/** The desktop shows the hobbies you chose. The rest of the catalogue stays behind an explicit
+ * "start a new hobby" step, so ten options do not become ten tabs on day one. */
+export const myHobbies=(s:State)=>hobbies.filter(h=>(s.enrollments as readonly string[]).includes(h.id));
+export const otherHobbies=(s:State)=>hobbies.filter(h=>!(s.enrollments as readonly string[]).includes(h.id));
 export function avatarUnlocked(item:typeof avatarItems[number],s:State){if('rewardNode' in item&&item.rewardNode)return done(s,item.rewardNode);if('achievement' in item&&item.achievement)return s.achievements.includes(item.achievement);if('hobbyId' in item&&item.hobbyId)return hobbyLevel(hobbyXp(s,item.hobbyId))>=item.level;return item.level===0||lifeLevel(lifeXp(s))>=item.level;}
 export function stats(s:State){return Object.fromEntries(['Athletics','Creativity','Knowledge','Practical','Wellness'].map(tag=>[tag,nodes.filter(n=>done(s,n.id)&&(n.tags.includes(tag)||(tag==='Practical'&&['gear','maintenance'].includes(n.nodeType)))).reduce((a,n)=>a+n.xpReward,0)]));}
 export function applyCommand(current:State,input:Command,now=new Date()):CompletionResult{

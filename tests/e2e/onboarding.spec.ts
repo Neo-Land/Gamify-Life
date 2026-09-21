@@ -20,11 +20,11 @@ test('skip, pick, check in and triage the kit, earning nothing on the way',async
  await expect(page.getByText('3 / 4')).toBeVisible();
  await page.getByRole('radio').first().check();
  await page.getByRole('button',{name:'CONTINUE',exact:true}).click();
- const afterPlacement=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!));
- expect(afterPlacement.ledger).toEqual([]);
- expect(afterPlacement.placements.reading).toBeTruthy();
- // 4 — start kit
+ // 4 — start kit. Wait for the step to advance before reading storage: the command is async and
+ // reading straight after the click races the write.
  await expect(page.getByText('4 / 4')).toBeVisible();
+ await expect.poll(()=>page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!).placements.reading?.level)).toBeDefined();
+ expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!).ledger)).toEqual([]);
  await expect(page.getByText(/to sort out first/)).toBeVisible();
  await page.getByRole('button',{name:'I can borrow this'}).first().click();
  await expect(page.getByText('You can start today.')).toBeVisible();

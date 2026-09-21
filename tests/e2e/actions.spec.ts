@@ -3,10 +3,10 @@ import AxeBuilder from '@axe-core/playwright';
 import {initialState,type State} from '../../lib/domain';
 import {applyCommand} from '../../lib/progression';
 import {hobbies,nodes,gear,quests} from '../../lib/content';
-test.beforeEach(async({page})=>{const base=initialState();base.profile.onboardingComplete=true;await page.addInitScript(s=>{sessionStorage.setItem('gamify-life:guest-active','true');sessionStorage.setItem('gamify-life:booted','true');if(!sessionStorage.getItem('gamify-life:v1'))sessionStorage.setItem('gamify-life:v1',JSON.stringify(s));},base);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));(page as Page & {runtimeErrors:string[]}).runtimeErrors=errors;});
+test.beforeEach(async({page})=>{let base=initialState();base.profile.onboardingComplete=true;base=applyCommand(base,{type:'enroll',hobbyIds:hobbies.map(h=>h.id) as never}).state;await page.addInitScript(s=>{sessionStorage.setItem('gamify-life:guest-active','true');sessionStorage.setItem('gamify-life:booted','true');if(!sessionStorage.getItem('gamify-life:v1'))sessionStorage.setItem('gamify-life:v1',JSON.stringify(s));},base);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));(page as Page & {runtimeErrors:string[]}).runtimeErrors=errors;});
 test.afterEach(async({page})=>{expect((page as Page & {runtimeErrors:string[]}).runtimeErrors).toEqual([]);});
 const evidence={value:1000,confirmed:true,note:'Completed the real-world checklist.',confidence:3};
-function readyState(){let s=initialState();s.profile.onboardingComplete=true; // Derived, not listed: every hobby's practice prerequisites and the chain each one depends on,
+function readyState(){let s=initialState();s=applyCommand(s,{type:'enroll',hobbyIds:hobbies.map(h=>h.id) as never}).state;s.profile.onboardingComplete=true; // Derived, not listed: every hobby's practice prerequisites and the chain each one depends on,
  // so adding a hobby does not silently leave its practice dialog blocked.
  const need=new Set<string>();
  // Gear nodes are deliberately excluded: completing one requires the hobby's gear to be recorded,

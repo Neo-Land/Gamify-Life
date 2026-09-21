@@ -70,3 +70,7 @@
 .skill-card.suggested{outline:2px solid var(--os-focus);outline-offset:2px}
 .kit-row p{margin:3px 0}
 @media(max-width:767px){.kit-row{flex-direction:column;gap:6px;padding:10px 0}.kit-controls{width:100%}.kit-controls .button.small{flex:1 1 auto}}
+
+/* The rest of the catalogue, behind an explicit step. */
+.more-hobbies{margin-top:22px;padding-top:16px;border-top:1px solid var(--os-shadow)}
+.more-hobbies .row{align-items:baseline}
