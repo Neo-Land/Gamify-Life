@@ -1,7 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {initialState,type State,type Command} from '../lib/domain';
 import {applyCommand,available,hobbyLevel,lifeLevel,thresholds,done,questState,recommend,avatarUnlocked} from '../lib/progression';
-import {nodes,nodeById,avatarItems} from '../lib/content';
+import {nodes,nodeById,avatarItems,gear as gear_} from '../lib/content';
 const evidence={confirmed:true,note:'Practiced on three separate days; more consistent.',value:1000,confidence:3};
 const complete=(s:State,id:string)=>applyCommand(s,{type:'complete',nodeId:id,evidence}).state;
 const mark=(s:State,ids:string[])=>{for(const id of ids)s.progress[id]={status:'completed',startedAt:'2026-09-15'};return s;};
@@ -13,7 +13,7 @@ describe('recommendations and rewards',()=>{it('prioritizes a started skill',()=
 
 describe('full progression stress',()=>{
  it('can complete and master every skill without blocked paths or duplicate rewards on retries',()=>{
-  let s=initialState();s.gear['tennis-0']='owned';s.gear['tennis-1']='owned';
+  let s=initialState();s.gear=Object.fromEntries(gear_.filter(g=>g.necessity==='required').map((g,i)=>[g.id,i%2?'borrowing':'owned']));
   const pending=new Set(nodes.map(n=>n.id));
   while(pending.size){const next=nodes.find(n=>pending.has(n.id)&&available(n,s));expect(next,'Every remaining skill must eventually unlock').toBeDefined();
    for(const type of ['start','complete','master'] as const){const command=type==='start'?{type,nodeId:next!.id}:{type,nodeId:next!.id,evidence};s=applyCommand(s,command).state;const retry=applyCommand(s,command);expect(retry.xpAwarded).toBe(0);expect(retry.state.ledger).toEqual(s.ledger);}

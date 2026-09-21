@@ -1,3 +1,4 @@
+import { scorePlacement } from '@/content/placement';
 import { achievements, avatarItems, gear, hobbyById, hobbyIds, nodeById, nodes, quests, tiers, type SkillNode } from './content';
 import { commandSchema, type Command, type CompletionResult, type State } from './domain';
 export const thresholds=[0,100,300,650,1100,1700,2500,3500,4800,6400,8500];
@@ -22,9 +23,19 @@ export function recommend(s:State):SkillNode|undefined {
  const pool=nodes.filter(n=>s.enrollments.includes(n.hobbyId)&&available(n,s));
  const pinned=quests.filter(q=>questState(s,q.id).pinned&&!questState(s,q.id).completed);
  const rank=(n:SkillNode)=>pinned.some(q=>q.hobbyId===n.hobbyId)?0:s.progress[n.id]?.status==='in_progress'?1:n.isRequired?2+tiers.indexOf(n.tier):n.isRecommended?6:7;
- pool.sort((a,b)=>rank(a)-rank(b)||a.estimatedMinutes-b.estimatedMinutes||a.sortOrder-b.sortOrder);
+ /** Placement only breaks ties, after required and recommended ordering. That ordering is the whole
+  * safety model — a node is never hidden, locked or promoted past an unmet safety requirement. */
+ const placedBelow=(n:SkillNode)=>Math.max(0,(s.placements[n.hobbyId]?.level??0)-tiers.indexOf(n.tier));
+ pool.sort((a,b)=>rank(a)-rank(b)||placedBelow(a)-placedBelow(b)||a.estimatedMinutes-b.estimatedMinutes||a.sortOrder-b.sortOrder);
  if(s.recommendation.visits>=3&&pool[0]?.id===s.recommendation.id){const alternative=pool.find(n=>n.id!==pool[0].id&&rank(n)===rank(pool[0]));if(alternative)return alternative;}
  return pool[0];
+}
+/** The first available node at the player's placed tier. Everything below stays visible and
+ * completable — an experienced person may still want the fundamentals, and they earn XP for them. */
+export function suggestedStart(s:State,hobbyId:string){
+ const level=s.placements[hobbyId]?.level??0;
+ const at=nodes.filter(n=>n.hobbyId===hobbyId&&available(n,s)).sort((a,b)=>a.sortOrder-b.sortOrder);
+ return at.find(n=>tiers.indexOf(n.tier)>=level)||at[0];
 }
 export function avatarUnlocked(item:typeof avatarItems[number],s:State){if('rewardNode' in item&&item.rewardNode)return done(s,item.rewardNode);if('achievement' in item&&item.achievement)return s.achievements.includes(item.achievement);if('hobbyId' in item&&item.hobbyId)return hobbyLevel(hobbyXp(s,item.hobbyId))>=item.level;return item.level===0||lifeLevel(lifeXp(s))>=item.level;}
 export function stats(s:State){return Object.fromEntries(['Athletics','Creativity','Knowledge','Practical','Wellness'].map(tag=>[tag,nodes.filter(n=>done(s,n.id)&&(n.tags.includes(tag)||(tag==='Practical'&&['gear','maintenance'].includes(n.nodeType)))).reduce((a,n)=>a+n.xpReward,0)]));}
@@ -51,7 +62,8 @@ export function applyCommand(current:State,input:Command,now=new Date()):Complet
    if(c.type==='master'&&!c.evidence.note.trim())throw new Error('Describe your three separate practice days.');
    if(c.type==='complete'&&n.completion.evidenceMode==='note'&&!c.evidence.note.trim())throw new Error('Add a short note for this challenge.');
    if(c.type==='complete'&&n.completion.targetValue&&(c.evidence.value??0)<n.completion.targetValue)throw new Error(`Record at least ${n.completion.targetValue} ${n.completion.targetUnit}.`);
-   if(n.id==='ten-gear'&&c.type==='complete'&&!['tennis-0','tennis-1'].every(id=>s.gear[id]==='owned'))throw new Error('Record your owned or borrowed racquet and balls in Loadout first.');
+   // Each hobby's gear node checks that hobby's required items. Borrowing counts as having it.
+   if(n.id===`${hobbyById(n.hobbyId)?.prefix}-gear`&&c.type==='complete'&&!gear.filter(g=>g.hobbyId===n.hobbyId&&g.necessity==='required').every(g=>['owned','borrowing'].includes(s.gear[g.id])))throw new Error('Record what you have or can borrow in Loadout first.');
    s.progress[n.id]={...s.progress[n.id],status:c.type==='master'?'mastered':'completed',startedAt:s.progress[n.id]?.startedAt||at,completedAt:s.progress[n.id]?.completedAt||at,...(c.type==='master'?{masteredAt:at}:{}),evidence:c.evidence,contentVersion:n.contentVersion};
    if(!s.enrollments.includes(n.hobbyId))s.enrollments.push(n.hobbyId);
    award(key,n.hobbyId,c.type==='master'?n.masteryXpReward:n.xpReward,`${c.type==='master'?'Mastered':'Completed'} ${n.title}`);
@@ -73,6 +85,11 @@ export function applyCommand(current:State,input:Command,now=new Date()):Complet
  if(c.type==='gear'){if(!gear.some(g=>g.id===c.gearId))throw new Error('Gear item not found.');s.gear[c.gearId]=c.status;}
  if(c.type==='avatar'){const item=avatarItems.find(i=>i.id===c.itemId&&i.slot===c.slot);if(!item||!avatarUnlocked(item,s))throw new Error('This cosmetic has not unlocked yet.');s.avatar[c.slot]=c.itemId;s.profile={...s.profile,characterTint:null,characterSkipped:false};}
  if(c.type==='avatar-preset'){for(const [slot,itemId] of Object.entries(c.items)){const item=avatarItems.find(i=>i.id===itemId&&i.slot===slot);if(!item||!avatarUnlocked(item,s))throw new Error('This cosmetic has not unlocked yet.');s.avatar[slot]=itemId;}s.profile={...s.profile,characterTint:null,characterSkipped:false};}
+ if(c.type==='placement'){
+  // Self-reported only: it records a level and awards nothing. Idempotent by overwrite, so retaking
+  // the check-in replaces the record rather than stacking another one.
+  s.placements[c.hobbyId]={level:c.skipped?0:scorePlacement(c.hobbyId,c.answers),answers:c.skipped?{}:c.answers,skipped:c.skipped,at};
+ }
  if(c.type==='visit'){const n=recommend(s);if(n)s.recommendation={id:n.id,visits:s.recommendation.id===n.id?s.recommendation.visits+1:1};}
  const levels=hobbyIds.map(h=>hobbyLevel(hobbyXp(s,h)));
  const earned:Record<string,boolean>={'first-step':nodes.some(n=>done(s,n.id)),'curious-mind':s.enrollments.length>=3,'real-world':nodes.some(n=>n.nodeType==='practice'&&done(s,n.id)),'well-rounded':levels.filter(l=>l>=2).length>=2,'renaissance':levels.filter(l=>l>=2).length>=3,'ten-sessions':s.practice.length>=10};

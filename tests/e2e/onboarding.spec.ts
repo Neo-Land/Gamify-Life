@@ -1,19 +1,48 @@
 import {test,expect} from '@playwright/test';
 test.beforeEach(async({page})=>{await page.addInitScript(()=>{sessionStorage.setItem('gamify-life:booted','true');});});
-test('skipping character creation lands on hobbies and nudges from home',async({page})=>{
+async function guest(page:import('@playwright/test').Page){
  await page.goto('/');
  await page.getByRole('button',{name:'CONTINUE AS GUEST'}).click();
  await page.getByRole('button',{name:'BEGIN GUEST SESSION'}).click();
+}
+test('skip, pick, check in and triage the kit, earning nothing on the way',async({page})=>{
+ await guest(page);
+ await expect(page.getByText('1 / 4')).toBeVisible();
  await page.getByRole('button',{name:'SKIP FOR NOW'}).click();
- await expect(page.getByRole('heading',{name:'CHOOSE YOUR PATH'})).toBeVisible();
- const tint=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!).profile);
- expect(tint.characterSkipped).toBe(true);
- expect(tint.characterTint).not.toBeNull();
- expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!).ledger)).toEqual([]);
- await page.getByRole('button',{name:/Journaling/}).click();
+ // 2 — hobbies
+ await expect(page.getByText('2 / 4')).toBeVisible();
+ const profile=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!).profile);
+ expect(profile.characterSkipped).toBe(true);
+ expect(profile.characterTint).not.toBeNull();
+ await page.getByRole('button',{name:/Reading/}).click();
+ await page.getByRole('button',{name:'CONTINUE',exact:true}).click();
+ // 3 — placement, which must award nothing
+ await expect(page.getByText('3 / 4')).toBeVisible();
+ await page.getByRole('radio').first().check();
+ await page.getByRole('button',{name:'CONTINUE',exact:true}).click();
+ const afterPlacement=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!));
+ expect(afterPlacement.ledger).toEqual([]);
+ expect(afterPlacement.placements.reading).toBeTruthy();
+ // 4 — start kit
+ await expect(page.getByText('4 / 4')).toBeVisible();
+ await expect(page.getByText(/to sort out first/)).toBeVisible();
+ await page.getByRole('button',{name:'I can borrow this'}).first().click();
+ await expect(page.getByText('You can start today.')).toBeVisible();
  await page.getByRole('button',{name:'OPEN MY DESKTOP'}).click();
- const nudge=page.locator('.customize-nudge');
- await expect(nudge).toBeVisible();
- await nudge.getByRole('button',{name:'Dismiss character nudge'}).click();
- await expect(nudge).toHaveCount(0);
+ await expect(page).toHaveURL(/\/home$/);
+ const final=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!));
+ expect(final.ledger).toEqual([]);
+ expect(final.gear['reading-0']).toBe('borrowing');
+ await expect(page.locator('.customize-nudge')).toBeVisible();
+});
+test('every step after the character is skippable',async({page})=>{
+ await guest(page);
+ await page.getByRole('button',{name:'SKIP FOR NOW'}).click();
+ await page.getByRole('button',{name:/Drawing/}).click();
+ await page.getByRole('button',{name:'CONTINUE',exact:true}).click();
+ await page.getByRole('button',{name:'SKIP THIS STEP'}).click();
+ await expect(page.getByText('4 / 4')).toBeVisible();
+ await page.getByRole('button',{name:'SKIP THIS STEP'}).click();
+ await expect(page).toHaveURL(/\/home$/);
+ expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!).ledger)).toEqual([]);
 });

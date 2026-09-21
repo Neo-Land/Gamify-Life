@@ -54,3 +54,18 @@
 .customize-nudge{position:absolute;top:52px;left:50%;transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:4px;
  padding:4px 6px 4px 10px;background:#f1eee2e0;border:1px solid #8a9180;font-size:12px;max-width:min(92%,420px)}
 .customize-nudge .text-button{font-size:12px;text-align:left}
+
+/* Onboarding steps and the start kit. */
+.setup-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.placement-questions{display:grid;gap:14px;margin:16px 0}
+.placement-question{border:1px solid #9aa391;padding:10px 12px;margin:0}
+.placement-question legend{padding:0 5px;font-size:13px}
+.kit-hobby{border-top:1px solid #9aa391;padding-top:12px;margin-top:14px}
+.kit-row{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;padding:8px 0;border-bottom:1px dotted #a8b09d}
+.kit-row>div:first-child{flex:1 1 220px;min-width:0}
+.kit-controls{display:flex;gap:5px;flex-wrap:wrap;align-items:flex-start}
+.kit-controls .button.small{font-size:11px;padding:4px 7px}
+.kit-controls .button.selected{outline:2px solid var(--os-focus);outline-offset:1px}
+.kit-readiness{margin:10px 0 0;padding:8px 10px;background:#eef0e2;border:1px solid #9aa391;font-size:13px}
+.skill-card.suggested{outline:2px solid var(--os-focus);outline-offset:2px}
+@media(max-width:767px){.kit-row{flex-direction:column}.kit-controls{width:100%}}
