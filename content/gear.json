@@ -1,0 +1,746 @@
+[
+  {
+    "id": "tennis-0",
+    "hobbyId": "tennis",
+    "name": "Racquet",
+    "necessity": "required",
+    "guidance": "Aluminum is fine while you decide if the sport sticks; graphite once it has.",
+    "cost": {
+      "low": 30,
+      "high": 100,
+      "currency": "USD"
+    },
+    "borrowable": true,
+    "usedOk": true,
+    "freeAlternative": "Many clubs and public courts lend a racquet for a first session."
+  },
+  {
+    "id": "tennis-1",
+    "hobbyId": "tennis",
+    "name": "Tennis balls",
+    "necessity": "required",
+    "guidance": "A fresh can bounces predictably. Old balls are fine for wall practice.",
+    "cost": {
+      "low": 4,
+      "high": 10,
+      "currency": "USD"
+    },
+    "borrowable": true,
+    "usedOk": true,
+    "freeAlternative": "Whoever you hit with usually has some."
+  },
+  {
+    "id": "tennis-2",
+    "hobbyId": "tennis",
+    "name": "Court shoes",
+    "necessity": "recommended",
+    "guidance": "Court soles grip and protect ankles on lateral moves. Worth it once you play regularly.",
+    "cost": {
+      "low": 50,
+      "high": 100,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Running shoes work for your first few sessions."
+  },
+  {
+    "id": "tennis-3",
+    "hobbyId": "tennis",
+    "name": "Hat and sunscreen",
+    "necessity": "recommended",
+    "guidance": "Outdoor courts reflect a lot of sun. Protect yourself before comfort items.",
+    "cost": {
+      "low": 10,
+      "high": 25,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "tennis-4",
+    "hobbyId": "tennis",
+    "name": "Overgrips",
+    "necessity": "optional",
+    "guidance": "A fresh grip stops the racquet slipping. Add one once the original wears.",
+    "cost": {
+      "low": 8,
+      "high": 15,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "cycling-0",
+    "hobbyId": "cycling",
+    "name": "Helmet",
+    "necessity": "required",
+    "guidance": "Buy new and buy for fit. A helmet that has taken one impact is done, even if it looks fine.",
+    "cost": {
+      "low": 35,
+      "high": 80,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": false
+  },
+  {
+    "id": "cycling-1",
+    "hobbyId": "cycling",
+    "name": "Bike (fixed or single speed)",
+    "necessity": "required",
+    "guidance": "Fit and working brakes matter more than weight or looks. Have a shop check a used bike.",
+    "cost": {
+      "low": 250,
+      "high": 700,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "A used track bike, or converting an old steel road frame, is the cheapest honest path."
+  },
+  {
+    "id": "cycling-2",
+    "hobbyId": "cycling",
+    "name": "Front brake",
+    "necessity": "required",
+    "guidance": "Required for road riding on this path, including fixed gear, whatever your skid skills.",
+    "cost": {
+      "low": 0,
+      "high": 60,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Included on most complete bikes; about $25–60 to add if yours has none."
+  },
+  {
+    "id": "cycling-3",
+    "hobbyId": "cycling",
+    "name": "U-lock",
+    "necessity": "recommended",
+    "guidance": "A bike without a good lock is a bike on borrowed time. Lock the frame, not just a wheel.",
+    "cost": {
+      "low": 40,
+      "high": 100,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "cycling-4",
+    "hobbyId": "cycling",
+    "name": "Front and rear lights",
+    "necessity": "recommended",
+    "guidance": "Needed from dusk onward and on grey days. Be seen from the front and behind.",
+    "cost": {
+      "low": 20,
+      "high": 60,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "cycling-5",
+    "hobbyId": "cycling",
+    "name": "Multi-tool, pump and spare tube",
+    "necessity": "optional",
+    "guidance": "Enough to fix a flat by the road. Learn the fix at home first.",
+    "cost": {
+      "low": 50,
+      "high": 105,
+      "currency": "USD"
+    },
+    "borrowable": true,
+    "usedOk": true,
+    "freeAlternative": "Most shops will lend a floor pump."
+  },
+  {
+    "id": "swimming-0",
+    "hobbyId": "swimming",
+    "name": "Swimsuit",
+    "necessity": "required",
+    "guidance": "Anything snug that your pool accepts. Loose clothing drags and can be unsafe.",
+    "cost": {
+      "low": 20,
+      "high": 45,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": false,
+    "freeAlternative": "Any snug athletic swimwear you already own."
+  },
+  {
+    "id": "swimming-1",
+    "hobbyId": "swimming",
+    "name": "Goggles",
+    "necessity": "required",
+    "guidance": "Fit is everything: they should seal lightly without a strap. Not something to share.",
+    "cost": {
+      "low": 10,
+      "high": 30,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": false
+  },
+  {
+    "id": "swimming-2",
+    "hobbyId": "swimming",
+    "name": "Pool access",
+    "necessity": "required",
+    "guidance": "Choose a pool with lifeguards. Cost varies a lot by area; campus and city pools are often cheapest.",
+    "cost": {
+      "low": 0,
+      "high": 25,
+      "currency": "USD"
+    },
+    "borrowable": true,
+    "usedOk": true,
+    "freeAlternative": "Campus rec centers and many municipal pools are free or included."
+  },
+  {
+    "id": "swimming-3",
+    "hobbyId": "swimming",
+    "name": "Swim cap",
+    "necessity": "recommended",
+    "guidance": "Keeps hair out of your face and the filters. Many pools require one.",
+    "cost": {
+      "low": 5,
+      "high": 15,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "swimming-4",
+    "hobbyId": "swimming",
+    "name": "Towel",
+    "necessity": "recommended",
+    "guidance": "The one you already own is perfect.",
+    "cost": {
+      "low": 0,
+      "high": 20,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "One you own."
+  },
+  {
+    "id": "swimming-5",
+    "hobbyId": "swimming",
+    "name": "Fins, pull buoy or kickboard",
+    "necessity": "optional",
+    "guidance": "Training tools for later. Ask your instructor before using them.",
+    "cost": {
+      "low": 10,
+      "high": 50,
+      "currency": "USD"
+    },
+    "borrowable": true,
+    "usedOk": true,
+    "freeAlternative": "Most pools have a shared bin."
+  },
+  {
+    "id": "journaling-0",
+    "hobbyId": "journaling",
+    "name": "Notebook",
+    "necessity": "required",
+    "guidance": "Anything you are not afraid to write badly in. Cheap makes it easier to start.",
+    "cost": {
+      "low": 0,
+      "high": 20,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Any notebook you own, loose paper, or a free notes app."
+  },
+  {
+    "id": "journaling-1",
+    "hobbyId": "journaling",
+    "name": "Pen",
+    "necessity": "required",
+    "guidance": "Whatever writes smoothly for you.",
+    "cost": {
+      "low": 0,
+      "high": 5,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Any pen in the house."
+  },
+  {
+    "id": "pc-building-0",
+    "hobbyId": "pc-building",
+    "name": "CPU",
+    "necessity": "required",
+    "guidance": "Match the socket to the motherboard exactly. One generation back is the usual value pick.",
+    "cost": {
+      "low": 90,
+      "high": 250,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "pc-building-1",
+    "hobbyId": "pc-building",
+    "name": "Motherboard",
+    "necessity": "required",
+    "guidance": "Check the socket and memory generation before anything else.",
+    "cost": {
+      "low": 70,
+      "high": 180,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "pc-building-2",
+    "hobbyId": "pc-building",
+    "name": "Memory (16–32 GB)",
+    "necessity": "required",
+    "guidance": "Match the generation the board accepts. Prices are unusually high right now; check before buying.",
+    "cost": {
+      "low": 99,
+      "high": 220,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "pc-building-3",
+    "hobbyId": "pc-building",
+    "name": "Graphics card",
+    "necessity": "required",
+    "guidance": "Only needed for games and heavy visual work. A processor with integrated graphics can skip this at first.",
+    "cost": {
+      "low": 200,
+      "high": 450,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "$0 if your processor has integrated graphics."
+  },
+  {
+    "id": "pc-building-4",
+    "hobbyId": "pc-building",
+    "name": "Storage (1 TB NVMe)",
+    "necessity": "required",
+    "guidance": "One solid-state drive is enough to start.",
+    "cost": {
+      "low": 70,
+      "high": 120,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "pc-building-5",
+    "hobbyId": "pc-building",
+    "name": "Power supply",
+    "necessity": "required",
+    "guidance": "Buy this new and leave headroom over what the parts draw. Never the place to cut, and never open one.",
+    "cost": {
+      "low": 50,
+      "high": 110,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": false
+  },
+  {
+    "id": "pc-building-6",
+    "hobbyId": "pc-building",
+    "name": "Case",
+    "necessity": "required",
+    "guidance": "Check cooler height and card length against its specification before buying.",
+    "cost": {
+      "low": 50,
+      "high": 100,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "pc-building-7",
+    "hobbyId": "pc-building",
+    "name": "Operating system",
+    "necessity": "required",
+    "guidance": "Linux is free, and many students can get Windows through their school.",
+    "cost": {
+      "low": 0,
+      "high": 140,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Linux is free; student licenses often are too."
+  },
+  {
+    "id": "pc-building-8",
+    "hobbyId": "pc-building",
+    "name": "#2 Phillips screwdriver",
+    "necessity": "required",
+    "guidance": "One magnetic screwdriver does the whole build.",
+    "cost": {
+      "low": 0,
+      "high": 10,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Almost certainly one in the house already."
+  },
+  {
+    "id": "pc-building-9",
+    "hobbyId": "pc-building",
+    "name": "Anti-static strap",
+    "necessity": "recommended",
+    "guidance": "Makes it harder to forget to ground yourself.",
+    "cost": {
+      "low": 0,
+      "high": 15,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Touch the bare metal case with the power supply switched off, and avoid carpet."
+  },
+  {
+    "id": "drawing-0",
+    "hobbyId": "drawing",
+    "name": "Pencil or graphite set",
+    "necessity": "required",
+    "guidance": "Any pencil works. Harder grades smudge less, softer ones shade faster.",
+    "cost": {
+      "low": 0,
+      "high": 12,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Any pencil you own."
+  },
+  {
+    "id": "drawing-1",
+    "hobbyId": "drawing",
+    "name": "Paper or sketchbook",
+    "necessity": "required",
+    "guidance": "Cheap paper keeps you from being precious about mistakes, and volume is what teaches.",
+    "cost": {
+      "low": 0,
+      "high": 20,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Printer paper, which is what Drawabox itself recommends."
+  },
+  {
+    "id": "drawing-2",
+    "hobbyId": "drawing",
+    "name": "Eraser and sharpener",
+    "necessity": "required",
+    "guidance": "A soft eraser lifts graphite without tearing cheap paper.",
+    "cost": {
+      "low": 0,
+      "high": 8,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "drawing-3",
+    "hobbyId": "drawing",
+    "name": "Fineliner pens (0.5 mm)",
+    "necessity": "recommended",
+    "guidance": "Only needed if you follow the Drawabox curriculum, which is drawn in ink.",
+    "cost": {
+      "low": 8,
+      "high": 15,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "painting-0",
+    "hobbyId": "painting",
+    "name": "Acrylic paint starter set",
+    "necessity": "required",
+    "guidance": "Student grade is fine. A red, a blue, a yellow and a white mix almost anything.",
+    "cost": {
+      "low": 15,
+      "high": 40,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "painting-1",
+    "hobbyId": "painting",
+    "name": "Brush set",
+    "necessity": "required",
+    "guidance": "A few rounds and a flat cover most of what a beginner needs.",
+    "cost": {
+      "low": 10,
+      "high": 30,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "painting-2",
+    "hobbyId": "painting",
+    "name": "Painting surface",
+    "necessity": "required",
+    "guidance": "Canvas panels or an acrylic pad. Practice on anything that takes paint.",
+    "cost": {
+      "low": 10,
+      "high": 25,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Heavy paper or primed cardboard for practice."
+  },
+  {
+    "id": "painting-3",
+    "hobbyId": "painting",
+    "name": "Palette",
+    "necessity": "required",
+    "guidance": "Anything flat and wipeable. Acrylic peels cleanly off a lid.",
+    "cost": {
+      "low": 0,
+      "high": 10,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "A paper plate or plastic lid."
+  },
+  {
+    "id": "painting-4",
+    "hobbyId": "painting",
+    "name": "Water jar and rag",
+    "necessity": "required",
+    "guidance": "Change the water more often than feels necessary.",
+    "cost": {
+      "low": 0,
+      "high": 0,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Any jar and an old shirt."
+  },
+  {
+    "id": "running-0",
+    "hobbyId": "running",
+    "name": "Running shoes",
+    "necessity": "required",
+    "guidance": "Fit matters more than model or price. A shop that watches you walk is worth the trip. Not something to buy used.",
+    "cost": {
+      "low": 60,
+      "high": 130,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": false,
+    "freeAlternative": "Any athletic shoe you own will cover your first few weeks; replace it before your mileage builds."
+  },
+  {
+    "id": "running-1",
+    "hobbyId": "running",
+    "name": "Athletic clothes",
+    "necessity": "required",
+    "guidance": "Whatever you already exercise in.",
+    "cost": {
+      "low": 0,
+      "high": 50,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Whatever you already exercise in."
+  },
+  {
+    "id": "running-2",
+    "hobbyId": "running",
+    "name": "Moisture-wicking socks",
+    "necessity": "recommended",
+    "guidance": "Cotton holds sweat and causes blisters on longer runs.",
+    "cost": {
+      "low": 10,
+      "high": 20,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "running-3",
+    "hobbyId": "running",
+    "name": "Water bottle",
+    "necessity": "recommended",
+    "guidance": "Needed in heat and on longer runs, or plan a route past water.",
+    "cost": {
+      "low": 0,
+      "high": 25,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "One you own."
+  },
+  {
+    "id": "running-4",
+    "hobbyId": "running",
+    "name": "Reflective vest or headlamp",
+    "necessity": "recommended",
+    "guidance": "Needed for low light, not optional there.",
+    "cost": {
+      "low": 15,
+      "high": 45,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Run in daylight."
+  },
+  {
+    "id": "volleyball-0",
+    "hobbyId": "volleyball",
+    "name": "Indoor volleyball",
+    "necessity": "required",
+    "guidance": "Sessions almost always provide balls; your own helps solo wall practice.",
+    "cost": {
+      "low": 25,
+      "high": 70,
+      "currency": "USD"
+    },
+    "borrowable": true,
+    "usedOk": true,
+    "freeAlternative": "Every gym, rec league and pickup group has balls."
+  },
+  {
+    "id": "volleyball-1",
+    "hobbyId": "volleyball",
+    "name": "Knee pads",
+    "necessity": "recommended",
+    "guidance": "Cheap, and the floor is unforgiving. Unnecessary on sand.",
+    "cost": {
+      "low": 15,
+      "high": 35,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "volleyball-2",
+    "hobbyId": "volleyball",
+    "name": "Court shoes",
+    "necessity": "recommended",
+    "guidance": "Indoor courts need clean non-marking soles. Court shoes add ankle support for lateral moves.",
+    "cost": {
+      "low": 50,
+      "high": 110,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Any clean non-marking athletic shoe for your first sessions."
+  },
+  {
+    "id": "volleyball-3",
+    "hobbyId": "volleyball",
+    "name": "Ankle braces",
+    "necessity": "optional",
+    "guidance": "Worth considering if you have a history of rolling an ankle.",
+    "cost": {
+      "low": 25,
+      "high": 50,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true
+  },
+  {
+    "id": "volleyball-4",
+    "hobbyId": "volleyball",
+    "name": "Ball pump",
+    "necessity": "optional",
+    "guidance": "Only needed once you own a ball.",
+    "cost": {
+      "low": 8,
+      "high": 15,
+      "currency": "USD"
+    },
+    "borrowable": true,
+    "usedOk": true
+  },
+  {
+    "id": "reading-0",
+    "hobbyId": "reading",
+    "name": "Library card",
+    "necessity": "required",
+    "guidance": "Free at any US public library with proof of address. This is your whole starting kit.",
+    "cost": {
+      "low": 0,
+      "high": 0,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Libby gives you ebooks and audiobooks on the same card, from your phone."
+  },
+  {
+    "id": "reading-1",
+    "hobbyId": "reading",
+    "name": "A book",
+    "necessity": "required",
+    "guidance": "Start with something you want to read, not something you think you should.",
+    "cost": {
+      "low": 0,
+      "high": 18,
+      "currency": "USD"
+    },
+    "borrowable": true,
+    "usedOk": true,
+    "freeAlternative": "The library, Libby, Project Gutenberg or a Little Free Library."
+  },
+  {
+    "id": "reading-2",
+    "hobbyId": "reading",
+    "name": "Book light",
+    "necessity": "optional",
+    "guidance": "Light on the page rather than behind it.",
+    "cost": {
+      "low": 10,
+      "high": 20,
+      "currency": "USD"
+    },
+    "borrowable": false,
+    "usedOk": true,
+    "freeAlternative": "Any lamp."
+  }
+]

@@ -27,13 +27,16 @@ test('skip, pick, check in and triage the kit, earning nothing on the way',async
  await expect.poll(()=>page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!).placements.reading?.level)).toBeDefined();
  expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!).ledger)).toEqual([]);
  await expect(page.getByText(/to sort out first/)).toBeVisible();
- await page.getByRole('button',{name:'I can borrow this'}).first().click();
+ // Reading's required kit is a library card you have and a book you borrow.
+ await page.getByRole('group',{name:'Library card status'}).getByRole('button',{name:'I have this'}).click();
+ await expect(page.getByText(/to sort out first/)).toBeVisible();
+ await page.getByRole('group',{name:'A book status'}).getByRole('button',{name:'I can borrow this'}).click();
  await expect(page.getByText('You can start today.')).toBeVisible();
  await page.getByRole('button',{name:'OPEN MY DESKTOP'}).click();
  await expect(page).toHaveURL(/\/home$/);
  const final=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!));
  expect(final.ledger).toEqual([]);
- expect(final.gear['reading-0']).toBe('borrowing');
+ expect(final.gear['reading-0']).toBe('owned');expect(final.gear['reading-1']).toBe('borrowing');
  await expect(page.locator('.customize-nudge')).toBeVisible();
 });
 test('every step after the character is skippable',async({page})=>{

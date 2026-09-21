@@ -24,7 +24,12 @@
     "practicePrerequisites": [
       "ten-safety"
     ],
-    "startSummary": "Borrow a racquet · TECHNIQUE-HEAVY"
+    "startSummary": "Borrow a racquet · TECHNIQUE-HEAVY",
+    "upgrade": {
+      "low": 200,
+      "high": 450,
+      "note": "Your own graphite racquet, restringing, court shoes, lessons or clinics"
+    }
   },
   {
     "id": "cycling",
@@ -52,7 +57,12 @@
       "cyc-safety",
       "cyc-check"
     ],
-    "startSummary": "Bike + helmet · GEAR NEEDED"
+    "startSummary": "Bike + helmet · GEAR NEEDED",
+    "upgrade": {
+      "low": 400,
+      "high": 1200,
+      "note": "Wheels, saddle, clipless pedals and shoes, a drivetrain refresh, a bike fit, tools"
+    }
   },
   {
     "id": "swimming",
@@ -79,7 +89,12 @@
     "practicePrerequisites": [
       "swi-safety"
     ],
-    "startSummary": "Pool + supervision · SAFETY FIRST"
+    "startSummary": "Pool + supervision · SAFETY FIRST",
+    "upgrade": {
+      "low": 150,
+      "high": 500,
+      "note": "Better goggles, a training set, a swim watch, masters club or coached lessons"
+    }
   },
   {
     "id": "journaling",
@@ -104,7 +119,12 @@
       }
     ],
     "practicePrerequisites": [],
-    "startSummary": "Existing paper + pen · EASY TO START"
+    "startSummary": "Existing paper + pen · EASY TO START",
+    "upgrade": {
+      "low": 50,
+      "high": 150,
+      "note": "A hardcover or dot-grid notebook, a fountain pen and ink"
+    }
   },
   {
     "id": "pc-building",
@@ -131,7 +151,12 @@
     "practicePrerequisites": [
       "pcb-safety"
     ],
-    "startSummary": "Parts + one screwdriver · PLAN FIRST"
+    "startSummary": "Parts + one screwdriver · PLAN FIRST",
+    "upgrade": {
+      "low": 500,
+      "high": 1500,
+      "note": "A faster graphics card, more memory, another drive, a monitor and peripherals"
+    }
   },
   {
     "id": "drawing",
@@ -156,7 +181,12 @@
       }
     ],
     "practicePrerequisites": [],
-    "startSummary": "Pencil and paper · FREE TO TRY"
+    "startSummary": "Pencil and paper · FREE TO TRY",
+    "upgrade": {
+      "low": 100,
+      "high": 400,
+      "note": "A quality sketchbook, graphite and charcoal, a drawing board, figure sessions, a tablet"
+    }
   },
   {
     "id": "painting",
@@ -183,7 +213,12 @@
     "practicePrerequisites": [
       "pnt-safety"
     ],
-    "startSummary": "Three colours + a brush · LOW COST"
+    "startSummary": "Three colours + a brush · LOW COST",
+    "upgrade": {
+      "low": 150,
+      "high": 400,
+      "note": "Artist-grade paint, stretched canvas, an easel, better brushes, classes"
+    }
   },
   {
     "id": "running",
@@ -210,7 +245,12 @@
     "practicePrerequisites": [
       "run-safety"
     ],
-    "startSummary": "Comfortable shoes · FREE TO TRY"
+    "startSummary": "Comfortable shoes · FREE TO TRY",
+    "upgrade": {
+      "low": 250,
+      "high": 600,
+      "note": "A second pair for rotation, a GPS watch, race entries, coaching"
+    }
   },
   {
     "id": "volleyball",
@@ -237,7 +277,12 @@
     "practicePrerequisites": [
       "vol-safety"
     ],
-    "startSummary": "Mostly borrowed · JOIN A SESSION"
+    "startSummary": "Mostly borrowed · JOIN A SESSION",
+    "upgrade": {
+      "low": 150,
+      "high": 400,
+      "note": "Your own competition ball, court shoes, better pads, league fees"
+    }
   },
   {
     "id": "reading",
@@ -262,6 +307,11 @@
       }
     ],
     "practicePrerequisites": [],
-    "startSummary": "A library card · FREE TO TRY"
+    "startSummary": "A library card · FREE TO TRY",
+    "upgrade": {
+      "low": 100,
+      "high": 350,
+      "note": "An e-reader, an audiobook subscription, a book budget, shelves"
+    }
   }
 ]

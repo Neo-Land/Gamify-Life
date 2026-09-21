@@ -1,6 +1,6 @@
 'use client';
 import {useGame} from '../provider';
-import {gear,hobbies,pricesCheckedAt,type GearItem} from '@/lib/content';
+import {gear,hobbies,pricesCheckedAt,usdRange,type GearItem} from '@/lib/content';
 import {firstQuests,type QuickHobby} from '@/lib/quick-start';
 import {readiness} from '@/lib/readiness';
 const ORDER=['required','recommended','optional'] as const;
@@ -20,7 +20,7 @@ export function KitStep({hobbyIds,onDone}:{hobbyIds:string[];onDone:()=>void}){
     {items.map(g=><div key={g.id} className="kit-row">
      <div><strong>{g.name}</strong> <small className="metadata">{g.necessity}</small>
       <p className="metadata">{g.guidance}</p>
-      <p className="metadata">{g.cost.high===0?'Free':g.cost.low===g.cost.high?`$${g.cost.low}`:`$${g.cost.low}–$${g.cost.high}`}{g.borrowable&&' · can borrow'}</p>
+      <p className="metadata">{g.cost.high===0?'Free':usdRange(g.cost.low,g.cost.high)}{g.borrowable&&' · can borrow'}</p>
       {g.freeAlternative&&<p className="metadata">{g.freeAlternative}</p>}</div>
      <div className="kit-controls" role="group" aria-label={`${g.name} status`}>
       {([['owned','I have this'],['borrowing','I can borrow this'],['need','I still need this']] as const).map(([value,label])=>
@@ -30,7 +30,7 @@ export function KitStep({hobbyIds,onDone}:{hobbyIds:string[];onDone:()=>void}){
      </div></div>)}
     <p className="kit-readiness" role="status">{r.ready
      ?<>You can start today. <button className="text-button" onClick={onDone}>{firstQuests[id as QuickHobby].action}</button></>
-     :<>{r.missing.length===1?'One thing to sort out first':`${r.missing.length} things to sort out first`}: {r.missing.map(g=>g.name).join(', ')}. Estimated {r.lowTotal===r.highTotal?`$${r.lowTotal}`:`$${r.lowTotal}–$${r.highTotal}`}.</>}</p>
+     :<>{r.missing.length===1?'One thing to sort out first':`${r.missing.length} things to sort out first`}: {r.missing.map(g=>g.name).join(', ')}. Estimated {usdRange(r.lowTotal,r.highTotal)}.</>}</p>
    </section>;})}
   <button className="button primary" disabled={busy} onClick={onDone}>OPEN MY DESKTOP</button></>;
 }
