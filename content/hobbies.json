@@ -2,33 +2,68 @@
   {
     "id": "tennis",
     "name": "Tennis",
-    "icon": "\ud83c\udfbe",
+    "icon": "🎾",
     "color": "#D98C8C",
     "description": "Find your rhythm. One rally at a time.",
-    "prefix": "ten"
+    "prefix": "ten",
+    "safetyNote": "Check the court, warm up gently, keep clear of others and stop if you feel pain.",
+    "resource": {
+      "title": "USTA learning resources",
+      "url": "https://www.usta.com/en/home/improve.html"
+    },
+    "practicePrerequisites": [
+      "ten-safety"
+    ],
+    "startSummary": "Borrow a racquet · TECHNIQUE-HEAVY"
   },
   {
     "id": "cycling",
     "name": "Cycling / Fixed Gear",
-    "icon": "\ud83d\udeb2",
+    "icon": "🚲",
     "color": "#D6B65C",
     "description": "A little farther. A little more freedom.",
-    "prefix": "cyc"
+    "prefix": "cyc",
+    "safetyNote": "Check air, brakes and chain before every ride. Use a fitted helmet and follow local traffic rules. Fixed-gear road use needs a functional front brake; do not learn brakeless street riding.",
+    "resource": {
+      "title": "League of American Bicyclists",
+      "url": "https://bikeleague.org/ridesmart/"
+    },
+    "practicePrerequisites": [
+      "cyc-safety",
+      "cyc-check"
+    ],
+    "startSummary": "Bike + helmet · GEAR NEEDED"
   },
   {
     "id": "swimming",
     "name": "Swimming",
-    "icon": "\ud83c\udfca",
+    "icon": "🏊",
     "color": "#72B7A4",
     "description": "Build confidence, one length at a time.",
-    "prefix": "swi"
+    "prefix": "swi",
+    "safetyNote": "Practice with qualified supervision in a swim-safe environment. Never swim alone, hyperventilate or do breath-holding contests. Restrictive knee bands are not a default freestyle correction.",
+    "resource": {
+      "title": "American Red Cross water safety",
+      "url": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/types-of-emergencies/water-safety.html"
+    },
+    "practicePrerequisites": [
+      "swi-safety"
+    ],
+    "startSummary": "Pool + supervision · SAFETY FIRST"
   },
   {
     "id": "journaling",
     "name": "Journaling",
-    "icon": "\ud83d\udcd4",
+    "icon": "📔",
     "color": "#AE9BC8",
     "description": "Make a little space for your thoughts.",
-    "prefix": "jou"
+    "prefix": "jou",
+    "safetyNote": "",
+    "resource": {
+      "title": "Purdue OWL writing resources",
+      "url": "https://owl.purdue.edu/owl/general_writing/index.html"
+    },
+    "practicePrerequisites": [],
+    "startSummary": "Existing paper + pen · EASY TO START"
   }
 ]

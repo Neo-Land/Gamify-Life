@@ -12,14 +12,14 @@ describe('quests and practice',()=>{it('caps weekly quest awards and permits a n
 describe('recommendations and rewards',()=>{it('prioritizes a started skill',()=>{const s=initialState();s.enrollments=['tennis','journaling'];s.progress['jou-start']={status:'in_progress',startedAt:''};expect(recommend(s)?.id).toBe('jou-start');});it('rotates equally ranked ignored skills after three visits',()=>{const s=initialState();s.enrollments=['tennis','journaling'];s.recommendation={id:'ten-start',visits:3};expect(recommend(s)?.id).toBe('jou-start');});it('pinned quest hobby takes priority over started content elsewhere',()=>{const s=initialState();s.enrollments=['tennis','journaling'];s.progress['ten-start']={status:'in_progress',startedAt:''};s.quests['journaling-week']={pinned:true,value:0,period:questState(s,'journaling-week').period,completed:false};expect(recommend(s)?.hobbyId).toBe('journaling');});it('unlocks cosmetics at hobby level 2',()=>{const s=initialState();const visor=avatarItems.find(a=>a.id==='visor')!;expect(avatarUnlocked(visor,s)).toBe(false);s.ledger.push({id:'test',hobbyId:'tennis',amount:300,source:'test',at:''});expect(avatarUnlocked(visor,s)).toBe(true);});it('all canonical nodes are present and have distinct lessons',()=>{expect(nodes).toHaveLength(72);expect(new Set(nodes.map(n=>n.whyItMatters)).size).toBe(72);});});
 
 describe('full progression stress',()=>{
- it('can complete and master all 72 skills without blocked paths or duplicate rewards on retries',()=>{
+ it('can complete and master every skill without blocked paths or duplicate rewards on retries',()=>{
   let s=initialState();s.gear['tennis-0']='owned';s.gear['tennis-1']='owned';
   const pending=new Set(nodes.map(n=>n.id));
   while(pending.size){const next=nodes.find(n=>pending.has(n.id)&&available(n,s));expect(next,'Every remaining skill must eventually unlock').toBeDefined();
    for(const type of ['start','complete','master'] as const){const command=type==='start'?{type,nodeId:next!.id}:{type,nodeId:next!.id,evidence};s=applyCommand(s,command).state;const retry=applyCommand(s,command);expect(retry.xpAwarded).toBe(0);expect(retry.state.ledger).toEqual(s.ledger);}
    pending.delete(next!.id);
   }
-  expect(Object.values(s.progress).filter(p=>p.status==='mastered')).toHaveLength(72);
+  expect(Object.values(s.progress).filter(p=>p.status==='mastered')).toHaveLength(nodes.length);
   expect(new Set(s.ledger.map(l=>l.id)).size).toBe(s.ledger.length);
  });
  it('preserves 100 sessions while deduplicating retries and daily XP',()=>{

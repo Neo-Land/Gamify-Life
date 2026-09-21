@@ -1,4 +1,4 @@
-import { achievements, avatarItems, gear, hobbyIds, nodeById, nodes, quests, tiers, type SkillNode } from './content';
+import { achievements, avatarItems, gear, hobbyById, hobbyIds, nodeById, nodes, quests, tiers, type SkillNode } from './content';
 import { commandSchema, type Command, type CompletionResult, type State } from './domain';
 export const thresholds=[0,100,300,650,1100,1700,2500,3500,4800,6400,8500];
 export const levelNames=['Curious','Newcomer','Beginner','Capable Beginner','Recreational','Developing','Skilled','Experienced','Advanced','Specialist','Mentor'];
@@ -7,7 +7,7 @@ export const lifeLevel=(xp:number)=>Math.floor(Math.sqrt(Math.max(0,xp)/250))+1;
 export const hobbyXp=(s:State,id:string)=>s.ledger.filter(l=>l.hobbyId===id).reduce((a,l)=>a+l.amount,0);
 export const lifeXp=(s:State)=>s.ledger.reduce((a,l)=>a+l.amount,0);
 export const done=(s:State,id:string)=>['completed','mastered'].includes(s.progress[id]?.status);
-export function practicePrerequisites(hobbyId:string):string[]{return ({tennis:['ten-safety'],cycling:['cyc-safety','cyc-check'],swimming:['swi-safety'],journaling:[]} as Record<string,string[]>)[hobbyId]||[];}
+export function practicePrerequisites(hobbyId:string):string[]{return hobbyById(hobbyId)?.practicePrerequisites||[];}
 export function safetyRequirements(n:SkillNode):string[]{
  if(n.hobbyId==='swimming'&&!['orientation','gear'].includes(n.nodeType))return ['swi-safety'];
  if(n.hobbyId==='cycling'&&['practice','challenge','milestone','specialization'].includes(n.nodeType))return ['cyc-safety','cyc-check'];
@@ -75,7 +75,7 @@ export function applyCommand(current:State,input:Command,now=new Date()):Complet
  if(c.type==='avatar-preset'){for(const [slot,itemId] of Object.entries(c.items)){const item=avatarItems.find(i=>i.id===itemId&&i.slot===slot);if(!item||!avatarUnlocked(item,s))throw new Error('This cosmetic has not unlocked yet.');s.avatar[slot]=itemId;}}
  if(c.type==='visit'){const n=recommend(s);if(n)s.recommendation={id:n.id,visits:s.recommendation.id===n.id?s.recommendation.visits+1:1};}
  const levels=hobbyIds.map(h=>hobbyLevel(hobbyXp(s,h)));
- const earned=[nodes.some(n=>done(s,n.id)),s.enrollments.length===4,nodes.some(n=>n.nodeType==='practice'&&done(s,n.id)),levels.filter(l=>l>=2).length>=2,levels.every(l=>l>=2),s.practice.length>=10];
- achievements.forEach((a,i)=>{if(earned[i]&&!s.achievements.includes(a.id)){s.achievements.push(a.id);award(`achievement:${a.id}`,null,a.xp,`Achievement: ${a.name}`);}});
+ const earned:Record<string,boolean>={'first-step':nodes.some(n=>done(s,n.id)),'curious-mind':s.enrollments.length>=3,'real-world':nodes.some(n=>n.nodeType==='practice'&&done(s,n.id)),'well-rounded':levels.filter(l=>l>=2).length>=2,'renaissance':levels.filter(l=>l>=2).length>=3,'ten-sessions':s.practice.length>=10};
+ achievements.forEach(a=>{if(earned[a.id]&&!s.achievements.includes(a.id)){s.achievements.push(a.id);award(`achievement:${a.id}`,null,a.xp,`Achievement: ${a.name}`);}});
  return {state:s,xpAwarded:lifeXp(s)-beforeXp,unlockedNodeIds:nodes.filter(n=>available(n,s)&&!beforeAvailable.includes(n.id)).map(n=>n.id),newAchievementIds:s.achievements.filter(id=>!current.achievements.includes(id)),newAvatarItemIds:avatarItems.filter(i=>avatarUnlocked(i,s)&&!beforeItems.includes(i.id)).map(i=>i.id)};
 }

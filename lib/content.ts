@@ -3,13 +3,18 @@ import { z } from 'zod';
 import rawNodes from '@/content/nodes.json';
 import rawHobbies from '@/content/hobbies.json';
 import { lessons } from '@/content/lessons';
+export const hobbySchema = z.object({id:z.string(),name:z.string(),icon:z.string(),color:z.string(),description:z.string(),prefix:z.string().length(3),safetyNote:z.string(),resource:z.object({title:z.string(),url:z.string().url()}),practicePrerequisites:z.array(z.string()),startSummary:z.string()});
+export const hobbies = z.array(hobbySchema).parse(rawHobbies);
+/** Kept as a tuple for z.enum, and checked against the JSON at module load so the two cannot drift. */
 export const hobbyIds = ['tennis','cycling','swimming','journaling'] as const;
-export const hobbies = rawHobbies;
+if(hobbies.length!==hobbyIds.length||hobbies.some(h=>!(hobbyIds as readonly string[]).includes(h.id)))throw new Error('hobbies.json and hobbyIds are out of sync');
+if(new Set(hobbies.map(h=>h.prefix)).size!==hobbies.length)throw new Error('hobby prefixes must be unique');
+export const hobbyById=(id:string)=>hobbies.find(h=>h.id===id);
 export const nodeSchema = z.object({id:z.string(),hobbyId:z.enum(hobbyIds),slug:z.string(),title:z.string(),tier:z.enum(['start','beginner','intermediate','advanced']),nodeType:z.string(),xpReward:z.number().int().nonnegative(),requires:z.array(z.string()),orGroups:z.array(z.array(z.string())),completion:z.object({prompt:z.string(),evidenceMode:z.enum(['honor','count','duration','note']),targetValue:z.number().optional(),targetUnit:z.string().optional()}),estimatedMinutes:z.number(),isRequired:z.boolean(),isSafetyCritical:z.boolean(),isRecommended:z.boolean(),status:z.enum(['published','draft','archived']),contentVersion:z.number(),sortOrder:z.number(),tags:z.array(z.string()),category:z.string(),position:z.object({x:z.number(),y:z.number()})});
 export const nodes = rawNodes.map(raw => {
  const n = nodeSchema.parse(raw); const [why,steps,mistake]=lessons[n.id].split('|');
- const safety = n.hobbyId==='swimming' ? 'Practice with qualified supervision in a swim-safe environment. Never swim alone, hyperventilate or do breath-holding contests. Restrictive knee bands are not a default freestyle correction.' : n.hobbyId==='cycling' ? 'Check air, brakes and chain before every ride. Use a fitted helmet and follow local traffic rules. Fixed-gear road use needs a functional front brake; do not learn brakeless street riding.' : n.hobbyId==='tennis' ? 'Check the court, warm up gently, keep clear of others and stop if you feel pain.' : '';
- return {...n,shortDescription:why,whyItMatters:why,instructions:steps.split(';'),learningObjectives:[steps.split(';')[0],n.completion.prompt,'Recognize and avoid the common mistake below.'],commonMistakes:[mistake],safetyNotes:safety?[safety]:[],mastery:{prompt:'Repeat this challenge on three separate days and describe what became more consistent.',evidenceMode:'note' as const},masteryXpReward:15,review_status:'draft',last_reviewed_at:null,resources:[{title:({tennis:'USTA learning resources',cycling:'League of American Bicyclists',swimming:'American Red Cross water safety',journaling:'Purdue OWL writing resources'})[n.hobbyId],url:({tennis:'https://www.usta.com/en/home/improve.html',cycling:'https://bikeleague.org/ridesmart/',swimming:'https://www.redcross.org/get-help/how-to-prepare-for-emergencies/types-of-emergencies/water-safety.html',journaling:'https://owl.purdue.edu/owl/general_writing/index.html'})[n.hobbyId],placeholder:true}]};
+ const hobby = hobbyById(n.hobbyId)!; const safety = hobby.safetyNote;
+ return {...n,shortDescription:why,whyItMatters:why,instructions:steps.split(';'),learningObjectives:[steps.split(';')[0],n.completion.prompt,'Recognize and avoid the common mistake below.'],commonMistakes:[mistake],safetyNotes:safety?[safety]:[],mastery:{prompt:'Repeat this challenge on three separate days and describe what became more consistent.',evidenceMode:'note' as const},masteryXpReward:15,review_status:'draft',last_reviewed_at:null,resources:[{...hobby.resource,placeholder:true}]};
 });
 export type SkillNode = typeof nodes[number];
 export const nodeById=(id:string)=>nodes.find(n=>n.id===id);
@@ -28,10 +33,10 @@ export const quests=[
 ];
 export const achievements=[
  {id:'first-step',name:'First Step',description:'Complete your first skill.',xp:25,icon:'✦'},
- {id:'curious-mind',name:'Curious Mind',description:'Enroll in all four hobbies.',xp:0,icon:'✿'},
+ {id:'curious-mind',name:'Curious Mind',description:'Enroll in three hobbies.',xp:0,icon:'✿'},
  {id:'real-world',name:'Real-World Action',description:'Complete your first practice skill.',xp:50,icon:'↗'},
  {id:'well-rounded',name:'Well Rounded',description:'Reach level 2 in two hobbies.',xp:0,icon:'◈'},
- {id:'renaissance',name:'Renaissance Beginner',description:'Reach level 2 in all four hobbies.',xp:0,icon:'☀'},
+ {id:'renaissance',name:'Renaissance Beginner',description:'Reach level 2 in three hobbies.',xp:0,icon:'☀'},
  {id:'ten-sessions',name:'Ten Sessions',description:'Log ten practice sessions.',xp:100,icon:'▤'}
 ];
 export const avatarItems=[
