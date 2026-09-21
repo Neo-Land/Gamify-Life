@@ -1,5 +1,30 @@
 # Gamify.Life — continuation handoff
 
+## September 21, 2026 update: side hair, three builds, cast shadow, real animation
+
+- **Side and back hair cover the skull.** Side views used to be a cap plus a front block, leaving the
+  back half of the head bare. `sideShort` (temple, behind-ear, tapered nape, sideburn) and `sideLong`
+  (hides the ear, stops at the jaw) in `lib/hair.ts` are the shared coverage; `backShort` carries the
+  back view down to the nape. The side-view ear moved from the back of the skull to x120–134 and is
+  drawn with a faint shade, because it sits on skin and is invisible otherwise.
+- **Shaved hair is `stub`**, the hair colour at .38 opacity over skin. Putting it in `light` made the
+  shaved sides of a blond mohawk brighter than the mohawk.
+- **Hair casts a shadow on the face**: the front hair boxes offset by 3 down/left/right in darker
+  skin, clipped to `headSkull` so it never lands on clothes. Stronger when hair and skin are within
+  .14 luminance. The clip id comes from `useId()`, so markup comparisons must normalise it.
+- **Three builds, one height**: `average-slim`, `average-average`, `average-broad`, labelled Slim,
+  Medium, Broad. Old short/tall saves map through `legacyBodyRig` onto the same build. Each rig has
+  `arm` and `leg` widths and every limb garment (sleeves, hands, legs, cuffs, socks, shoes, coat
+  sleeves) derives from them; Medium reduces to exactly the old numbers. Shoes are capped so the slim
+  pair never merges in front/back views. The picker (`BodySelector`) is in the creator and the
+  appearance editor, showing the player's own outfit on each build.
+- **Animation**: idle is a breath with the head a beat late; gesture is a bounce, two nods and a
+  raised prop; celebration is crouch, jump, head lag, landing squash, second hop, prop overhead and
+  a shrinking ground shadow. All via the `translate`/`scale` properties so they compose with each
+  layer's transform attribute, and all paused/removed by the existing motion rules.
+- Contact sheets without the dev server: render `<Avatar>` with `react-dom/server` under tsx
+  (`NODE_PATH=node_modules`, import React explicitly) and screenshot the HTML with Playwright.
+
 ## September 18, 2026 update: SVG character, chibi proportions (read this first)
 
 The sprite-pack experiment is **reverted**. The character is the original SVG paper doll again

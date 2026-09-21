@@ -1,7 +1,7 @@
 'use client';
-import {useEffect,useState,type ReactNode,type PointerEvent} from 'react';
+import {useEffect,useId,useState,type ReactNode,type PointerEvent} from 'react';
 import {bodyRigs,type BodyRigId} from '@/lib/body-rigs';
-import {RigLayer} from './rig-layers';
+import {RigLayer,headSkull} from './rig-layers';
 import {avatarItems} from '@/lib/content';
 import {tints,type TintId} from '@/lib/tints';
 import {hairArt,boxPath} from '@/lib/hair';
@@ -19,6 +19,8 @@ const propGrips:[string,[number,number]][]=[['racquet',[213,250]],['notebook',[2
 /** Original 256 × 384 paper doll. Painted SVG pixels are also the hit masks:
  * browser hit testing returns the topmost painted shape, never its transparent box. */
 export function Avatar({selection,large=false,pose='front',onPart,interactive=false,bodyRigId='average-average',animation='idle',viewBox='0 0 256 384',decorative=false,tint=null}:{selection:Record<string,string>;tint?:TintId|null;bodyRigId?:BodyRigId;animation?:'idle'|'gesture'|'celebration';large?:boolean;pose?:AvatarPose;onPart?:(slot:string|null,activate:boolean,touch:boolean)=>void;interactive?:boolean;viewBox?:string;decorative?:boolean}){
+ /** Unique per instance: several avatars share a page and a clip id must not collide. */
+ const clipId=`hair-shadow-${useId().replace(/[^a-zA-Z0-9]/g,'')}`;
  const [hover,setHover]=useState<string|null>(null),[hidden,setHidden]=useState(false);
  useEffect(()=>{const update=()=>setHidden(document.hidden);document.addEventListener('visibilitychange',update);return()=>document.removeEventListener('visibilitychange',update);},[]);
  const shade=(hex:string,amount:number)=>{const n=parseInt(hex.slice(1),16);const mix=(c:number)=>Math.max(0,Math.min(255,Math.round(c*(1-amount))));return `#${[(n>>16)&255,(n>>8)&255,n&255].map(c=>mix(c).toString(16).padStart(2,'0')).join('')}`;};
@@ -106,7 +108,7 @@ export function Avatar({selection,large=false,pose='front',onPart,interactive=fa
  {part('bottoms-cuff','bottoms',null)}
  {part('outerwear','outerwear',null)}
  {part('chin-shadow',null,null)}
- {part('hair-front','hair',<g fill={hairColor}><path d={boxPath(hairPieces.front)}/><path d={boxPath(hairPieces.light)} fill={shade(hairColor,-.22)}/><path d={boxPath(hairPieces.tie)} fill={shade(hairColor,.4)}/></g>)}
+ {part('hair-front','hair',<g fill={hairColor}>{!back&&hairPieces.front.length>0&&<g clipPath={`url(#${clipId})`} fill={shade(skin,.3)} opacity={Math.abs(lum(hairColor)-lum(skin))<.14?.95:.5}><clipPath id={clipId}><path d={side?headSkull.side:headSkull.front}/></clipPath>{[[0,3],[3,0],[-3,0]].map(([dx,dy])=><path key={`${dx}${dy}`} d={boxPath(hairPieces.front)} transform={`translate(${dx} ${dy})`}/>)}</g>}<path d={boxPath(hairPieces.front)}/>{hairPieces.stub&&<path d={boxPath(hairPieces.stub)} opacity=".38"/>}<path d={boxPath(hairPieces.light)} fill={shade(hairColor,-.22)}/><path d={boxPath(hairPieces.tie)} fill={shade(hairColor,.4)}/></g>)}
  {part('headwear',has(head)?'headwear':['cap','visor','helmet'].includes(legacy)?'accessory':null,(has(head)||['cap','visor','helmet'].includes(legacy))&&(()=>{const c=has(head)?color('headwear','#788f79'):color('accessory','#788f79');return <g fill={c}><path d={boxPath(hat.main)}/><path d={boxPath(hat.accent)} fill={shade(c,-.28)}/><path d={boxPath(hat.dark)} fill={shade(c,.34)}/></g>;})())}
  {part('face-accessory',has(glasses)?'faceAccessory':['glasses','goggles'].includes(legacy)?'accessory':null,!back&&(has(glasses)||['glasses','goggles'].includes(legacy))&&(()=>{const c=has(glasses)?color('faceAccessory','#3d4c47'):color('accessory','#3d4c47');return <g fill={c}><path d={boxPath(spec.rim)}/><path d={boxPath(spec.lens)} fill={shade(c,.45)}/><path d={boxPath(spec.shine)} fill="#f1ecdb" opacity=".8"/></g>;})())}
  {part('neck-accessory','accessory',legacy&&!['none','cap','visor','helmet','glasses','goggles','satchel','backpack'].includes(legacy)&&<g fill={color('accessory','#bd9b63')}><path d={legacy.includes('scarf')||legacy.includes('bandana')?'M102 134h52v22H102zM134 156h20v64h-20z':legacy.includes('wrist')||legacy.includes('watch')?'M60 228h22v10H60zM174 228h22v10H174z':legacy.includes('earrings')?'M80 106h6v12h-6zM172 106h6v12h-6z':'M104 136h6v20h36v-20h6v26H104zM120 162h18v22h-18z'}/></g>)}

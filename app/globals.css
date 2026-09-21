@@ -80,3 +80,7 @@
 .map-hobby-switcher .map-new-hobby{border-style:dashed;margin-left:auto}
 .pose-picker.segmented{display:flex;width:fit-content;justify-content:center;margin:10px auto 0}
 .character-scene.full-scene .avatar{height:calc(100% - 16px);width:auto;align-self:flex-end;margin-bottom:8px}
+.build-picker{border:0;padding:0;margin:0 0 12px}.build-picker legend{font-weight:700;margin-bottom:6px}
+.build-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.build-choices .closet-item{display:flex;flex-direction:column;align-items:center;gap:4px}
+.build-choices svg{width:100%;max-width:150px;height:auto;aspect-ratio:176/126}

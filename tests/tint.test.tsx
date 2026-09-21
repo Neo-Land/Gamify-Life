@@ -43,7 +43,9 @@ describe('placeholder character tint',()=>{
   const s=initialState();
   const plain=render(<Avatar selection={s.avatar}/>).container;
   const untinted=render(<Avatar selection={s.avatar} tint={null}/>).container;
-  expect(untinted.innerHTML).toBe(plain.innerHTML);
+  // Each avatar gets its own clip id for the hair shadow; everything else must match exactly.
+  const ids=(html:string)=>html.replace(/hair-shadow-[a-zA-Z0-9]+/g,"hair-shadow");
+  expect(ids(untinted.innerHTML)).toBe(ids(plain.innerHTML));
   const tinted=render(<Avatar selection={s.avatar} tint="blue"/>).container;
   const fills=(root:Element,sel:string)=>[...root.querySelectorAll(`${sel} [fill]`)].map(e=>e.getAttribute('fill')!);
   // The eye line work keeps its authored values; tinting lashes, pupils or the sclera makes a smudge.
