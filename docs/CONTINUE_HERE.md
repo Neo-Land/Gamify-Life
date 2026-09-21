@@ -94,6 +94,27 @@ boxes, not a hand-written `d` string.
   worth a contrast pass over the palettes. Skin-derived tones now come from a `shade()` helper in
   `avatar.tsx` rather than one hard-coded mid-brown, so the nose and blush read on every skin tone.
 
+## The reward moment (`lib/rewards.ts`, `components/reward-overlay.tsx`)
+
+Added September 20, 2026. `applyCommand` had always returned `{xpAwarded, unlockedNodeIds,
+newAchievementIds, newAvatarItemIds}` and nothing consumed it; level-ups were computed nowhere.
+
+- **`rewardFor(before, after, result)`** is a pure function turning a command's outcome into a
+  `RewardEvent`. Level-ups are not in `CompletionResult`, so they are derived by comparing the two
+  states. It returns `null` when a command earned nothing, which is how the UI stays quiet.
+- **One surface per piece of information.** Completing a node opens a dialog that reports XP,
+  level-ups, unlocked nodes, achievements and cosmetics, so the provider raises no toast there —
+  a toast under the dialog's overlay is unreachable as well as redundant. Logging practice reports
+  only its own XP, so the toast keeps the level-ups and unlocks and drops the number. Everything
+  else (quests, achievements that land as a side effect of gear or enrolment) gets the full toast.
+- **The provider reads the previous state through a ref**, because `run` is memoised with no deps
+  and would otherwise close over a stale state and mis-report what was earned.
+- **The home character celebrates** for 2.6s on any reward, via the `celebration` animation that
+  already existed in `home-scene.css` and had never been triggered by anything.
+- Watch out when writing tests: achievements award XP too, so a seeded state reaches a level
+  threshold earlier than the node XP alone suggests. `tests/rewards.test.ts` and
+  `tests/e2e/reward.spec.ts` both depend on that arithmetic.
+
 ## The seasonal scene (`components/seasonal-scene.tsx`)
 
 Rewritten September 18, 2026 for much denser art. Read this before touching it.

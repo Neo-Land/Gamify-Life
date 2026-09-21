@@ -23,3 +23,27 @@
 .error-banner{position:sticky;top:60px;z-index:40}
 
 .practice-entry small{color:var(--ink-muted);font-size:14px}
+
+/* The reward moment. The toast covers everything that earns XP except node completion,
+   which has its own summary dialog. */
+.reward-toast{position:fixed;top:64px;right:16px;z-index:70;min-width:210px;max-width:320px;padding:12px 30px 12px 14px;
+ /* Never intercept a click: the toast overlays the dock on small screens and is purely informational. */
+ pointer-events:none;
+ background:var(--os-highlight,#eceade);border:2px solid var(--control-border,#6c7a63);box-shadow:4px 4px 0 #2b332b55;
+ animation:reward-in .32s ease-out both}
+.reward-toast[data-leaving]{animation:reward-out .5s ease-in both}
+.reward-toast[data-level]{border-width:3px;box-shadow:0 0 0 3px #d9bf7a88,5px 5px 0 #2b332b55}
+.reward-toast p{margin:0}
+.reward-xp{font:700 27px Georgia,serif;line-height:1.1;color:#4f6349}
+.reward-source{font-size:12px;color:#4a5347;margin-top:2px!important}
+.reward-level{font-weight:700;font-size:13px;color:#8a6a2a;margin-top:6px!important}
+.reward-unlock{font-size:12px;color:#5b6a54;margin-top:4px!important}
+.reward-dismiss{pointer-events:auto;position:absolute;top:4px;right:6px;border:0;background:none;font-size:17px;line-height:1;cursor:pointer;color:inherit;padding:2px 4px}
+.celebration-cast{position:relative;display:flex;justify-content:center;align-items:flex-end;height:132px}
+.celebration-cast .avatar{height:132px;width:auto}
+.celebration-cast .celebration-star{position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-size:40px}
+@keyframes reward-in{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+@keyframes reward-out{to{opacity:0;transform:translateX(26px)}}
+@media(prefers-reduced-motion:reduce){.reward-toast,.reward-toast[data-leaving]{animation:none}}
+[data-motion=reduced] .reward-toast,[data-motion=reduced] .reward-toast[data-leaving]{animation:none}
+@media(max-width:767px){.reward-toast{top:auto;bottom:104px;right:8px;left:8px;max-width:none}}
