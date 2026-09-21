@@ -45,6 +45,16 @@ drawn at the wrong scale, and going back removed the whole authoring loop.
   was the second and read as a domino. Only `calm`/`tired` get closed
   lash-line eyes; brows appear only for `focused`/`curious`/`brows`. The mouth is a three-step curve;
   two steps read as a staple.
+- **Brows and blush are on every face**, not just the variants that name them. `browShape` picks one
+  of five shapes from the expression (neutral, raised, focused, curious, soft) and that carries most
+  of the character's mood. Brows live in the narrow band between the hairline at y56 and the upper
+  lash at y73 — the hairline used to sit at y62, which left no forehead and buried them.
+- **Brow and blush colour adapt to the skin tone.** When hair and skin sit within 0.14 of each other
+  in luminance the brow is pushed away from both — lighter on dark skin, darker on light — because
+  espresso hair on ebony skin rendered the whole upper face as one mass. Blush opacity rises on dark
+  skin for the same reason.
+- **The chin shadow is its own layer after `outerwear`** so it falls on whatever is worn rather than
+  under it. It is the depth cue the head lost when the neck was removed. Layer count is 19.
 - **Eye colour is its own wardrobe slot** (`eyeColor`, 8 items in `lib/wardrobe.ts`). Characters saved
   before it existed have no value stored, so `avatar.tsx` derives an iris colour from their hair
   colour instead. Do not remove that fallback — it is what keeps old guest sessions from rendering
@@ -66,7 +76,8 @@ boxes, not a hand-written `d` string.
 - **`bottoms-cuff` is a second bottoms pass after `shoes`**, so a wide leg falls over the shoe instead
   of being cut off by it. It renders only for wide-leg trousers.
 - **Each hairstyle carries front, side and back art.** Left and right are the same side art mirrored
-  in CSS, so there are three views per style, not four. Fifteen styles plus bald. Back views matter:
+  in CSS, so there are three views per style, not four. Twenty styles plus bald; pigtails, space
+  buns, mohawk, curtains and puff were added on September 20. Back views matter:
   the bun, the ponytail's fall and the braids are only legible from behind.
 - **Hats and glasses are individually drawn.** Before this, bandana and rain hood both fell through
   to the baseball cap, bucket and sun hat shared one shape, and all six pairs of glasses were the

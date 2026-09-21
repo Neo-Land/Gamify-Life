@@ -3,7 +3,7 @@ const colors=['#688b7b','#9b7784','#c6a16a','#536d87','#d5cbb7','#7d7596','#9b69
 const styles=(slot:string,names:string[],prefix=slot)=>names.map((name,i)=>({id:`${prefix}-${name.replaceAll(' ','-')}`,name,slot,color:colors[i%colors.length],level:0}));
 export const extraWardrobe=[
  ...['porcelain','peach','golden','tan','mahogany','ebony'].map((name,i)=>({id:`skin-${name}`,name,slot:'body',color:['#f2dac4','#e7b899','#c99869','#ab704d','#774b3e','#44352e'][i],level:0})),
- ...styles('hair',['pixie','afro','locs','ponytail','bob','waves','undercut','twists']),
+ ...styles('hair',['pixie','afro','locs','ponytail','bob','waves','undercut','twists','pigtails','space buns','mohawk','curtains','puff']),
  ...['black','auburn','honey','ash','violet','teal'].map((name,i)=>({id:`color-${name}`,name,slot:'hairColor',color:['#242727','#894c38','#c9ac75','#88877d','#78627d','#426d68'][i],level:0})),
  ...styles('face',['neutral','happy','focused','curious','tired','victory','brows','moles','rosy']),
  ...['umber','hazel','amber','moss','slate','sky','olive','ink'].map((name,i)=>({id:`eye-${name}`,name,slot:'eyeColor',color:['#4b3320','#7a5330','#a9762f','#4f6b3c','#566c78','#5a7f96','#6d7a3a','#2f3a46'][i],level:0})),

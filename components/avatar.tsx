@@ -21,6 +21,7 @@ export function Avatar({selection,large=false,pose='front',onPart,interactive=fa
  const [hover,setHover]=useState<string|null>(null),[hidden,setHidden]=useState(false);
  useEffect(()=>{const update=()=>setHidden(document.hidden);document.addEventListener('visibilitychange',update);return()=>document.removeEventListener('visibilitychange',update);},[]);
  const item=(slot:string)=>avatarItems.find(i=>i.id===selection[slot]);const color=(slot:string,fallback:string)=>item(slot)?.color||fallback;
+ const lum=(hex:string)=>{const n=parseInt(hex.slice(1),16);return ((n>>16&255)*.299+((n>>8)&255)*.587+(n&255)*.114)/255;};
  const shade=(hex:string,amount:number)=>{const n=parseInt(hex.slice(1),16);const mix=(c:number)=>Math.max(0,Math.min(255,Math.round(c*(1-amount))));return `#${[(n>>16)&255,(n>>8)&255,n&255].map(c=>mix(c).toString(16).padStart(2,'0')).join('')}`;};
  const skin=color('body','#DCAE83'),hairColor=color('hairColor','#3F342F'),hair=selection.hair?.replace('hair-','')||'curls',legacy=selection.accessory,prop=selection.prop||'prop-none',back=pose==='back',side=pose==='left'||pose==='right';
  const face=selection.face||'face-bright',head=selection.headwear||'',glasses=selection.faceAccessory||'',bag=selection.backItem||'';
@@ -37,14 +38,25 @@ export function Avatar({selection,large=false,pose='front',onPart,interactive=fa
  const hand={x:128+(rig.anchors.rightHand.x-128)*BODY_W,y:GROUND+(rig.anchors.rightHand.y-GROUND)*BODY_H};
  const grip=propGrips.find(([k])=>prop.includes(k))?.[1]||[200,230];
  const heldTransform=`translate(${hand.x} ${hand.y}) scale(${PROP_SCALE}) translate(${-grip[0]} ${-grip[1]})`;
- const part=(name:string,slot:string|null,children:ReactNode)=>{const headLayer=['head','face','hair-back','hair-front','headwear','face-accessory'].includes(name);const held=name==='held-item'&&!prop.includes('toolbelt');const attachment=name==='back-item'?{x:rig.anchors.back.x-192,y:rig.anchors.back.y-206}:name==='neck-accessory'?{x:0,y:rig.headOffset}:null;return <g data-layer={name} data-slot={slot||undefined} transform={name==='shadow'?undefined:held?heldTransform:headLayer?headTransform:attachment?`${bodyTransform} translate(${attachment.x} ${attachment.y})`:bodyTransform} data-highlighted={interactive&&slot===hover?'true':undefined} className={interactive&&slot?'editable-pixels':undefined}>{['head','body','top','bottoms','bottoms-cuff','socks','shoes','outerwear'].includes(name)?<RigLayer layer={name} rig={rig} side={side} back={back} id={selection[slot||'']||''} color={color(slot||'','#819776')} skin={skin}/>:children}</g>;};
+ const part=(name:string,slot:string|null,children:ReactNode)=>{const headLayer=['head','face','hair-back','hair-front','headwear','face-accessory'].includes(name);const held=name==='held-item'&&!prop.includes('toolbelt');const attachment=name==='back-item'?{x:rig.anchors.back.x-192,y:rig.anchors.back.y-206}:name==='neck-accessory'?{x:0,y:rig.headOffset}:null;return <g data-layer={name} data-slot={slot||undefined} transform={name==='shadow'?undefined:held?heldTransform:headLayer?headTransform:attachment?`${bodyTransform} translate(${attachment.x} ${attachment.y})`:bodyTransform} data-highlighted={interactive&&slot===hover?'true':undefined} className={interactive&&slot?'editable-pixels':undefined}>{['head','body','top','bottoms','bottoms-cuff','socks','shoes','outerwear','chin-shadow'].includes(name)?<RigLayer layer={name} rig={rig} side={side} back={back} id={selection[slot||'']||''} color={color(slot||'','#819776')} skin={skin}/>:children}</g>;};
  function pointer(e:PointerEvent<SVGSVGElement>,activate:boolean){if(!interactive)return;const slot=(e.target as Element).closest('[data-slot]')?.getAttribute('data-slot')||null;setHover(slot);onPart?.(slot,activate,e.pointerType==='touch');}
  const description=['top','bottoms','shoes','hair','headwear','faceAccessory','backItem','prop'].map(s=>item(s)?.name).filter(n=>n&&!n.toLowerCase().startsWith('no ')&&n!=='none').join(', ');
  const hairPieces=hairArt(hair,back?'back':side?'side':'front');
  const hat=hatArt(head,legacy||'',back?'back':side?'side':'front'),spec=glassArt(glasses,legacy||'',side);
  const eyes=[107,149],lash='#3a2f26',iris=color('eyeColor',{'color-espresso':'#7d5730','color-chestnut':'#9c6f37','color-gold':'#c8942f','color-silver':'#6c8b99','color-copper':'#6a8f4e','color-ink':'#46566a'}[selection.hairColor||'']||'#7d5730');
  const closedEyes=face.includes('calm')||face.includes('tired');
- const brows=face.includes('focused')||face.includes('curious')||face.includes('brows');
+ /** Brows carry most of the expression, so every face has them; the shape is what varies. */
+ const browShape=face.includes('focused')?'focused':face.includes('curious')?'curious'
+  :face.includes('victory')||face.includes('happy')||face.includes('bright')?'raised'
+  :face.includes('tired')||face.includes('calm')?'soft':'neutral';
+ const heavy=face.includes('brows');
+ // Brows live between the hairline at y56 and the upper lash at y73.
+ const brow=(cx:number)=>{const out=cx<128?-1:1,t=heavy?6:5;
+  if(browShape==='soft')return [[cx-11,68,22,t-1]];
+  if(browShape==='raised')return [[cx-12,63,24,t],[cx-5,60,12,3]];
+  if(browShape==='focused')return [[cx-12,62,24,t],[cx+(out<0?4:-14),66,10,t]];
+  if(browShape==='curious'&&cx<128)return [[cx-12,60,24,t],[cx-5,57,12,3]];
+  return [[cx-12,66,24,t]];};
  return <svg className={`avatar pixel-art ${large?'large':''}`} data-rig={bodyRigId} data-animation={animation} data-pose={pose} data-paused={hidden} viewBox={viewBox} role={decorative?'presentation':'img'} aria-hidden={decorative||undefined} aria-label={decorative?undefined:`Pixel character wearing ${description}`} shapeRendering="crispEdges" onPointerMove={e=>{if(e.pointerType!=='touch')pointer(e,false);}} onPointerDown={e=>pointer(e,true)} onPointerLeave={e=>{if(e.pointerType==='touch')return;setHover(null);onPart?.(null,false,false);}}>
  {part('shadow',null,<path d="M86 354h84v4H86zM70 358h116v6H70zM62 364h132v5H62zM74 369h108v4H74zM92 373h72v3H92z" fill="var(--season-shadow,#53634e)" opacity=".28"/>)}
  <g className="avatar-idle">
@@ -68,12 +80,15 @@ export function Avatar({selection,large=false,pose='front',onPart,interactive=fa
     <path d={`M${cx-6} 81h4v4h-4zM${cx+3} 90h3v3h-3z`} fill="#fffdf5"/>
     <g className="avatar-lid"><path d={`M${cx-11} 76h22v24h-22z`} fill={skin}/><path d={`M${cx-10} 88h20v5h-20z`} fill={lash}/></g>
    </g>;})(cx))}
- {brows&&<path d={side?'M150 64h20v5h-20z':face.includes('curious')?'M95 58h24v5H95zM137 64h24v5h-24z':'M95 62h24v5H95zM137 62h24v5h-24z'} fill={shade(hairColor,.15)}/>}
+  {/* When hair and skin sit at the same value the brow disappears into both, so push it away from
+  them — lighter on dark skin, darker on light. Espresso hair on ebony skin was the case that failed. */}
+ <path d={side?boxPath(browShape==='raised'?[[150,61,20,5],[156,58,10,3]]:browShape==='soft'?[[151,68,18,4]]:[[150,65,20,5]]):boxPath(eyes.flatMap(cx=>brow(cx)) as [number,number,number,number][])} fill={Math.abs(lum(hairColor)-lum(skin))<.14?shade(hairColor,lum(skin)<.45?-.5:.35):shade(hairColor,.15)}/>
+ {/* A soft blush on every face; the rosy variant just turns it up. */}
+ <path d={side?'M152 102h12v7h-12zM150 104h16v3h-16z':'M94 101h12v9H94zM92 103h16v5H92zM150 101h12v9h-12zM148 103h16v5h-16z'} fill="#d0766e" opacity={face.includes('rosy')?.45:lum(skin)<.35?.3:.17}/>
  <path d={side?'M170 108h8v4h-8z':'M124 105h8v4h-8zM122 109h12v4h-12z'} fill={shade(skin,.24)}/>{!side&&<path d="M126 106h5v2h-5z" fill={shade(skin,-.14)}/>}
  <path d={side?'M160 120h11v5h-11zM155 116h5v4h-5z':face.includes('victory')?'M116 118h24v6h-24zM120 124h16v5h-16z':face.includes('happy')||face.includes('bright')?'M118 120h20v4h-20zM114 116h5v4h-5zM137 116h5v4h-5zM110 112h4v4h-4zM142 112h4v4h-4z':'M119 120h18v4h-18z'} fill={lash}/>
  {face.includes('victory')&&!side&&<path d="M122 125h12v3h-12z" fill="#c07a72"/>}
- {face.includes('rosy')&&<path d={side?'M150 102h14v9h-14z':'M92 100h16v9H92zM148 100h16v9h-16z'} fill="#d0766e" opacity=".5"/>}
- {face.includes('freckles')&&<path d={side?'M150 104h4v4h-4zM158 110h4v4h-4z':'M96 102h4v4h-4zM103 109h4v4h-4zM111 103h3v3h-3zM156 102h4v4h-4zM149 109h4v4h-4z'} fill={shade(skin,.3)}/>}
+  {face.includes('freckles')&&<path d={side?'M150 104h4v4h-4zM158 110h4v4h-4z':'M96 102h4v4h-4zM103 109h4v4h-4zM111 103h3v3h-3zM156 102h4v4h-4zM149 109h4v4h-4z'} fill={shade(skin,.3)}/>}
  {face.includes('moles')&&<path d="M152 113h4v4h-4z" fill={shade(skin,.5)}/>}
  </g>)}
  {part('top','top',null)}
@@ -82,6 +97,7 @@ export function Avatar({selection,large=false,pose='front',onPart,interactive=fa
  {part('shoes','shoes',null)}
  {part('bottoms-cuff','bottoms',null)}
  {part('outerwear','outerwear',null)}
+ {part('chin-shadow',null,null)}
  {part('hair-front','hair',<g fill={hairColor}><path d={boxPath(hairPieces.front)}/><path d={boxPath(hairPieces.light)} fill={shade(hairColor,-.22)}/><path d={boxPath(hairPieces.tie)} fill={shade(hairColor,.4)}/></g>)}
  {part('headwear',has(head)?'headwear':['cap','visor','helmet'].includes(legacy)?'accessory':null,(has(head)||['cap','visor','helmet'].includes(legacy))&&(()=>{const c=has(head)?color('headwear','#788f79'):color('accessory','#788f79');return <g fill={c}><path d={boxPath(hat.main)}/><path d={boxPath(hat.accent)} fill={shade(c,-.28)}/><path d={boxPath(hat.dark)} fill={shade(c,.34)}/></g>;})())}
  {part('face-accessory',has(glasses)?'faceAccessory':['glasses','goggles'].includes(legacy)?'accessory':null,!back&&(has(glasses)||['glasses','goggles'].includes(legacy))&&(()=>{const c=has(glasses)?color('faceAccessory','#3d4c47'):color('accessory','#3d4c47');return <g fill={c}><path d={boxPath(spec.rim)}/><path d={boxPath(spec.lens)} fill={shade(c,.45)}/><path d={boxPath(spec.shine)} fill="#f1ecdb" opacity=".8"/></g>;})())}
