@@ -53,7 +53,8 @@ export function applyCommand(current:State,input:Command,now=new Date()):Complet
  if(c.type==='plan'){const index=s.plans.findIndex(p=>p.id===c.plan.id);if(index<0)s.plans.push(c.plan);else s.plans[index]=c.plan;}
  if(c.type==='cancel-plan')s.plans=s.plans.filter(p=>p.id!==c.id);
  if(c.type==='pause-hobby')s.enrollments=s.enrollments.filter(h=>h!==c.hobbyId);
- if(c.type==='window')s.windows[c.window.appId]=c.window;
+ // One window at a time: bringing a window up closes whichever one was showing before it.
+ if(c.type==='window'){if(c.window.isOpen&&!c.window.isMinimized)for(const [id,w] of Object.entries(s.windows))if(id!==c.window.appId&&w.isOpen)s.windows[id]={...w,isOpen:false,isMinimized:false};s.windows[c.window.appId]=c.window;}
  if(c.type==='layout-reset')s.windows={};
  if(c.type==='profile')s.profile={...s.profile,...c.input};
  if(c.type==='enroll')s.enrollments=[...new Set([...s.enrollments,...c.hobbyIds])];
