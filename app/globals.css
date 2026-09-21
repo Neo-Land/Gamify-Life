@@ -68,4 +68,5 @@
 .kit-controls .button.selected{outline:2px solid var(--os-focus);outline-offset:1px}
 .kit-readiness{margin:10px 0 0;padding:8px 10px;background:#eef0e2;border:1px solid #9aa391;font-size:13px}
 .skill-card.suggested{outline:2px solid var(--os-focus);outline-offset:2px}
-@media(max-width:767px){.kit-row{flex-direction:column}.kit-controls{width:100%}}
+.kit-row p{margin:3px 0}
+@media(max-width:767px){.kit-row{flex-direction:column;gap:6px;padding:10px 0}.kit-controls{width:100%}.kit-controls .button.small{flex:1 1 auto}}
