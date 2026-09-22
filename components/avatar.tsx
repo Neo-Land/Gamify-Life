@@ -44,6 +44,11 @@ export function Avatar({selection,large=false,pose='front',onPart,interactive=fa
  const bodyTransform=`translate(128 ${GROUND}) scale(${BODY_W} ${BODY_H}) translate(-128 ${-GROUND})`;
  /** Drop the head until its chin meets the shoulder line, so there is no neck to see. */
  const seat=GROUND+(rig.anchors.leftShoulder.y-GROUND)*BODY_H-(headDrop+rig.headOffset+NECK+(134-NECK)*HEAD_SCALE);
+ /** Where the arms and hands are, in head space, so the hair can be cut away from them: hair
+  * falling past the shoulders must never hide an arm, on any build or in any view. */
+ const armHoles=(()=>{const a=rig.anchors,l=side?rig.sideHip:a.leftShoulder.x,r=side?256-rig.sideHip:a.rightShoulder.x,w=rig.arm+2,top=a.leftShoulder.y+16,bottom=a.leftHand.y+14,lift=headDrop+rig.headOffset+seat;
+  const hx=(x:number)=>128+(x-128)*BODY_W/HEAD_SCALE,hy=(y:number)=>NECK+(GROUND+(y-GROUND)*BODY_H-lift-NECK)/HEAD_SCALE;
+  return [l-w,r].map(x=>`M${hx(x)} ${hy(top)}H${hx(x+w)}V${hy(bottom)}H${hx(x)}z`).join('');})();
  const headTransform=`translate(0 ${headDrop+rig.headOffset+seat}) translate(128 ${NECK}) scale(${HEAD_SCALE}) translate(-128 ${-NECK})`;
  const hand={x:128+(rig.anchors.rightHand.x-128)*BODY_W,y:GROUND+(rig.anchors.rightHand.y-GROUND)*BODY_H};
  const grip=propGrips.find(([k])=>prop.includes(k))?.[1]||[200,230];
@@ -70,8 +75,8 @@ export function Avatar({selection,large=false,pose='front',onPart,interactive=fa
  return <svg className={`avatar pixel-art ${large?'large':''}`} data-rig={bodyRigId} data-animation={animation} data-pose={pose} data-paused={hidden} viewBox={viewBox} role={decorative?'presentation':'img'} aria-hidden={decorative||undefined} aria-label={decorative?undefined:`Pixel character wearing ${description}`} shapeRendering="crispEdges" onPointerMove={e=>{if(e.pointerType!=='touch')pointer(e,false);}} onPointerDown={e=>pointer(e,true)} onPointerLeave={e=>{if(e.pointerType==='touch')return;setHover(null);onPart?.(null,false,false);}}>
  {part('shadow',null,<path d="M86 354h84v4H86zM70 358h116v6H70zM62 364h132v5H62zM74 369h108v4H74zM92 373h72v3H92z" fill="var(--season-shadow,#53634e)" opacity=".28"/>)}
  <g className="avatar-idle">
- {part('body','body',null)}
  {part('hair-back','hair',<g fill={hairColor}><path d={boxPath(hairPieces.back)}/></g>)}
+ {part('body','body',null)}
  {part('head','body',null)}
  {part('face','face',!back&&<g>{side?closedEyes?<path d="M151 88h16v4h-16zM148 85h3v3h-3zM167 85h3v3h-3z" fill={lash}/>:<>
   <path d="M152 80h14v15h-14zM154 95h10v3h-10z" fill="#f8f4e8"/>
@@ -108,7 +113,7 @@ export function Avatar({selection,large=false,pose='front',onPart,interactive=fa
  {part('bottoms-cuff','bottoms',null)}
  {part('outerwear','outerwear',null)}
  {part('chin-shadow',null,null)}
- {part('hair-front','hair',<g fill={hairColor}>{!back&&hairPieces.front.length>0&&<g clipPath={`url(#${clipId})`} fill={shade(skin,.3)} opacity={Math.abs(lum(hairColor)-lum(skin))<.14?.95:.5}><clipPath id={clipId}><path d={side?headSkull.side:headSkull.front}/></clipPath>{[[0,3],[3,0],[-3,0]].map(([dx,dy])=><path key={`${dx}${dy}`} d={boxPath(hairPieces.front)} transform={`translate(${dx} ${dy})`}/>)}</g>}<path d={boxPath(hairPieces.front)}/>{hairPieces.stub&&<path d={boxPath(hairPieces.stub)} opacity=".38"/>}<path d={boxPath(hairPieces.light)} fill={shade(hairColor,-.22)}/><path d={boxPath(hairPieces.tie)} fill={shade(hairColor,.4)}/></g>)}
+ {part('hair-front','hair',<><defs><clipPath id={`${clipId}-arms`}><path clipRule="evenodd" d={`M-400 -400h1200v1200h-1200z${armHoles}`}/></clipPath></defs><g fill={hairColor} clipPath={`url(#${clipId}-arms)`}>{!back&&hairPieces.front.length>0&&<g clipPath={`url(#${clipId})`} fill={shade(skin,.3)} opacity={Math.abs(lum(hairColor)-lum(skin))<.14?.95:.5}><clipPath id={clipId}><path d={side?headSkull.side:headSkull.front}/></clipPath>{[[0,3],[3,0],[-3,0]].map(([dx,dy])=><path key={`${dx}${dy}`} d={boxPath(hairPieces.front)} transform={`translate(${dx} ${dy})`}/>)}</g>}<path d={boxPath(hairPieces.front)}/>{hairPieces.stub&&<path d={boxPath(hairPieces.stub)} opacity=".38"/>}<path d={boxPath(hairPieces.light)} fill={shade(hairColor,-.22)}/><path d={boxPath(hairPieces.tie)} fill={shade(hairColor,.4)}/></g></>)}
  {part('headwear',has(head)?'headwear':['cap','visor','helmet'].includes(legacy)?'accessory':null,(has(head)||['cap','visor','helmet'].includes(legacy))&&(()=>{const c=has(head)?color('headwear','#788f79'):color('accessory','#788f79');return <g fill={c}><path d={boxPath(hat.main)}/><path d={boxPath(hat.accent)} fill={shade(c,-.28)}/><path d={boxPath(hat.dark)} fill={shade(c,.34)}/></g>;})())}
  {part('face-accessory',has(glasses)?'faceAccessory':['glasses','goggles'].includes(legacy)?'accessory':null,!back&&(has(glasses)||['glasses','goggles'].includes(legacy))&&(()=>{const c=has(glasses)?color('faceAccessory','#3d4c47'):color('accessory','#3d4c47');return <g fill={c}><path d={boxPath(spec.rim)}/><path d={boxPath(spec.lens)} fill={shade(c,.45)}/><path d={boxPath(spec.shine)} fill="#f1ecdb" opacity=".8"/></g>;})())}
  {part('neck-accessory','accessory',legacy&&!['none','cap','visor','helmet','glasses','goggles','satchel','backpack'].includes(legacy)&&<g fill={color('accessory','#bd9b63')}><path d={legacy.includes('scarf')||legacy.includes('bandana')?'M102 134h52v22H102zM134 156h20v64h-20z':legacy.includes('wrist')||legacy.includes('watch')?'M60 228h22v10H60zM174 228h22v10H174z':legacy.includes('earrings')?'M80 106h6v12h-6zM172 106h6v12h-6z':'M104 136h6v20h36v-20h6v26H104zM120 162h18v22h-18z'}/></g>)}

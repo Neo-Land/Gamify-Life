@@ -95,7 +95,10 @@ boxes, not a hand-written `d` string.
 - **Boxes, not paths.** `boxPath()` turns `[x,y,w,h]` lists into a `d`. Authoring as boxes keeps
   every edge orthogonal; a diagonal in a `d` attribute renders as a visibly wrong stair under
   `shapeRendering:crispEdges`, which is how the old hair paths kept going wrong.
-- **`hair-back` is ordered behind the head**, between `body` and `head`. It used to sit after `face`,
+- **`hair-back` is ordered behind the body and the head** (first after `shadow`; it sat between
+  `body` and `head` until September 21, which let long hair hide bare arms and hands). Front hair is
+  also clipped around both arms (`armHoles` in `avatar.tsx`), so strands falling past the shoulders
+  never cover an arm on any build or view. It used to sit after `face`,
   which meant a full back sheet — the thing that makes long hair read as long — painted straight over
   the face. Canonical layer order and count (18) are asserted in two unit tests.
 - **`bottoms-cuff` is a second bottoms pass after `shoes`**, so a wide leg falls over the shoe instead
