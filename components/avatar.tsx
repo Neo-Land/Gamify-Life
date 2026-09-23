@@ -4,7 +4,7 @@ import {bodyRigs,type BodyRigId} from '@/lib/body-rigs';
 import {RigLayer,headSkull} from './rig-layers';
 import {avatarItems} from '@/lib/content';
 import {tints,type TintId} from '@/lib/tints';
-import {hairArt,boxPath} from '@/lib/hair';
+import {hairArt,boxPath,type Box} from '@/lib/hair';
 import {hatArt,glassArt} from '@/lib/headwear';
 export type AvatarPose='front'|'left'|'right'|'back';
 /** Ground and neck in authored canvas units, then how far each half is pushed from there. */
@@ -58,53 +58,127 @@ export function Avatar({selection,large=false,pose='front',onPart,interactive=fa
  const description=['top','bottoms','shoes','hair','headwear','faceAccessory','backItem','prop'].map(s=>item(s)?.name).filter(n=>n&&!n.toLowerCase().startsWith('no ')&&n!=='none').join(', ');
  const hairPieces=hairArt(hair,back?'back':side?'side':'front');
  const hat=hatArt(head,legacy||'',back?'back':side?'side':'front'),spec=glassArt(glasses,legacy||'',side);
- const eyes=[107,149],lash='#3a2f26',iris=color('eyeColor',{'color-espresso':'#7d5730','color-chestnut':'#9c6f37','color-gold':'#c8942f','color-silver':'#6c8b99','color-copper':'#6a8f4e','color-ink':'#46566a'}[selection.hairColor||'']||'#7d5730');
- const closedEyes=face.includes('calm')||face.includes('tired');
- /** Brows carry most of the expression, so every face has them; the shape is what varies. */
- const browShape=face.includes('focused')?'focused':face.includes('curious')?'curious'
-  :face.includes('victory')||face.includes('happy')||face.includes('bright')?'raised'
-  :face.includes('tired')||face.includes('calm')?'soft':'neutral';
- const heavy=face.includes('brows');
- // Brows live between the hairline at y56 and the upper lash at y73.
- const brow=(cx:number)=>{const out=cx<128?-1:1,t=heavy?6:5;
-  if(browShape==='soft')return [[cx-11,68,22,t-1]];
-  if(browShape==='raised')return [[cx-12,63,24,t],[cx-5,60,12,3]];
-  if(browShape==='focused')return [[cx-12,62,24,t],[cx+(out<0?4:-14),66,10,t]];
-  if(browShape==='curious'&&cx<128)return [[cx-12,60,24,t],[cx-5,57,12,3]];
-  return [[cx-12,66,24,t]];};
+ const eyes=[107,149],sideEye=157,lash='#3a2f26',iris=color('eyeColor',{'color-espresso':'#7d5730','color-chestnut':'#9c6f37','color-gold':'#c8942f','color-silver':'#6c8b99','color-copper':'#6a8f4e','color-ink':'#46566a'}[selection.hairColor||'']||'#7d5730');
+ /** Expressions. Every face sets its own lid drop, pupil width, lid shape, brow and mouth. Before
+  * this they shared one eye and one brow bar — `closedEyes` for calm and tired, five brow shapes,
+  * a rectangle for a mouth — so eleven of the twelve read as the same face. `drop` and `pupil` are
+  * whole pixels rather than fractions of a scale, so nothing here depends on how a value rounds.
+  * rosy / freckles / moles / brows are feature variants: they keep the neutral eye and add their
+  * one detail further down. */
+ type Expression={drop:number;pupil:number;lid:'open'|'calm'|'joy';brow:string;mouth:string;squint?:boolean;shadow?:boolean};
+ const expressions:Record<string,Expression>={
+  neutral:{drop:0,pupil:5,lid:'open',brow:'neutral',mouth:'flat'},
+  happy:{drop:2,pupil:5,lid:'open',brow:'raised',mouth:'smile',squint:true},
+  bright:{drop:0,pupil:6,lid:'open',brow:'raised',mouth:'grin'},
+  calm:{drop:0,pupil:5,lid:'calm',brow:'soft',mouth:'content'},
+  curious:{drop:0,pupil:6,lid:'open',brow:'curious',mouth:'open'},
+  focused:{drop:4,pupil:4,lid:'open',brow:'focused',mouth:'small'},
+  tired:{drop:5,pupil:4,lid:'open',brow:'tired',mouth:'small',shadow:true},
+  victory:{drop:0,pupil:5,lid:'joy',brow:'raised',mouth:'open-grin'},
+  rosy:{drop:0,pupil:5,lid:'open',brow:'neutral',mouth:'smile'},
+  freckles:{drop:0,pupil:5,lid:'open',brow:'neutral',mouth:'flat'},
+  moles:{drop:0,pupil:5,lid:'open',brow:'neutral',mouth:'flat'},
+  brows:{drop:0,pupil:5,lid:'open',brow:'heavy',mouth:'flat'}};
+ const expr=expressions[face.replace('face-','')]||expressions.neutral;
+ /** Brows carry a lot of the expression, so every face has them; the shape is what varies.
+  * They live between the hairline at y56 and the upper lash at y72. */
+ const brow=(cx:number):Box[]=>{const out=cx<128?-1:1,s=expr.brow;
+  if(s==='heavy')return [[cx-13,63,26,7]];
+  if(s==='raised')return [[cx-12,61,24,5],[cx-5,58,13,3]];
+  if(s==='soft')return [[cx-11,65,22,4]];
+  // Sloping down toward the outer corner reads as weary; sloping toward the nose reads as cross.
+  if(s==='tired')return [[out<0?cx-12:cx+2,66,10,4],[out<0?cx-2:cx-12,63,14,4]];
+  if(s==='focused')return [[cx-12,62,24,5],[out<0?cx+2:cx-12,66,10,5]];
+  // Only one brow lifts, which is the whole point of the expression.
+  if(s==='curious')return out<0?[[cx-12,60,24,5],[cx-5,57,13,3]]:[[cx-12,65,24,5]];
+  return [[cx-12,64,24,5]];};
+ const sideBrow=():Box[]=>{const s=expr.brow;
+  if(s==='raised')return [[149,61,21,5],[155,58,13,3]];
+  if(s==='curious')return [[149,60,21,5],[155,57,13,3]];
+  if(s==='soft'||s==='tired')return [[150,65,19,4]];
+  if(s==='focused')return [[149,60,21,5],[160,64,10,5]];
+  if(s==='heavy')return [[148,62,22,7]];
+  return [[149,62,21,5]];};
+ /** Mouths. A smile is its corners lifting off the line, not a bar with a second bar under it. */
+ const mouths:Record<string,Box[]>={flat:[[119,120,18,4]],small:[[122,121,12,3]],
+  smile:[[120,121,16,4],[115,118,6,3],[135,118,6,3]],
+  content:[[121,120,14,3],[117,118,5,3],[134,118,5,3]],
+  grin:[[118,119,20,5],[113,115,6,4],[137,115,6,4]],
+  open:[[122,118,12,7],[124,120,8,4]],
+  'open-grin':[[116,116,24,6],[119,122,18,5],[113,113,5,4],[138,113,5,4]]};
+ const sideMouths:Record<string,Box[]>={flat:[[156,117,11,4]],small:[[158,118,9,3]],
+  smile:[[156,117,11,4],[153,114,4,3]],content:[[157,117,10,3],[154,115,4,3]],
+  grin:[[155,116,12,5],[152,113,4,3]],open:[[159,117,8,5]],'open-grin':[[155,115,12,7],[152,112,4,3]]};
+ /** The darker inside of an open mouth, so it is not one solid block of lash colour. */
+ const mouthInner:Record<string,Box[]>={open:[[124,120,8,4]],'open-grin':[[120,122,16,4]]};
+ const sideMouthInner:Record<string,Box[]>={open:[[160,119,6,3]],'open-grin':[[157,118,9,3]]};
+ const mouthArt=side?sideMouths[expr.mouth]||sideMouths.flat:mouths[expr.mouth]||mouths.flat;
+ const mouthGap=(side?sideMouthInner:mouthInner)[expr.mouth]||[];
  return <svg className={`avatar pixel-art ${large?'large':''}`} data-rig={bodyRigId} data-animation={animation} data-pose={pose} data-paused={hidden} viewBox={viewBox} role={decorative?'presentation':'img'} aria-hidden={decorative||undefined} aria-label={decorative?undefined:`Pixel character wearing ${description}`} shapeRendering="crispEdges" onPointerMove={e=>{if(e.pointerType!=='touch')pointer(e,false);}} onPointerDown={e=>pointer(e,true)} onPointerLeave={e=>{if(e.pointerType==='touch')return;setHover(null);onPart?.(null,false,false);}}>
  {part('shadow',null,<path d="M86 354h84v4H86zM70 358h116v6H70zM62 364h132v5H62zM74 369h108v4H74zM92 373h72v3H92z" fill="var(--season-shadow,#53634e)" opacity=".28"/>)}
  <g className="avatar-idle">
  {part('hair-back','hair',<g fill={hairColor}><path d={boxPath(hairPieces.back)}/></g>)}
  {part('body','body',null)}
  {part('head','body',null)}
- {part('face','face',!back&&<g>{side?closedEyes?<path d="M151 88h16v4h-16zM148 85h3v3h-3zM167 85h3v3h-3z" fill={lash}/>:<>
-  <path d="M152 80h14v15h-14zM154 95h10v3h-10z" fill="#f8f4e8"/>
-  <path d="M156 81h10v13h-10zM158 94h6v3h-6z" fill={iris}/><path d="M158 91h8v4h-8z" fill={shade(iris,-.28)}/><path d="M159 83h5v8h-5z" fill="#241d18"/>
-  <path d="M151 77h16v4h-16zM153 74h12v3h-12zM150 81h3v4h-3zM166 74h3v5h-3z" fill={lash}/><path d="M156 82h3v3h-3z" fill="#fffdf5"/>
-  <g className="avatar-lid"><path d="M151 77h16v21h-16z" fill={skin}/><path d="M152 88h14v4h-14z" fill={lash}/></g>
- </>:eyes.map(cx=>closedEyes
-  ?<path key={cx} d={`M${cx-10} 88h20v5h-20zM${cx-13} 85h4v3h-4zM${cx+9} 85h4v3h-4zM${cx-16} 82h3v3h-3zM${cx+13} 82h3v3h-3z`} fill={lash}/>
-  :(cx=>{const out=cx<128?-1:1;return <g key={cx}>
-    <path d={`M${cx-10} 78h20v17h-20zM${cx-8} 95h16v4h-16z`} fill="#f8f4e8"/>
-    <path d={`M${cx-8} 79h16v14h-16zM${cx-6} 93h12v4h-12z`} fill={iris}/>
-    <path d={`M${cx-6} 90h12v5h-12z`} fill={shade(iris,-.28)}/>
-    <path d={`M${cx-3} 82h6v9h-6zM${cx-2} 80h4v13h-4z`} fill="#241d18"/>
-    {/* The dark line is an upper lash, not a ring: nothing outlines the lower lid. */}
-    <path d={`M${cx-10} 76h20v5h-20zM${cx-8} 73h16v3h-16zM${cx-11} 80h3v5h-3zM${cx+8} 80h3v5h-3zM${cx+(out<0?-14:11)} 73h3v6h-3z`} fill={lash}/>
-    <path d={`M${cx-6} 81h4v4h-4zM${cx+3} 90h3v3h-3z`} fill="#fffdf5"/>
-    <g className="avatar-lid"><path d={`M${cx-11} 76h22v24h-22z`} fill={skin}/><path d={`M${cx-10} 88h20v5h-20z`} fill={lash}/></g>
-   </g>;})(cx))}
+ {part('face','face',!back&&<g>
+  {/* Eyes. The old pair were 22x26 on an 84x90 head — a quarter of the face width each — and the
+   outer lash was a 3x6 block sitting clear of the lash bar, which is what read as a single dot.
+   These are 18x14 with a round iris, and every lash piece overlaps the bar, so the lash runs
+   unbroken from the inner corner out to the flick. The sclera band is y79-93. */}
+  {side?(()=>{const cx=sideEye,T=79,BM=93,pw=expr.pupil,d=expr.drop;
+   return expr.lid!=='open'
+    ?<path d={boxPath(expr.lid==='calm'
+       ?[[cx-6,86,15,3],[cx-3,84,12,2],[cx+9,84,3,4],[cx+11,81,3,4]]
+       :[[cx-4,82,8,3],[cx-10,85,7,3],[cx+3,85,7,3],[cx-13,88,5,3],[cx+8,88,5,3]])} fill={lash}/>
+    :<>
+     <path d={boxPath([[cx-6,T,14,BM-T],[cx-4,T-2,11,2],[cx-4,BM,11,2]])} fill="#f8f4e8"/>
+     <path d={boxPath([[cx+1,T,8,10],[cx,T+2,10,6]])} fill={iris}/>
+     <path d={boxPath([[cx+1,T+7,8,3]])} fill={shade(iris,-.28)}/>
+     <path d={boxPath([[cx+3,T+2,pw,pw+2]])} fill="#241d18"/>
+     <path d={boxPath([[cx+1,T+1,3,3]])} fill="#fffdf5"/>
+     <path d={boxPath([[cx+2,BM+2,6,2]])} fill={lash} opacity=".55"/>
+     {d>0&&<path d={boxPath([[cx-6,76,14,d+3]])} fill={skin}/>}
+     {/* The dark line is an upper lash, not a ring: nothing outlines the lower lid. */}
+     <path d={boxPath([[cx-6,75,15,3],[cx+1,73,9,2],[cx+9,75,3,4],[cx+11,72,3,4]])} fill={lash}/>
+     {d>0&&<path d={boxPath([[cx-6,75+d,15,3]])} fill={lash}/>}
+     {expr.squint&&<><path d={boxPath([[cx-5,BM-3,12,5]])} fill={skin}/><path d={boxPath([[cx-5,BM-4,12,2]])} fill={lash} opacity=".7"/></>}
+     {expr.shadow&&<path d={boxPath([[cx-5,BM+2,12,3]])} fill={shade(skin,.22)}/>}
+     <g className="avatar-lid"><path d={boxPath([[cx-7,77,16,22]])} fill={skin}/><path d={boxPath([[cx-6,86,15,3]])} fill={lash}/></g>
+    </>;})()
+  :eyes.map(cx=>{const out=cx<128?-1:1,T=79,BM=93,pw=expr.pupil,d=expr.drop;
+   return expr.lid!=='open'
+    ?<path key={cx} d={boxPath(expr.lid==='calm'
+       ?[[cx-9,87,18,3],[cx-11,85,3,3],[cx+8,85,3,3],[cx+(out<0?-14:11),83,3,4]]
+       :[[cx-4,82,8,3],[cx-10,85,7,3],[cx+3,85,7,3],[cx-13,88,5,3],[cx+8,88,5,3]])} fill={lash}/>
+    :<g key={cx}>
+      <path d={boxPath([[cx-9,T,18,BM-T],[cx-7,T-2,14,2],[cx-7,BM,14,2]])} fill="#f8f4e8"/>
+      <path d={boxPath([[cx-5,T,11,10],[cx-6,T+2,13,6]])} fill={iris}/>
+      <path d={boxPath([[cx-5,T+7,11,3]])} fill={shade(iris,-.28)}/>
+      <path d={boxPath([[cx-Math.floor(pw/2),T+2,pw,pw+2]])} fill="#241d18"/>
+      <path d={boxPath([[cx-4,T+1,4,4],[cx+3,T+7,2,2]])} fill="#fffdf5"/>
+      <path d={boxPath([[cx+out*2-(out<0?6:0),BM+2,6,2]])} fill={lash} opacity=".55"/>
+      {d>0&&<path d={boxPath([[cx-9,76,18,d+3]])} fill={skin}/>}
+      {/* The dark line is an upper lash, not a ring: nothing outlines the lower lid. The outer
+       tab and the flick each overlap the bar, so there is no detached pixel anywhere on it. */}
+      <path d={boxPath([[cx-9,75,18,3],[cx+(out>0?1:-9),73,8,2],[cx+out*9-(out<0?3:0),75,3,4],
+       [cx+out*11-(out<0?3:0),72,3,4],[cx-out*9-(out>0?2:0),77,2,3]])} fill={lash}/>
+      {d>0&&<path d={boxPath([[cx-9,75+d,18,3]])} fill={lash}/>}
+      {/* A happy squint lifts the lower lid rather than dropping the upper one. */}
+      {expr.squint&&<><path d={boxPath([[cx-8,BM-3,16,5]])} fill={skin}/><path d={boxPath([[cx-8,BM-4,16,2]])} fill={lash} opacity=".7"/></>}
+      {expr.shadow&&<path d={boxPath([[cx-8,BM+2,16,3]])} fill={shade(skin,.22)}/>}
+      <g className="avatar-lid"><path d={boxPath([[cx-10,77,20,22]])} fill={skin}/><path d={boxPath([[cx-9,86,18,3]])} fill={lash}/></g>
+     </g>;})}
   {/* When hair and skin sit at the same value the brow disappears into both, so push it away from
   them — lighter on dark skin, darker on light. Espresso hair on ebony skin was the case that failed. */}
- <path d={side?boxPath(browShape==='raised'?[[150,61,20,5],[156,58,10,3]]:browShape==='soft'?[[151,68,18,4]]:[[150,65,20,5]]):boxPath(eyes.flatMap(cx=>brow(cx)) as [number,number,number,number][])} fill={Math.abs(lum(hairColor)-lum(skin))<.14?shade(hairColor,lum(skin)<.45?-.5:.35):shade(hairColor,.15)}/>
+ <path d={boxPath(side?sideBrow():eyes.flatMap(cx=>brow(cx)))} fill={Math.abs(lum(hairColor)-lum(skin))<.14?shade(hairColor,lum(skin)<.45?-.5:.35):shade(hairColor,.15)}/>
  {/* A soft blush on every face; the rosy variant just turns it up. */}
- <path d={side?'M152 102h12v7h-12zM150 104h16v3h-16z':'M94 101h12v9H94zM92 103h16v5H92zM150 101h12v9h-12zM148 103h16v5h-16z'} fill="#d0766e" opacity={face.includes('rosy')?.45:lum(skin)<.35?.3:.17}/>
- <path d={side?'M170 108h8v4h-8z':'M124 105h8v4h-8zM122 109h12v4h-12z'} fill={shade(skin,.24)}/>{!side&&<path d="M126 106h5v2h-5z" fill={shade(skin,-.14)}/>}
- <path d={side?'M160 120h11v5h-11zM155 116h5v4h-5z':face.includes('victory')?'M116 118h24v6h-24zM120 124h16v5h-16z':face.includes('happy')||face.includes('bright')?'M118 120h20v4h-20zM114 116h5v4h-5zM137 116h5v4h-5zM110 112h4v4h-4zM142 112h4v4h-4z':'M119 120h18v4h-18z'} fill={lash}/>
- {face.includes('victory')&&!side&&<path d="M122 125h12v3h-12z" fill="#c07a72"/>}
-  {face.includes('freckles')&&<path d={side?'M150 104h4v4h-4zM158 110h4v4h-4z':'M96 102h4v4h-4zM103 109h4v4h-4zM111 103h3v3h-3zM156 102h4v4h-4zM149 109h4v4h-4z'} fill={shade(skin,.3)}/>}
- {face.includes('moles')&&<path d="M152 113h4v4h-4z" fill={shade(skin,.5)}/>}
+ <path d={side?'M151 99h13v7h-13zM149 101h17v3h-17z':'M94 101h12v9H94zM92 103h16v5H92zM150 101h12v9h-12zM148 103h16v5h-16z'} fill="#d0766e" opacity={face.includes('rosy')?.45:lum(skin)<.35?.3:.17}/>
+ {/* The profile's nose is modelled in the head layer now, so this only shades the front one. */}
+ {!side&&<><path d="M124 105h8v4h-8zM122 109h12v4h-12z" fill={shade(skin,.24)}/><path d="M126 106h5v2h-5z" fill={shade(skin,-.14)}/></>}
+ <path d={boxPath(mouthArt)} fill={lash}/>
+ {mouthGap.length>0&&<path d={boxPath(mouthGap)} fill="#8d4a46"/>}
+  {face.includes('freckles')&&<path d={side?'M150 102h4v4h-4zM158 108h4v4h-4z':'M96 102h4v4h-4zM103 109h4v4h-4zM111 103h3v3h-3zM156 102h4v4h-4zM149 109h4v4h-4z'} fill={shade(skin,.3)}/>}
+ {face.includes('moles')&&<path d="M152 110h4v4h-4z" fill={shade(skin,.5)}/>}
  </g>)}
  {part('top','top',null)}
  {part('bottoms','bottoms',null)}

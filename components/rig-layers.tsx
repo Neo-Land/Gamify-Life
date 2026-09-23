@@ -3,14 +3,30 @@ import type {BodyRig} from '@/lib/body-rigs';
  * hems and feet, with unscaled seams, buttons, pockets and collars.
  * The body is scaled .72 across and .48 down, so a detail only looks square here
  * when it is authored half again as tall as it is wide. */
-/** The skull outline per view, shared with the avatar so hair shadows can be clipped to it. */
-export const headSkull={front:'M86 54h84v70H86zM90 48h76v82H90zM96 45h64v88H96zM102 44h56v90h-56z',side:'M92 54h78v70H92zM96 48h74v82H96zM102 45h68v88h-68zM108 44h62v90h-62z'};
+/** The skull outline per view, shared with the avatar so hair shadows can be clipped to it.
+ * The side view used to be four rectangles that all ended flat at x170, which made the whole face
+ * a vertical wall — the nose then had to be an 8x16 slab bolted onto it, which is why the profile
+ * read as a far bigger nose than the front view's button. It is authored as horizontal bands now:
+ * the same rounded-square silhouette as the front, 4px deeper, with the face plane stepping in and
+ * out a pixel or two for forehead, brow, eye socket, cheek, lips and chin. That modulation, not
+ * curvature, is what makes a profile read as a face rather than a ball. */
+export const headSkull={front:'M86 54h84v70H86zM90 48h76v82H90zM96 45h64v88H96zM102 44h56v90h-56z',side:'M100 44h56v2h-56zM94 46h68v3h-68zM88 49h78v5h-78zM85 54h84v8h-84zM84 62h86v8h-86zM84 70h84v8h-84zM84 78h84v10h-84zM84 88h86v8h-86zM84 96h86v8h-86zM85 104h84v8h-84zM86 112h81v6h-81zM88 118h80v6h-80zM92 124h73v5h-73zM97 129h63v3h-63zM103 132h50v2h-50z'};
 export function RigLayer({layer,rig,side,back,id,color,skin,tone=(hex:string)=>hex}:{layer:string;rig:BodyRig;side:boolean;back:boolean;id:string;color:string;skin:string;tone?:(hex:string)=>string}){
  const a=rig.anchors,l=side?rig.sideHip:a.leftShoulder.x,r=side?256-rig.sideHip:a.rightShoulder.x,y=a.leftShoulder.y,hem=rig.hem,hip=side?rig.sideHip:rig.hip,lf=side?hip+10:a.leftFoot.x,rf=side?lf+20:a.rightFoot.x,aw=rig.arm,lw=rig.leg/2,sw=side?lw+5:Math.min(lw+5,(rf-lf)/2-2);const arms=`M${l-aw} ${y+16}h${aw}v${a.leftHand.y-y-10}h${4-aw}v-8h-4zM${r} ${y+16}h${aw}v${a.rightHand.y-y-10}h${-aw}z`;
  // The head is its own layer so it can scale independently of the body. A chibi rounded square,
  // built from four stacked rectangles so the corners step instead of anti-aliasing.
  if(layer==='head')return <g fill={skin}>{side
-  ?<><path d={headSkull.side}/><path d="M170 98h8v16h-8z"/><path d="M120 86h14v22h-14z"/><path d="M120 88h2v18h-2zM122 106h10v2h-10zM126 91h4v11h-4z" fill="#000000" opacity=".14"/></>
+  // The nose sits at y103-112 — the same place and size as the front view's nose shadow at
+  // x122-134 y105-113 — so it reads as the same button from either angle. The old one began at
+  // y98 and was twice as tall, which is what made the profile look like a different face. The
+  // bridge, lower lip and ear rim are shading only, so none of them costs any silhouette.
+  ?<><path d={headSkull.side}/><path d="M169 103h3v4h-3zM169 107h6v3h-6zM169 110h4v2h-4z"/>
+   <path d="M118 88h13v19h-13zM120 86h9v2h-9zM120 107h9v2h-9z" fill="#000000" opacity=".18"/>
+   <path d="M120 90h10v15h-10zM122 88h7v2h-7zM122 105h7v2h-7z"/>
+   <path d="M123 93h4v9h-4zM123 101h6v2h-6z" fill="#000000" opacity=".13"/>
+   <path d="M169 110h4v2h-4zM172 107h3v3h-3z" fill="#000000" opacity=".14"/>
+   <path d="M167 96h3v8h-3z" fill="#000000" opacity=".07"/>
+   <path d="M158 123h7v2h-7z" fill="#000000" opacity=".14"/></>
   :<><path d={headSkull.front}/><path d="M80 86h7v24h-7zM169 86h7v24h-7z"/></>}</g>;
  // Cast onto whatever is worn rather than under it, which is why this is its own layer after
  // outerwear. It is the depth cue the head lost when the neck was removed.
