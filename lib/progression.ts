@@ -68,7 +68,7 @@ export function applyCommand(current:State,input:Command,now=new Date()):Complet
    if(c.type==='complete'&&n.completion.evidenceMode==='note'&&!c.evidence.note.trim())throw new Error('Add a short note for this challenge.');
    if(c.type==='complete'&&n.completion.targetValue&&(c.evidence.value??0)<n.completion.targetValue)throw new Error(`Record at least ${n.completion.targetValue} ${n.completion.targetUnit}.`);
    // Each hobby's gear node checks that hobby's required items. Borrowing counts as having it.
-   if(n.id===`${hobbyById(n.hobbyId)?.prefix}-gear`&&c.type==='complete'&&!gear.filter(g=>g.hobbyId===n.hobbyId&&g.necessity==='required').every(g=>['owned','borrowing'].includes(s.gear[g.id])))throw new Error('Record what you have or can borrow in Loadout first.');
+   if(n.id===`${hobbyById(n.hobbyId)?.prefix}-gear`&&c.type==='complete'&&!gear.filter(g=>g.hobbyId===n.hobbyId&&g.necessity==='required').every(g=>['owned','borrowing'].includes(s.gear[g.id])))throw new Error('Record what you have or can borrow in Gear first.');
    s.progress[n.id]={...s.progress[n.id],status:c.type==='master'?'mastered':'completed',startedAt:s.progress[n.id]?.startedAt||at,completedAt:s.progress[n.id]?.completedAt||at,...(c.type==='master'?{masteredAt:at}:{}),evidence:c.evidence,contentVersion:n.contentVersion};
    if(!s.enrollments.includes(n.hobbyId))s.enrollments.push(n.hobbyId);
    award(key,n.hobbyId,c.type==='master'?n.masteryXpReward:n.xpReward,`${c.type==='master'?'Mastered':'Completed'} ${n.title}`);

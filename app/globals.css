@@ -84,3 +84,27 @@
 .build-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .build-choices .closet-item{display:flex;flex-direction:column;align-items:center;gap:4px}
 .build-choices svg{width:100%;max-width:150px;height:auto;aspect-ratio:176/126}
+.hobby-sections{margin:10px 0 14px}
+.section-heading{font:20px var(--pixel-font);margin:22px 0 10px}
+.this-week{display:flex;gap:6px;max-width:min(100%,660px);overflow-x:auto;padding:0 2px}
+.this-week button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:5px 9px;border:2px solid var(--line);background:var(--surface);font-size:12px;white-space:nowrap}
+.this-week small{opacity:.8}
+
+@media(max-width:767px){
+ .hobby-sections button{min-height:44px;flex:1}
+ .tree-toolbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:end}
+ .tree-toolbar .segmented{grid-column:1/-1}
+ .tree-toolbar label{font-size:12px}
+ .tree-toolbar select{width:100%;min-height:44px}
+ .map-hobby-switcher{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+ .map-hobby-switcher a{min-height:44px;display:flex;align-items:center;white-space:nowrap}
+}
+/* Chips and ribbon share one bottom-anchored column, so they can never overlap each other or the path pill. */
+.home-bottom{position:absolute;left:0;right:0;bottom:12px;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:6;padding:0 12px}
+.home-bottom .current-quest-ribbon{position:static;transform:none;width:min(660px,100%)}
+@media(max-width:767px){.home-bottom{bottom:8px;gap:6px}}
+/* The chips step aside while the constellation is open: its branch nodes own that space. */
+.character-centered-home[data-expanded=true] .this-week{display:none}
+/* Short screens keep one next action and the path control clear; the weekly chips need ~55px
+   more than those leave, so they wait for a taller viewport. */
+@media(max-height:700px){.this-week{display:none}}

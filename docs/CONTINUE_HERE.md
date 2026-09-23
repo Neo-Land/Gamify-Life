@@ -1,5 +1,32 @@
 # Gamify.Life — continuation handoff
 
+## September 23, 2026 update: four tabs (read this before adding a screen)
+
+The app had eight dock apps with real overlap. It now has three windowed apps plus the desktop:
+**Home · Hobbies · Character · Settings**. The rule going forward: a thing belongs *inside* what it
+is about, not beside it.
+
+- **A hobby owns its path, quests and gear.** `TreePage` has Path / This week / Gear sections, plus
+  the check-in. `HobbyQuests` and `HobbyGear` in `screens.tsx` are what used to be the Quest Log and
+  Loadout pages. Sections are linkable: `/hobbies/<id>/week`, `/hobbies/<id>/gear`.
+- **Character owns appearance and achievements.** The editor moved to `/character/appearance/<slot>`
+  and `Achievements` is a section, not a page. Loadout is gone entirely.
+- **Planning lives on Home** behind PLAN A SESSION, which opens the calendar in a dialog. There is no
+  calendar route any more.
+- **Retired routes redirect** through `redirectFor()` in `lib/window-layout.ts`: `/quests`,
+  `/loadout`, `/loadout/appearance/*`, `/achievements`, `/calendar`. Keep that list when renaming.
+- **Old saves migrate**: `stateSchema.windows` drops entries whose `appId` is no longer real, so a
+  snapshot holding a `map` or `calendar` window still parses instead of failing the whole state.
+- **Home shows one next action plus weekly chips.** `.this-week` and the quest ribbon share
+  `.home-bottom`, one bottom-anchored column, so they cannot overlap each other or the path pill.
+  The chips hide while the constellation is expanded (they sat on its branch nodes and swallowed
+  clicks) and below 700px of viewport height (no room beside the next action).
+- **EDIT CHARACTER left Home**; the Character tab does that job. Tapping the character still opens
+  hobbies, never the editor.
+- Tests that walked the old tabs now walk hobby pages: `week(page,hobby)` in `actions.spec.ts` is the
+  helper. After a route change, wait for the new screen before clicking into it — the closet remounts
+  and swallows an early click.
+
 ## September 21, 2026 update: side hair, three builds, cast shadow, real animation
 
 - **Side and back hair cover the skull.** Side views used to be a cap plus a front block, leaving the

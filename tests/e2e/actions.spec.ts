@@ -18,17 +18,19 @@ function readyState(){let s=initialState();s=applyCommand(s,{type:'enroll',hobby
  for(const id of need)s=applyCommand(s,{type:'complete',nodeId:id,evidence}).state;return s;}
 async function seed(page:Page,state:State){await page.addInitScript(s=>{if(!sessionStorage.getItem('e2e-custom-seeded')){sessionStorage.setItem('gamify-life:v1',JSON.stringify(s));sessionStorage.setItem('e2e-custom-seeded','true');}},state);}
 async function saved(page:Page):Promise<State>{return page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!));}
-async function practice(page:Page,hobby='tennis'){await page.getByRole('region',{name:`${hobby}.quest`,exact:true}).getByRole('button',{name:'Log a practice session'}).click();return page.getByRole('dialog');}
+/** Practice lives inside its hobby now: Hobbies → that hobby → This week. */
+async function week(page:Page,hobby='tennis'){if(!new RegExp(`/hobbies/${hobby}$`).test(page.url()))await page.goto(`/hobbies/${hobby}`);await page.getByRole('tab',{name:'This week'}).click();}
+async function practice(page:Page,hobby='tennis'){await week(page,hobby);await page.getByRole('region',{name:`${hobby}.quest`,exact:true}).getByRole('button',{name:'Log a practice session'}).click();return page.getByRole('dialog');}
 
 test('practice explains missing safety before submission and links to the solution',async({page})=>{
- await page.goto('/quests');const dialog=await practice(page);
+ const dialog=await practice(page);
  await expect(dialog.getByRole('heading',{name:'Before logging practice'})).toBeVisible();
  await expect(dialog.getByRole('button',{name:'Save practice'})).toBeDisabled();
  await dialog.getByRole('link',{name:'Court Safety & Etiquette ↗'}).click();
  await expect(page).toHaveURL(/nodes\/ten-safety$/);await expect(page.getByRole('dialog')).toHaveCount(0);
 });
 for(const h of hobbies)test(`${h.id} practice validates, saves, confirms, and survives refresh`,async({page})=>{
- await seed(page,readyState());await page.goto('/quests');let dialog=await practice(page,h.id);
+ await seed(page,readyState());let dialog=await practice(page,h.id);
  await dialog.getByRole('button',{name:'Save practice'}).click();await expect(dialog.getByRole('alert')).toContainText('confirm that you practiced safely');
  await dialog.getByLabel('I practiced safely in a suitable environment.').check();
  await dialog.getByLabel('Minutes practiced').fill('0');await dialog.getByRole('button',{name:'Save practice'}).click();await expect(dialog.getByRole('alert')).toContainText('whole number');
@@ -42,33 +44,33 @@ for(const h of hobbies)test(`${h.id} practice validates, saves, confirms, and su
  const s=await saved(page);expect(s.practice.filter(p=>p.hobbyId===h.id)).toHaveLength(2);expect(s.ledger.filter(l=>l.id.startsWith(`practice:${h.id}:`))).toHaveLength(1);
 });
 test('practice cancel, close, Escape and cross-hobby switching leave no phantom sessions',async({page})=>{
- await seed(page,readyState());await page.goto('/quests');let dialog=await practice(page);
+ await seed(page,readyState());let dialog=await practice(page);
  await dialog.getByLabel('Private reflection (optional)').fill('Unsaved tennis note');await dialog.getByRole('button',{name:'Cancel',exact:true}).click();
  dialog=await practice(page,'swimming');await expect(dialog.getByLabel('Private reflection (optional)')).toHaveValue('');await dialog.getByRole('button',{name:'Close dialog'}).click();
  await practice(page,'journaling');await page.keyboard.press('Escape');await expect(page.getByRole('dialog')).toHaveCount(0);expect((await saved(page)).practice).toHaveLength(0);
 });
 test('practice rapid repeated submissions create exactly one session',async({page})=>{
- await seed(page,readyState());await page.goto('/quests');const dialog=await practice(page);await dialog.getByLabel('I practiced safely in a suitable environment.').check();
+ await seed(page,readyState());const dialog=await practice(page);await dialog.getByLabel('I practiced safely in a suitable environment.').check();
  await dialog.locator('form').evaluate(form=>{for(let i=0;i<15;i++)(form as HTMLFormElement).requestSubmit();});
  await expect(dialog.getByRole('heading',{name:'Practice saved'})).toBeVisible();expect((await saved(page)).practice).toHaveLength(1);
 });
 test('storage failure is visible inside the dialog and a retry preserves the draft',async({page})=>{
  await seed(page,readyState());await page.addInitScript(()=>{const original=Storage.prototype.setItem;let fail=true;Storage.prototype.setItem=function(key,value){if(key==='gamify-life:v1'&&fail&&JSON.parse(value).practice?.length){fail=false;throw new DOMException('Storage is full.','QuotaExceededError');}return original.call(this,key,value);};});
- await page.goto('/quests');const dialog=await practice(page);await dialog.getByLabel('Private reflection (optional)').fill('Keep this note.');await dialog.getByLabel('I practiced safely in a suitable environment.').check();
+ const dialog=await practice(page);await dialog.getByLabel('Private reflection (optional)').fill('Keep this note.');await dialog.getByLabel('I practiced safely in a suitable environment.').check();
  await dialog.getByRole('button',{name:'Save practice'}).click();await expect(dialog.getByRole('alert')).toContainText('Storage is full');await expect(dialog.getByLabel('Private reflection (optional)')).toHaveValue('Keep this note.');
  await dialog.getByRole('button',{name:'Save practice'}).click();await expect(dialog.getByRole('heading',{name:'Practice saved'})).toBeVisible();expect((await saved(page)).practice).toHaveLength(1);
 });
 test('quest pin cap, unpin, filters, manual progress and completed state respond',async({page})=>{
- const s=readyState();for(const g of gear.filter(g=>g.hobbyId==='tennis'&&g.necessity==='required'))s.gear[g.id]='owned';await seed(page,applyCommand(s,{type:'complete',nodeId:'ten-gear',evidence}).state);await page.goto('/quests');
- for(const id of ['tennis','cycling','swimming'])await page.getByRole('region',{name:`${id}.quest`,exact:true}).getByRole('button',{name:'Pin this quest'}).click();
- const journal=page.getByRole('region',{name:'journaling.quest',exact:true});await journal.getByRole('button',{name:'Pin this quest'}).click();await expect(page.locator('.desktop-error')).toContainText('at most three');
- await page.getByRole('region',{name:'tennis.quest',exact:true}).getByRole('button',{name:'Unpin quest'}).click();await journal.getByRole('button',{name:'Pin this quest'}).click();await expect(journal.getByRole('button',{name:'Unpin quest'})).toBeVisible();
+ const s=readyState();for(const g of gear.filter(g=>g.hobbyId==='tennis'&&g.necessity==='required'))s.gear[g.id]='owned';await seed(page,applyCommand(s,{type:'complete',nodeId:'ten-gear',evidence}).state);await week(page,'tennis');
+ for(const id of ['tennis','cycling','swimming']){await week(page,id);await page.getByRole('region',{name:`${id}.quest`,exact:true}).getByRole('button',{name:'Pin this quest'}).click();}
+ await week(page,'journaling');const journal=page.getByRole('region',{name:'journaling.quest',exact:true});await journal.getByRole('button',{name:'Pin this quest'}).click();await expect(page.locator('.desktop-error')).toContainText('at most three');
+ await week(page,'tennis');await page.getByRole('region',{name:'tennis.quest',exact:true}).getByRole('button',{name:'Unpin quest'}).click();await week(page,'journaling');await journal.getByRole('button',{name:'Pin this quest'}).click();await expect(journal.getByRole('button',{name:'Unpin quest'})).toBeVisible();
  await page.getByRole('button',{name:'active',exact:true}).click();await expect(page.getByRole('region',{name:'tennis.quest',exact:true})).toHaveCount(0);await expect(journal).toBeVisible();
  await journal.getByRole('spinbutton').fill('3');await journal.getByRole('button',{name:'Log entries'}).click();await page.getByRole('button',{name:'completed',exact:true}).click();await expect(journal).toContainText('Complete this week');
- await page.getByRole('button',{name:'available',exact:true}).click();await expect(journal).toHaveCount(0);await page.getByRole('button',{name:'all',exact:true}).click();await expect(page.locator('.quest-grid .mac-window')).toHaveCount(quests.length);
+ await page.getByRole('button',{name:'available',exact:true}).click();await expect(journal).toHaveCount(0);await page.getByRole('button',{name:'all',exact:true}).click();await expect(page.locator('.quest-grid .mac-window')).toHaveCount(1);
 });
 test('all loadout tabs and owned/wishlist/not-needed controls persist',async({page})=>{
- await page.goto('/loadout');for(const h of hobbies){await page.getByRole('tab',{name:`${h.icon} ${h.name}`,exact:true}).click();const selector=page.locator('.gear-card select').first();const name=await selector.getAttribute('aria-label');await selector.selectOption('owned');const same=page.getByRole('combobox',{name:name!,exact:true});await expect(same).toHaveValue('owned');await same.selectOption('wishlist');await expect(same).toHaveValue('wishlist');await same.selectOption('not_needed');await expect(same).toHaveValue('not_needed');await same.selectOption('owned');}
+ for(const h of hobbies){await page.goto(`/hobbies/${h.id}`);await page.getByRole('tab',{name:'Gear'}).click();const selector=page.locator('.gear-card select').first();const name=await selector.getAttribute('aria-label');await selector.selectOption('owned');const same=page.getByRole('combobox',{name:name!,exact:true});await expect(same).toHaveValue('owned');await same.selectOption('wishlist');await expect(same).toHaveValue('wishlist');await same.selectOption('not_needed');await expect(same).toHaveValue('not_needed');await same.selectOption('owned');}
  await page.reload();expect(Object.values((await saved(page)).gear).filter(v=>v==='owned')).toHaveLength(hobbies.length);
 });
 test('every closet category equips an available item and locked cosmetics stay disabled',async({page})=>{
@@ -88,11 +90,11 @@ test('tree filter controls, zoom and all hobby navigation respond',async({page})
 });
 test('start, missing gear feedback, completion, mastery and practice action are functional',async({page})=>{
  await seed(page,readyState());await page.goto('/hobbies/tennis/nodes/ten-gear');await page.getByRole('button',{name:'ACCEPT QUEST',exact:true}).click();await expect(page.getByRole('button',{name:'ACCEPT QUEST',exact:true})).toHaveCount(0);await page.getByLabel('I completed this challenge in real life.').check();await page.getByRole('button',{name:'COMPLETE QUEST',exact:true}).click();await expect(page.locator('.desktop-error')).toContainText('what you have or can borrow');
- await page.getByRole('link',{name:'Record in loadout ↗'}).first().click();// Derived from the gear data, and borrowing counts: the last required item is recorded as borrowed.
+ await page.getByRole('link',{name:'Record in Gear ↗'}).first().click();// Derived from the gear data, and borrowing counts: the last required item is recorded as borrowed.
  const required=gear.filter(g=>g.hobbyId==='tennis'&&g.necessity==='required');for(const [i,g] of required.entries())await page.getByLabel(`${g.name} status`,{exact:true}).selectOption(i===required.length-1?'borrowing':'owned');await page.goto('/hobbies/tennis/nodes/ten-gear');await page.getByLabel('I completed this challenge in real life.').check();await page.getByRole('button',{name:'COMPLETE QUEST',exact:true}).click();await page.getByRole('button',{name:'Close dialog'}).click();await page.getByRole('button',{name:/Try the mastery challenge/}).click();await page.getByLabel('What improved across three separate days?').fill('I checked my equipment on three practice days.');await page.getByLabel('I completed this challenge in real life.').check();await page.getByRole('button',{name:'Mark mastered',exact:true}).click();await expect(page.getByRole('heading',{name:'+15 XP',exact:true})).toBeVisible();await page.getByRole('button',{name:'Close dialog'}).click();await page.getByRole('button',{name:'Log another practice',exact:true}).click();await expect(page.getByRole('dialog').getByRole('button',{name:'Save practice'})).toBeEnabled();await page.getByRole('button',{name:'Cancel',exact:true}).click();
 });
 test('practice dialog remains accessible with validation feedback and saved confirmation',async({page,isMobile})=>{
- await seed(page,readyState());await page.goto('/quests');const dialog=await practice(page);await dialog.getByRole('button',{name:'Save practice'}).click();
+ await seed(page,readyState());const dialog=await practice(page);await dialog.getByRole('button',{name:'Save practice'}).click();
  const audit=async()=>{const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();expect(result.violations.filter(v=>['serious','critical'].includes(v.impact||'')).map(v=>({id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}))).toEqual([]);};
  await audit();await dialog.getByLabel('I practiced safely in a suitable environment.').check();await dialog.getByRole('button',{name:'Save practice'}).click();await expect(dialog.getByRole('heading',{name:'Practice saved'})).toBeVisible();await audit();await page.screenshot({path:`test-results/practice-saved-${isMobile?'mobile':'desktop'}.png`,fullPage:true});
 });
