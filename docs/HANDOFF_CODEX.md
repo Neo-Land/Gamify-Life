@@ -1,6 +1,6 @@
 # Gamify.Life — handoff
 
-Written 2026-09-24. Everything needed is in this repository; nothing lives only on the old machine
+Written 2026-09-24, updated at `v0.6.1-settings-themes`. Everything needed is in this repository; nothing lives only on the old machine
 except two exported artifacts listed at the very end.
 
 ---
@@ -122,7 +122,8 @@ dropped on load rather than failing the snapshot.
 3 builds (Slim/Medium/Broad) · 4 views · 4 seasonal scenes.
 
 Checkpoint tags: `v0.2-retro-desktop-checkpoint`, `v0.3-hobby-scoped-desktop`,
-`v0.4-character-polish`, `v0.5-four-tab-navigation`. Latest commit `5410ea3`.
+`v0.4-character-polish`, `v0.5-four-tab-navigation`, `v0.6-mobile-simplification`,
+`v0.6.1-settings-themes` (latest, commit `a4018da`).
 
 ---
 
@@ -152,6 +153,16 @@ isolation), any deployment, and any real device.
 5. Finish the Gear screen: replace the status dropdown with the three-button control from
    onboarding (Have / Borrow / Need). It is the last text-heavy screen (291 words at 375px).
 6. Re-check the RAM price in `content/gear.json` before launch; it was shortage-inflated in 2026.
+7. Decide the fate of the `warm` / `contrast` "Desktop theme" select in `SettingsPage`. It only
+   redefines six variables in `app/globals.css`; the retro chrome in `app/retro.css` uses its own
+   hard-coded palette and ignores them, so the control does almost nothing. Either remove it, or
+   build a real high-contrast mode that restyles the OS chrome and holds AA across all four seasons.
+   Nothing in the tests depends on it.
+
+### A caution learned the hard way
+Disclosure hides things from you too. Folding the display panel behind one summary buried the
+seasonal theme picker — the setting people open Settings to find — while leaving a near-inert
+control visible. When collapsing a section, check what is left showing above it.
 
 ---
 
