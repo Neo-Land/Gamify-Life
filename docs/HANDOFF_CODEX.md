@@ -1,6 +1,6 @@
 # Gamify.Life — handoff
 
-Written 2026-09-24, updated at `v0.6.1-settings-themes`. Everything needed is in this repository; nothing lives only on the old machine
+Written 2026-09-24, updated at `v0.7-interface-colourways`. Everything needed is in this repository; nothing lives only on the old machine
 except two exported artifacts listed at the very end.
 
 ---
@@ -54,6 +54,7 @@ and layout are the way they are, including the mistakes already made and reverte
 | `lib/content.ts` | Parses content JSON, gear, quests, achievements, wardrobe; `startupCost`, `costBadge`, `usd`, `byStartupCost`. |
 | `lib/quick-start.ts` | First quest per hobby (two decisions from home to a real action). |
 | `lib/window-layout.ts` | App ids, retired-route redirects (`redirectFor`), window clamping. |
+| `lib/colorways.ts` | Five interface palettes; each redefines the `--os-*` variables in `app/retro.css` via `[data-colorway=...]`. Adding one is a data change plus a CSS block. |
 | `lib/themes.ts`, `lib/home-scene.ts`, `lib/scene-manifest.ts` | Seasons, scene anchor/constellation reducer, asset manifest the validator checks. |
 | `lib/repositories/` | `local.ts` (guest, sessionStorage), `supabase.ts` (cloud), `types.ts` (the interface; a client may never submit a whole snapshot). |
 
@@ -132,11 +133,13 @@ Checkpoint tags: `v0.2-retro-desktop-checkpoint`, `v0.3-hobby-scoped-desktop`,
 Passing: types, lint, 101 unit tests, content and scene validation, production build, and each e2e
 file when run directly (retro 18, actions 21, onboarding, reward, journey).
 
-**Not achieved on the origin machine:** one clean full-suite run after the last commit. That machine
-(8 GB RAM, 2+ days uptime) had ~42 MB free RAM and 3.4 GB in the compressor; browsers paged so badly
-that 2 tests took 15 minutes. Earlier the same day the full suite passed in 5.1 minutes on the same
-code path after a restart. **First job for whoever picks this up: run the full suite on a healthy
-machine and fix anything real that it finds.**
+**Full suite is green as of `v0.7-interface-colourways`:** 122 browser tests passed, 2 skipped, in
+2.6 minutes, with 102 unit tests. The earlier gap is closed.
+
+What made it look broken before: the machine had ~42 MB free RAM with 3.4 GB in the compressor, so
+Playwright's browsers paged constantly — 2 tests took 15 minutes and everything else timed out as
+"failures". High load with an idle CPU means memory or I/O starvation, not a code problem. Restart,
+then re-run, before believing a mass failure.
 
 Never verified at all: Supabase against a live project (auth, cloud save, account deletion, two-user
 isolation), any deployment, and any real device.
@@ -153,11 +156,11 @@ isolation), any deployment, and any real device.
 5. Finish the Gear screen: replace the status dropdown with the three-button control from
    onboarding (Have / Borrow / Need). It is the last text-heavy screen (291 words at 375px).
 6. Re-check the RAM price in `content/gear.json` before launch; it was shortage-inflated in 2026.
-7. Decide the fate of the `warm` / `contrast` "Desktop theme" select in `SettingsPage`. It only
-   redefines six variables in `app/globals.css`; the retro chrome in `app/retro.css` uses its own
-   hard-coded palette and ignores them, so the control does almost nothing. Either remove it, or
-   build a real high-contrast mode that restyles the OS chrome and holds AA across all four seasons.
-   Nothing in the tests depends on it.
+7. Remove or finish the `warm` / `contrast` "Desktop theme" select in `SettingsPage`. Interface
+   colourways (`lib/colorways.ts`, five palettes) now do the real theming, so this legacy control is
+   the odd one out. It only redefines six variables in
+   `app/globals.css` and the retro chrome ignores them, so it does almost nothing. Either drop it or
+   make it a real high-contrast mode that holds AA across all five colourways. No test depends on it.
 
 ### A caution learned the hard way
 Disclosure hides things from you too. Folding the display panel behind one summary buried the
