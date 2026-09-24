@@ -35,3 +35,22 @@ body{background:#55574F;padding:16px;font-size:16px}.computer-frame{background:v
 .characterSprite{grid-template-rows:minmax(0,1fr);grid-template-columns:minmax(0,1fr);min-height:0;min-width:0}.characterSprite .avatar.large{min-height:0;min-width:0;max-height:100%;max-width:100%;overflow:hidden;aspect-ratio:auto;align-self:stretch;justify-self:stretch}.avatar{overflow:hidden}
 .quick-start-trigger{width:100%;margin:10px 0}.quick-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.quick-choice{text-align:left;border:2px solid #7d8b72;background:#e1e4d7;padding:15px;min-height:140px}.quick-choice[data-enrolled=true]{border-color:#3f604c;box-shadow:inset 0 0 0 2px #9baa89}.quick-choice>span{font-size:24px;margin-right:10px}.quick-choice strong{font:19px var(--pixel-font)}.quick-choice p{font-size:15px;line-height:1.4;margin:10px 0}.quick-choice small{font:13px var(--pixel-font)}.first-quest-summary h3{font-size:18px;margin:10px 0 5px}.first-quest-summary p,.first-quest-summary li{font-size:15px;line-height:1.45}.first-quest-summary ul{padding-left:20px}.first-quest-facts{display:grid;grid-template-columns:1fr 1fr;gap:14px}.first-safety{font-size:14px;padding:10px;border-left:3px solid #657b57;background:#cdd6c3;margin:12px 0;line-height:1.5}.first-quest-details{margin:10px 0}.first-quest-details details{padding-left:10px;border-left:1px solid #819078;margin:7px 0}.first-quest-details summary{cursor:pointer;font:17px var(--pixel-font);min-height:44px;padding:10px 0}.first-quest-details p,.first-quest-details li{font-size:15px}.first-quest-details a{text-decoration:underline}.node-detail-panel:has(.first-quest-summary) .page-heading p{display:none}.node-detail-panel:has(.first-quest-summary) .draft-label{font-size:12px}.node-detail-panel:has(.first-quest-summary) .node-layout{grid-template-columns:1fr}.node-detail-panel:has(.first-quest-summary) .node-sidebar{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:639px){.quick-choices{grid-template-columns:1fr}.quick-choice{min-height:100px;padding:10px}.quick-choice p{margin:5px 0}.first-quest-facts{gap:8px}.first-quest-summary h3{font-size:16px}.first-quest-summary p,.first-quest-summary li{font-size:14px}.first-safety{font-size:13px}.node-detail-panel:has(.first-quest-summary) .node-sidebar{display:block}}
 .ambient-cloud{position:absolute;left:20%;top:14%;width:58px;height:8px;background:#f0ecd4;box-shadow:10px -6px #f0ecd4,-8px 5px #dfdfcc;animation:cloud-drift 75s linear infinite;opacity:.6}.ambient-petal{position:absolute;left:65%;top:0;width:4px;height:3px;background:#efcaba;animation:season-fall 32s steps(90) -9s infinite}.seasonal-scene[data-paused=true] :is(.ambient-cloud,.ambient-petal){animation-play-state:paused}[data-motion=reduced] :is(.ambient-cloud,.ambient-petal){animation:none!important}@media(prefers-reduced-motion:reduce){.ambient-cloud,.ambient-petal{animation:none!important}}@keyframes cloud-drift{0%,100%{transform:translateX(-50px)}50%{transform:translateX(90px)}}
+/* Phones swap the draggable title bar for a slim header: back, where you are, close. */
+.window-topbar{display:none}
+@media(max-width:900px){
+ .app-window[data-compact=true] .window-titlebar{display:none}
+ .app-window[data-compact=true] .window-topbar{display:flex;align-items:center;gap:8px;height:38px;flex-shrink:0;padding:0 4px;background:var(--os-title-green);color:#FCF9EB}
+ .window-topbar strong{flex:1;font:14px var(--pixel-font);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .window-topbar button{min-width:44px;min-height:38px;background:transparent;border:0;color:inherit;font-size:20px;line-height:1}
+ .window-topbar button:focus-visible{outline:2px solid var(--os-highlight);outline-offset:-3px}
+}
+@media(max-width:767px){
+ .os-dock button{min-height:52px;min-width:66px;gap:1px}
+ .os-dock button .pixel-icon{width:28px;height:28px}
+ .os-dock button span{font-size:11px}
+}
+@media(max-width:767px){
+ .os-menubar{height:36px}
+ .os-menubar .desktop-home{font-size:0;padding:0 4px}
+ .os-menubar .desktop-home::after{content:'G.L';font:13px var(--pixel-font)}
+}

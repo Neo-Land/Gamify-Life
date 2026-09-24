@@ -108,3 +108,40 @@
 /* Short screens keep one next action and the path control clear; the weekly chips need ~55px
    more than those leave, so they wait for a taller viewport. */
 @media(max-height:700px){.this-week{display:none}}
+.lesson-section summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px;min-height:44px}
+.lesson-section summary::-webkit-details-marker{display:none}
+.lesson-section summary::before{content:'▸';font-size:13px}
+.lesson-section[open] summary::before{content:'▾'}
+.lesson-section summary h2{display:inline;margin:0}
+.lesson-why{margin:0 0 10px}
+.tree-filters summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font:13px var(--pixel-font)}
+.tree-filters[open]{display:flex;flex-wrap:wrap;gap:12px;align-items:end;width:100%}
+.tree-filters[open] summary{width:100%}
+.gear-guidance summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-size:13px;opacity:.85}
+.gear-guidance p{margin:4px 0}
+.achievements-section>summary,.equipped-section>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.achievements-section>summary h2,.equipped-section>summary h3{margin:0}
+.achievement-strip{display:flex;gap:2px;font-size:16px}
+.achievement-strip i{opacity:.25;font-style:normal}
+.achievement-strip i.earned{opacity:1}
+.settings-section>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;gap:6px}
+.settings-section>summary h2{margin:0;font:18px var(--pixel-font)}
+.gear-group>summary{cursor:pointer;min-height:44px;display:flex;align-items:center}
+.gear-group>summary h3{margin:0}
+/* One line, once a day, then it leaves. */
+.home-greeting{position:absolute;left:50%;transform:translateX(-50%);top:96px;white-space:nowrap;z-index:7;margin:0;padding:6px 14px;border:2px solid var(--line);background:var(--surface);font:15px var(--pixel-font);animation:greeting-in .4s steps(3) both,greeting-out .5s steps(3) 2.7s both}
+@keyframes greeting-in{from{opacity:0;translate:0 -6px}to{opacity:1;translate:0 0}}
+@keyframes greeting-out{to{opacity:0;translate:0 -6px}}
+[data-motion=reduced] .home-greeting,@media(prefers-reduced-motion:reduce){.home-greeting{animation:none}}
+/* Login flare: motes drift up behind the panel, and the panel gets pixel corners. */
+.entry-sparkle{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.entry-sparkle i{position:absolute;width:8px;height:8px;opacity:.8;box-shadow:0 0 0 2px #ffffff22;animation:mote-drift 9s steps(9) infinite}
+@keyframes mote-drift{0%{transform:translateY(14px);opacity:0}20%{opacity:.8}80%{opacity:.8}100%{transform:translateY(-120px);opacity:0}}
+.entry-screen{position:relative}
+.entry-screen .login-dialog{position:relative;z-index:1}
+.entry-screen .login-dialog::before,.entry-screen .login-dialog::after{content:'';position:absolute;width:10px;height:10px;background:linear-gradient(135deg,#D58E8A 50%,transparent 50%)}
+.entry-screen .login-dialog::before{top:0;left:0}
+.entry-screen .login-dialog::after{bottom:0;right:0;background:linear-gradient(315deg,#70AFA5 50%,transparent 50%)}
+[data-motion=reduced] .entry-sparkle i{animation:none}
+@media(prefers-reduced-motion:reduce){.entry-sparkle i{animation:none}}
+@media(max-width:767px){.home-greeting{top:146px;font-size:13px}}

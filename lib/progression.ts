@@ -95,7 +95,8 @@ export function applyCommand(current:State,input:Command,now=new Date()):Complet
   // the check-in replaces the record rather than stacking another one.
   s.placements[c.hobbyId]={level:c.skipped?0:scorePlacement(c.hobbyId,c.answers),answers:c.skipped?{}:c.answers,skipped:c.skipped,at};
  }
- if(c.type==='visit'){const n=recommend(s);if(n)s.recommendation={id:n.id,visits:s.recommendation.id===n.id?s.recommendation.visits+1:1};}
+ // `lastSeenOn` is what makes the first open of a day feel like an arrival; it earns nothing.
+ if(c.type==='visit'){const n=recommend(s);if(n)s.recommendation={id:n.id,visits:s.recommendation.id===n.id?s.recommendation.visits+1:1};s.profile={...s.profile,lastSeenOn:at.slice(0,10)};}
  const levels=hobbyIds.map(h=>hobbyLevel(hobbyXp(s,h)));
  const earned:Record<string,boolean>={'first-step':nodes.some(n=>done(s,n.id)),'curious-mind':s.enrollments.length>=3,'real-world':nodes.some(n=>n.nodeType==='practice'&&done(s,n.id)),'well-rounded':levels.filter(l=>l>=2).length>=2,'renaissance':levels.filter(l=>l>=2).length>=3,'ten-sessions':s.practice.length>=10};
  achievements.forEach(a=>{if(earned[a.id]&&!s.achievements.includes(a.id)){s.achievements.push(a.id);award(`achievement:${a.id}`,null,a.xp,`Achievement: ${a.name}`);}});
