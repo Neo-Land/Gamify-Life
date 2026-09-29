@@ -60,16 +60,16 @@
 .placement-questions{display:grid;gap:14px;margin:16px 0}
 .placement-question{border:1px solid #9aa391;padding:10px 12px;margin:0}
 .placement-question legend{padding:0 5px;font-size:13px}
-.kit-hobby{border-top:1px solid #9aa391;padding-top:12px;margin-top:14px}
-.kit-row{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;padding:8px 0;border-bottom:1px dotted #a8b09d}
-.kit-row>div:first-child{flex:1 1 220px;min-width:0}
+.kit-hobby{border-top:1px solid #9aa391;padding-top:8px;margin-top:10px}
+.kit-row{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;padding:5px 0;border-bottom:1px dotted #a8b09d}
+.kit-row>div:first-child{flex:1 1 auto;min-width:min(220px,100%)}
 .kit-controls{display:flex;gap:5px;flex-wrap:wrap;align-items:flex-start}
 .kit-controls .button.small{font-size:11px;padding:4px 7px}
 .kit-controls .button.selected{outline:2px solid var(--os-focus);outline-offset:1px}
 .kit-readiness{margin:10px 0 0;padding:8px 10px;background:#eef0e2;border:1px solid #9aa391;font-size:13px}
 .skill-card.suggested{outline:2px solid var(--os-focus);outline-offset:2px}
 .kit-row p{margin:3px 0}
-@media(max-width:767px){.kit-row{flex-direction:column;gap:6px;padding:10px 0}.kit-controls{width:100%}.kit-controls .button.small{flex:1 1 auto}}
+@media(max-width:767px){.kit-row{flex-direction:column;align-items:stretch;gap:4px;padding:6px 0}.kit-controls{width:100%}.kit-controls .button.small{flex:1 1 auto}}
 
 /* The rest of the catalogue, behind an explicit step. */
 .more-hobbies{margin-top:22px;padding-top:16px;border-top:1px solid var(--os-shadow)}
@@ -152,3 +152,6 @@
 .colorway-swatch i{flex:1}
 .placement-actions{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px}
 .placement-actions>div{display:flex;align-items:center;gap:10px}
+.kit-guidance summary{cursor:pointer;min-height:32px;display:flex;align-items:center;font-size:12px;opacity:.75}
+.kit-guidance p{margin:2px 0;font-size:13px}
+.kit-controls .button.small{padding:5px 8px;font-size:12px;min-height:36px}

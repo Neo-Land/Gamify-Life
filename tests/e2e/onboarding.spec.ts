@@ -32,9 +32,9 @@ test('skip, pick, check in and triage the kit, earning nothing on the way',async
  expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('gamify-life:v1')!).ledger)).toEqual([]);
  await expect(page.getByText(/to sort out first/)).toBeVisible();
  // Reading's required kit is a library card you have and a book you borrow.
- await page.getByRole('group',{name:'Library card status'}).getByRole('button',{name:'I have this'}).click();
+ await page.getByRole('group',{name:'Library card status'}).getByRole('button',{name:'Owned',exact:true}).click();
  await expect(page.getByText(/to sort out first/)).toBeVisible();
- await page.getByRole('group',{name:'A book status'}).getByRole('button',{name:'I can borrow this'}).click();
+ await page.getByRole('group',{name:'A book status'}).getByRole('button',{name:'Borrow',exact:true}).click();
  await expect(page.getByText('You can start today.')).toBeVisible();
  await page.getByRole('button',{name:'OPEN MY DESKTOP'}).click();
  await expect(page).toHaveURL(/\/home$/);
@@ -73,7 +73,7 @@ test('every onboarding step and the check-in dialog pass an accessibility audit'
  await guest(page);await expect(page.getByText('1 / 4')).toBeVisible();await audit('character');
  await page.getByRole('button',{name:'SKIP FOR NOW'}).click();await expect(page.getByText('2 / 4')).toBeVisible();await page.getByRole('button',{name:/Cycling/}).click();await audit('hobbies');
  await page.getByRole('button',{name:'CONTINUE',exact:true}).click();await expect(page.getByText('3 / 4')).toBeVisible();await page.getByRole('radio').first().click();await audit('check-in');await answerCheckIn(page);
- await page.getByRole('button',{name:'CONTINUE',exact:true}).click();await expect(page.getByText('4 / 4')).toBeVisible();await page.getByRole('button',{name:'I can borrow this'}).first().click();await audit('start kit');
+ await page.getByRole('button',{name:'CONTINUE',exact:true}).click();await expect(page.getByText('4 / 4')).toBeVisible();await page.getByRole('button',{name:'Borrow',exact:true}).first().click();await audit('start kit');
  await page.getByRole('button',{name:'OPEN MY DESKTOP'}).click();await expect(page).toHaveURL(/\/home$/);
  await page.goto('/hobbies/cycling');await page.getByRole('button',{name:/check-in/i}).click();await expect(page.getByRole('dialog')).toBeVisible();await audit('retake dialog');
 });
