@@ -158,3 +158,18 @@
 .kit-guidance[open] summary::before{content:'\25BE'}
 .kit-guidance p{margin:2px 0;font-size:13px}
 .kit-controls .button.small{padding:5px 8px;font-size:12px;min-height:36px}
+/* The tree is the point of the page: no window chrome, and it takes the height it can get. */
+.skill-tree-panel{border:2px solid var(--line);background:var(--surface);padding:0 0 10px}
+.app-window-body .skill-tree-panel .tree-canvas,.skill-tree-panel .tree-canvas{height:min(72vh,720px)}
+@media(max-width:767px){.app-window-body .skill-tree-panel .tree-canvas,.skill-tree-panel .tree-canvas{height:60vh}}
+/* Start Here marker: rides in the graph, so it stays on its node while panning and zooming. */
+.start-here{display:flex;flex-direction:column;align-items:center;color:#B23A32;width:180px;pointer-events:none}
+.start-here b{font:26px var(--pixel-font);background:#FFF3EF;border:4px solid #B23A32;padding:6px 16px;white-space:nowrap;box-shadow:4px 4px 0 #b23a3233}
+.start-here span{font-size:56px;line-height:.75;margin-top:-4px}
+/* A node opens here rather than on another page. */
+.node-peek{position:absolute;right:14px;top:96px;width:min(330px,calc(100% - 28px));z-index:5;background:var(--surface-raised);border:2px solid var(--os-ink);box-shadow:4px 4px 0 #2e372c40;padding:12px}
+.node-peek h3{margin:4px 0 6px}
+.node-peek p{margin:0 0 8px;font-size:14px}
+.node-peek-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.skill-tree-panel{position:relative;overflow:hidden}
+.tree-legend{pointer-events:none}
