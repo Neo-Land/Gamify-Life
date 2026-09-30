@@ -19,7 +19,7 @@ void main(){vec2 px=inputSize.zw*2.0;vec2 uv=(floor(vTextureCoord/px)+0.5)*px;fl
  vec2 p=floor(vTextureCoord*inputSize.xy/2.0);float L=14.0;vec3 col=floor(c.rgb*L+(bayer4(p)-0.5)+0.5)/L;
  col+=(rand(p+fract(uTime*7.0))-0.5)*0.04;gl_FragColor=vec4(col,1.0);}`;
 type Engine={build:number;app:Application;PIXI:Pixi;world:Container;fg:Container;crt:Filter;sceneAnim:Updater[];boardAnim:Updater[];clock:{T:number};buildScene:()=>Promise<void>;buildBoard:()=>void;sync:()=>void};
-export function SceneWallpaper({scene,board,rider,still=false,paused=false,className='',data}:{scene:SceneId;board?:{x:number;y:number};rider?:RefObject<HTMLElement|null>;still?:boolean;paused?:boolean;className?:string;data?:Record<string,string|number|boolean>}){
+export function SceneWallpaper({scene,board,rider,still=false,paused=false,className='',data,style}:{style?:CSSProperties;scene:SceneId;board?:{x:number;y:number};rider?:RefObject<HTMLElement|null>;still?:boolean;paused?:boolean;className?:string;data?:Record<string,string|number|boolean>}){
  const host=useRef<HTMLDivElement>(null),engine=useRef<Engine|null>(null);
  // hidden tab and OS reduced motion, mirrored into state so data-paused / data-still are right before Pixi loads
  const [hidden,setHidden]=useState(false),[reduced,setReduced]=useState(false);
@@ -62,4 +62,4 @@ export function SceneWallpaper({scene,board,rider,still=false,paused=false,class
  useEffect(()=>{const e=engine.current;if(!e)return;void e.buildScene();const el=host.current;if(el&&!props.current.still){el.classList.remove('switch');void el.offsetWidth;el.classList.add('switch');}},[scene]);
  useEffect(()=>{const e=engine.current;if(!e)return;e.buildBoard();e.sync();},[board?.x,board?.y]);
  useEffect(()=>{engine.current?.sync();},[isStill,paused,hidden]);
- return <div ref={host} className={`scene-wallpaper ${className}`} data-scene={scene} data-still={isStill} data-paused={paused||hidden||isStill} {...Object.fromEntries(Object.entries(data||{}).map(([k,v])=>[`data-${k}`,String(v)]))} aria-hidden="true" style={{background:scenes[scene].prev} as CSSProperties}/>;}
+ return <div ref={host} className={`scene-wallpaper ${className}`} data-scene={scene} data-still={isStill} data-paused={paused||hidden||isStill} {...Object.fromEntries(Object.entries(data||{}).map(([k,v])=>[`data-${k}`,String(v)]))} aria-hidden="true" style={{background:scenes[scene].prev,...style} as CSSProperties}/>;}

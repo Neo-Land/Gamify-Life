@@ -260,3 +260,6 @@ input[type=checkbox]:disabled,input[type=radio]:disabled{opacity:.5;cursor:not-a
 .dp-list button.selected{background:var(--os-title-green);color:#fff}
 .dp-list button:focus-visible{outline:2px dotted var(--os-focus);outline-offset:-4px}
 .dp-buttons{display:flex;justify-content:flex-end;gap:8px}
+/* the wallpaper fills the whole desktop, under the workspace padding and the dock; .desktop-surface still clips at the screen edge */
+.os-desktop-shell .hero-workspace,.character-centered-home{overflow:visible}
+.desktop-surface{background:#000}
