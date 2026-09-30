@@ -22,7 +22,8 @@ const shots:Shot[]=[
  {name:'sign-up',path:'/auth/sign-up',guest:false},
  {name:'not-found',path:'/no-such-page'},
 ];
-const browser=await chromium.launch();
+// GPU flags: without a GPU the wallpaper falls back to its CSS gradient (components/scene-wallpaper.tsx)
+const browser=await chromium.launch({args:['--use-angle=metal','--enable-gpu','--ignore-gpu-blocklist']});
 for(const [w,h] of [[375,812],[1280,800]])for(const s of shots){
  const page=await browser.newPage({viewport:{width:w,height:h},reducedMotion:'reduce'});
  await page.addInitScript(({booted,guest,state})=>{if(booted)sessionStorage.setItem('gamify-life:booted','true');if(guest){sessionStorage.setItem('gamify-life:guest-active','true');sessionStorage.setItem('gamify-life:v1',JSON.stringify(state));}},{booted:s.booted??true,guest:s.guest??true,state:s.state??done});

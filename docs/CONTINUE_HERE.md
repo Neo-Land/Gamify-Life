@@ -1,5 +1,13 @@
 # Gamify.Life — continuation handoff
 
+## September 30, 2026 update: retro reskin (read docs/design/REPORT.md)
+
+The reskin on `design/retro-reskin` restyles the existing classes from `app/reskin.css` (loaded last) and
+replaces the seasonal SVG scene with four Pixi wallpapers (`lib/wallpapers/`, run by
+`components/scene-wallpaper.tsx`); the character rides a chrome surfboard anchored by `lib/home-scene.ts`.
+`profile.wallpaper` picks the scene; `auto` follows `profile.themeId`. The sections below that describe
+`components/seasonal-scene.tsx` are history: that file is gone.
+
 ## September 23, 2026 update: four tabs (read this before adding a screen)
 
 The app had eight dock apps with real overlap. It now has three windowed apps plus the desktop:

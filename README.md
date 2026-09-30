@@ -143,6 +143,6 @@ These are intentionally versioned screenshots of the original application, captu
 
 ## Original assets and reproducibility
 
-`public/themes/` contains original generated SVG artwork, intentionally tracked with its generator. `components/avatar.tsx` and `components/pixel-icon.tsx` contain original pixel artwork. The locally hosted Pixelify Sans font is third-party licensed material, distributed with its SIL OFL license. No uploaded reference artwork is included.
+The desktop wallpapers are procedural scenes drawn in code (`lib/wallpapers/`), and `lib/sprites.ts` holds the original pixel icons and frames. `components/avatar.tsx` contains original pixel artwork. The locally hosted Pixelify Sans font is third-party licensed material, distributed with its SIL OFL license. No uploaded reference artwork is included.
 
 Database migrations, generated seed data, `pnpm-lock.yaml`, and the empty `.env.example` configuration template are tracked. Local `.env` files, installed dependencies, build output, browser traces, and temporary screenshots are ignored.
