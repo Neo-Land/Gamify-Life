@@ -1,6 +1,6 @@
 # Gamify.Life — handoff
 
-Written 2026-09-24, updated at `v0.7-interface-colourways`. Everything needed is in this repository; nothing lives only on the old machine
+Written 2026-09-24, updated at `v0.8-tree-focus`. Everything needed is in this repository; nothing lives only on the old machine
 except two exported artifacts listed at the very end.
 
 ---
@@ -22,10 +22,10 @@ Checks, and the order to run them:
 ```sh
 pnpm exec tsc --noEmit     # types
 pnpm lint                  # eslint
-pnpm exec vitest run       # 101 unit tests, 1 skipped (hosted RLS)
+pnpm exec vitest run       # 102 unit tests, 1 skipped (hosted RLS)
 pnpm seed:validate         # content integrity, must pass before committing content
 pnpm scene:validate        # avatar/scene manifest
-pnpm exec playwright test  # 124 browser tests, desktop + mobile projects
+pnpm exec playwright test  # 122 browser tests + 2 skipped, desktop + mobile
 pnpm build                 # production build (runs scene validation first)
 ```
 
@@ -72,13 +72,13 @@ and layout are the way they are, including the mistakes already made and reverte
 | --- | --- |
 | `components/desktop.tsx` | The shell: dock, windows, routing (`AppView`), redirects, phone header. |
 | `components/character-centered-home.tsx` | Home: character, greeting, weekly chips, quest ribbon, planner dialog. |
-| `components/skills.tsx` | `TreePage` (Path / This week / Gear sections) and `NodePage` (skill detail). |
+| `components/skills.tsx` | `TreePage` (Path tree / This week / Gear) and `NodePage` (full skill detail). |
 | `components/screens.tsx` | `CharacterPage`, `Closet`, `HobbyQuests`, `HobbyGear`, `Achievements`, `SettingsPage`, `AuthPage`. |
 | `components/avatar.tsx` | The paper doll: proportions, poses, layer order, arm clipping, hair shadow. |
 | `components/rig-layers.tsx` | Body and clothing geometry per build. |
 | `lib/hair.ts`, `lib/headwear.ts` | Hair and hat art as box tables, per view. |
 | `components/seasonal-scene.tsx` | The four seasonal scenes. |
-| `components/onboarding/` | Four-step wizard: character, hobbies, check-in, start kit. |
+| `components/onboarding/` | Four-step wizard: character, hobbies, check-in (one question per screen), start kit (one hobby per page). |
 | `app/globals.css`, `app/retro.css`, `app/home-scene.css` | Styling. Retro holds the OS chrome. |
 
 ### Backend
@@ -88,7 +88,8 @@ and layout are the way they are, including the mistakes already made and reverte
 
 ### Tests
 `tests/*.test.ts(x)` unit; `tests/e2e/*.spec.ts` browser (`actions`, `retro`, `polish`,
-`centered-home`, `journey`, `onboarding`, `reward`).
+`centered-home`, `journey`, `onboarding`, `reward`). Tree cards are buttons, not links — assert on
+`.react-flow__node .skill-card`.
 
 ---
 
@@ -113,30 +114,42 @@ and layout are the way they are, including the mistakes already made and reverte
 
 ## 4. What exists today
 
-Four tabs: **Home · Hobbies · Character · Settings** (`v0.5-four-tab-navigation`).
-A hobby owns its Path, This week and Gear. Character owns the avatar, stats, equipped items,
-achievements and the appearance editor. Planning is a dialog on Home. Retired routes
-(`/quests`, `/loadout`, `/achievements`, `/calendar`) redirect, and window state for removed tabs is
-dropped on load rather than failing the snapshot.
+Four tabs: **Home · Hobbies · Character · Settings** (`v0.5-four-tab-navigation`). One window at a
+time — opening a tab closes the one before it. A hobby owns its **Path**, **This week** and **Gear**.
+Character owns the avatar, stats, equipped items, achievements and the appearance editor. Planning is
+a dialog on Home. Retired routes (`/quests`, `/loadout`, `/achievements`, `/calendar`) redirect, and
+window state for removed tabs is dropped on load rather than failing the snapshot.
 
 10 hobbies · 121 skills · 51 gear items · 10 weekly quests · 6 achievements · 170 wardrobe items ·
-3 builds (Slim/Medium/Broad) · 4 views · 4 seasonal scenes.
+3 builds (Slim/Medium/Broad) · 4 views · 4 seasonal scenes · 5 interface colourways.
+
+Recent shape changes, newest first:
+
+- **Path is one view, the tree.** The Tree/List toggle and the flat list are gone. A red
+  `START HERE` marker sits above the suggested start node inside the graph, so it pans and zooms with
+  it. Clicking a node opens a panel over the tree (`.node-peek`) instead of navigating: type, XP,
+  minutes, why it matters, status, prerequisites when locked, and a link through to the full skill.
+  An `.sr-only` list carries the same path for screen readers, because a canvas cannot be read aloud.
+- **Start kit is one hobby per page** with four buttons (Owned / Borrow / Need / Not needed) and a
+  bolded `Details…` disclosure. 2.5 screens at 375px became 1.
+- **Check-in is one question per screen**, `NEXT` bottom-right, a `n / 5` counter, and reworded
+  questions (a pool length is stated as 25 yards).
+- **Five interface colourways** (`sage`, `blue`, `rose`, `pink`, `butter`) redefine the 12 `--os-*`
+  variables. All five were checked numerically for WCAG AA before shipping.
 
 Checkpoint tags: `v0.2-retro-desktop-checkpoint`, `v0.3-hobby-scoped-desktop`,
 `v0.4-character-polish`, `v0.5-four-tab-navigation`, `v0.6-mobile-simplification`,
-`v0.6.1-settings-themes` (latest, commit `a4018da`).
+`v0.6.1-settings-themes`, `v0.7-interface-colourways`, `v0.8-tree-focus` (latest, commit `ed77097`).
 
 ---
 
 ## 5. Verification status, honestly
 
-Passing: types, lint, 101 unit tests, content and scene validation, production build, and each e2e
-file when run directly (retro 18, actions 21, onboarding, reward, journey).
+Green at `v0.8-tree-focus`: types, lint, **102 unit tests** (1 skipped, hosted RLS), content and
+scene validation, production build, and the **full browser suite — 122 passed, 2 skipped, 5.3
+minutes** across the desktop and mobile projects.
 
-**Full suite is green as of `v0.7-interface-colourways`:** 122 browser tests passed, 2 skipped, in
-2.6 minutes, with 102 unit tests. The earlier gap is closed.
-
-What made it look broken before: the machine had ~42 MB free RAM with 3.4 GB in the compressor, so
+What made it look broken earlier: the machine had ~42 MB free RAM with 3.4 GB in the compressor, so
 Playwright's browsers paged constantly — 2 tests took 15 minutes and everything else timed out as
 "failures". High load with an idle CPU means memory or I/O starvation, not a code problem. Restart,
 then re-run, before believing a mass failure.
@@ -148,25 +161,33 @@ isolation), any deployment, and any real device.
 
 ## 6. What I would do next, in order
 
-1. Full browser suite on a healthy machine; treat any failure as real until proven otherwise.
-2. Deploy somewhere and open it on a phone. Nothing has ever run outside localhost.
-3. Guest-to-account saving. Guests lose everything when the tab closes — the single biggest gap for
+1. **More skill nodes.** The one feature explicitly asked for and not built. Every tree could use a
+   few genuinely crucial steps — tennis volley and doubles positioning, cycling hill technique and
+   night riding, reading note-taking, running fuelling and a race-day routine, PC-building BIOS setup
+   and cable management. Each node needs an entry in `content/nodes.json`, a lesson in
+   `content/lessons.ts`, prerequisites, XP, a tree position, and `pnpm seed:validate` to pass. Do one
+   hobby per commit so each stays reviewable, and update the skill counts in tests and in this file.
+2. **Gateway simplification for Character and Settings.** Hobbies already works this way — a short
+   landing that routes onward. Those two are still dense.
+3. Deploy somewhere and open it on a phone. Nothing has ever run outside localhost.
+4. Guest-to-account saving. Guests lose everything when the tab closes — the single biggest gap for
    showing this to people at the SHPE convention. SAVE PROGRESS currently says so honestly.
-4. Verify the cloud path against a throwaway Supabase project.
-5. Finish the Gear screen: replace the status dropdown with the three-button control from
-   onboarding (Have / Borrow / Need). It is the last text-heavy screen (291 words at 375px).
-6. Re-check the RAM price in `content/gear.json` before launch; it was shortage-inflated in 2026.
-7. Remove or finish the `warm` / `contrast` "Desktop theme" select in `SettingsPage`. Interface
-   colourways (`lib/colorways.ts`, five palettes) now do the real theming, so this legacy control is
-   the odd one out. It only redefines six variables in
-   `app/globals.css` and the retro chrome ignores them, so it does almost nothing. Either drop it or
-   make it a real high-contrast mode that holds AA across all five colourways. No test depends on it.
+5. Verify the cloud path against a throwaway Supabase project.
+6. Finish the Gear screen: replace the status dropdown with the four-button control from onboarding.
+   It is the last text-heavy screen (291 words at 375px).
+7. Re-check the RAM price in `content/gear.json` before launch; it was shortage-inflated in 2026.
+8. Remove or finish the `warm` / `contrast` "Desktop theme" select in `SettingsPage`. Interface
+   colourways now do the real theming, so this legacy control is the odd one out — it only redefines
+   six variables in `app/globals.css` and the retro chrome ignores them. Either drop it or make it a
+   real high-contrast mode that holds AA across all five colourways. No test depends on it.
 
-### A caution learned the hard way
+### Two cautions learned the hard way
 Disclosure hides things from you too. Folding the display panel behind one summary buried the
-seasonal theme picker — the setting people open Settings to find — while leaving a near-inert
-control visible. When collapsing a section, check what is left showing above it.
+seasonal theme picker — the setting people open Settings to find — while leaving a near-inert control
+visible. When collapsing a section, check what is left showing above it.
 
+Anything overlaying the tree canvas steals its clicks. The legend needed `pointer-events:none`, and
+the node panel needed `overflow:hidden` on its parent to stop escaping the window on phones.
 ---
 
 ## 7. Outside the repository
