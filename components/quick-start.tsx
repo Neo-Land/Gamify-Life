@@ -1,7 +1,7 @@
 'use client';
 import {useState} from 'react';
 import {firstQuests,type QuickHobby} from '@/lib/quick-start';
-import {hobbies,nodeById,gear} from '@/lib/content';
+import {nodeById,gear} from '@/lib/content';
 import {PixelSprite} from './pixel-sprite';
 import {useGame} from './provider';
 import {Modal} from './ui';

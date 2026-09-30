@@ -2,8 +2,9 @@ export const seasonIds=['fall','summer','winter','spring'] as const;
 export type SeasonalThemeId=typeof seasonIds[number];
 export type AnimationIntensity='off'|'low'|'normal';
 export type ThemeChoice={themeId:SeasonalThemeId;animationIntensity:AnimationIntensity};
-export type SeasonalTheme={id:SeasonalThemeId;name:string;palette:Record<string,string>;backgroundLayers:string[];animationLayers:{kind:string;normal:number;low:number};characterLighting:{shadowColor:string;highlightColor:string}};
-export const seasonalThemes:SeasonalTheme[]=seasonIds.map(id=>({id,name:({fall:'Amber woodland',summer:'Mountain lake',winter:'Snowlight city',spring:'Blossom meadow'})[id],palette:{sky:({fall:'#e8b28e',summer:'#99c5cf',winter:'#a9b4cc',spring:'#c1d5cc'})[id]},backgroundLayers:['sky','landscape','foreground'].map(layer=>`/themes/${id}-${layer}.svg`),animationLayers:{kind:({fall:'leaf',summer:'shimmer',winter:'snow',spring:'bee'})[id],normal:({fall:24,winter:28,spring:18,summer:14})[id],low:({fall:10,winter:12,spring:8,summer:6})[id]},characterLighting:{shadowColor:({fall:'#65523a',summer:'#375e69',winter:'#63768e',spring:'#587148'})[id],highlightColor:({fall:'#f3cf9a',summer:'#ddedde',winter:'#dfeafa',spring:'#f4e2bf'})[id]}}));
+/** A season: the desktop wallpaper it picks under Auto (lib/wallpapers), the character's lighting and the control accents. */
+export type SeasonalTheme={id:SeasonalThemeId;name:string;characterLighting:{shadowColor:string;highlightColor:string}};
+export const seasonalThemes:SeasonalTheme[]=seasonIds.map(id=>({id,name:({fall:'Autumn Hills',summer:'Summer Beach',winter:'City Nights',spring:'Spring Meadow'})[id],characterLighting:{shadowColor:({fall:'#65523a',summer:'#375e69',winter:'#63768e',spring:'#587148'})[id],highlightColor:({fall:'#f3cf9a',summer:'#ddedde',winter:'#dfeafa',spring:'#f4e2bf'})[id]}}));
 export type ThemeControlAccents={buttonBorder:string;buttonHighlight:string;buttonPressed:string;focusRing:string;windowTitlePattern:string;cornerSprite:string};
 export const themeControlAccents:Record<SeasonalThemeId,ThemeControlAccents>={
  fall:{buttonBorder:'#735037',buttonHighlight:'#d9b77a',buttonPressed:'#ead4b5',focusRing:'#664020',windowTitlePattern:'#bc9366',cornerSprite:'#b97845'},

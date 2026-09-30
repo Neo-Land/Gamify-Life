@@ -46,6 +46,7 @@ export const S={
  flame:['....k.....','...kak....','...kaak...','..kaaaak..','..kayaak..','.kaayyaak.','.kayyyyak.','.kayyyyak.','..kayyak..','...kkkk...'],
  tree:['....kk....','...kGGk...','..kGgGGk..','.kGGGgGGk.','.kGgGGGGk.','..kGGGgk..','...kkkk...','....kn....','....kn....','...kkkk...'],
  hourglass:['kkkkkkkkkk','.kwwwwwwk.','.kwyyyywk.','..kwyywk..','...kyyk...','...kwwk...','..kwyywk..','.kwyyyywk.','.kyyyyyyk.','kkkkkkkkkk'],
+  display:['............','kkkkkkkkkkkk','kssssssssyyk','kssssssssyyk','ksssGssssssk','kssGGGsssGsk','kGGGGGGsGGGk','kGGGGGGGGGGk','kkkkkkkkkkkk','.....kk.....','...kkkkkk...','............'],
  tv:['............','..k.....k...','...k...k....','kkkkkkkkkkkk','kssssssssk.k','ksbbbbbbsksk','ksbbbbbbsk.k','ksbbbbbbsksk','kssssssssk.k','kkkkkkkkkkkk','.kk......kk.','............'],
  power:['............','.....bb.....','..b..bb..b..','.bb..bb..bb.','bb...bb...bb','bb...bb...bb','bb........bb','bb........bb','.bb......bb.','..bbbbbbbb..','............','............'],
  bang:['.kkkkkk.','kyykkyyk','kyykkyyk','kyykkyyk','kyyyyyyk','kyykkyyk','.kkkkkk.','kk......'],
