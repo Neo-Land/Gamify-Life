@@ -119,3 +119,12 @@ input[type=checkbox]:disabled,input[type=radio]:disabled{opacity:.5;cursor:not-a
 /* the frame adds 10px per side over the old 2px border; take it back from padding so the workspace keeps its size */
 .os-dock,.os-dock[class*=position-]{padding:0}
 .os-dock button,.os-dock button.active{padding:2px}
+
+/* ---------- wallpaper behind boot, login and setup (components/wallpaper.tsx) ---------- */
+.retro-wallpaper{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:linear-gradient(var(--sky-top),#5d9be6 45%,var(--sky-bottom) 80%,#5e9a3c 80%)}
+.retro-wallpaper[data-season=summer]{background:linear-gradient(#1f5fc4,#3f95e8 45%,#9fd8f4 80%,#3f8a4a 80%)}
+.retro-wallpaper[data-season=fall]{background:linear-gradient(#6a5aa8,#d88a5a 45%,#f6c890 80%,#9a5a2a 80%)}
+.retro-wallpaper[data-season=winter]{background:linear-gradient(#6a86b8,#a9bcd8 45%,#e6eef6 80%,#e6eef6 80%)}
+.retro-wallpaper canvas{display:block;width:100%!important;height:100%!important}
+.entry-screen{position:relative;z-index:1;background:transparent}
+.entry-signature{background:var(--panel);color:var(--ink);padding:2px 8px;border:1px solid var(--outline)}
