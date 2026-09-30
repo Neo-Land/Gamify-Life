@@ -130,13 +130,13 @@ input[type=checkbox]:disabled,input[type=radio]:disabled{opacity:.5;cursor:not-a
 @media(prefers-reduced-motion:reduce){.scene-wallpaper.switch{animation:none}}
 .characterSprite{transform-origin:50% 100%}
 .entry-screen{position:relative;z-index:1;background:transparent}
-.entry-signature{background:var(--panel);color:var(--ink);padding:2px 8px;border:1px solid var(--outline)}
+.entry-signature{background:var(--panel);color:var(--ink);padding:2px 8px;border:1px solid var(--outline);max-width:min(560px,100%);text-align:center}
 
 /* ---------- boot: black screen, BIOS text typed line by line ---------- */
 .boot-sequence{background:#000;color:#c8d4c0;align-items:flex-start;justify-content:flex-start;padding:clamp(20px,6vw,64px);font:22px var(--pixel-font);cursor:pointer}
-.boot-text p{margin:0 0 6px;width:0;max-width:100%;overflow:hidden;white-space:nowrap;animation:boot-type .22s steps(var(--chars)) forwards;animation-delay:calc(var(--i) * .24s)}
+.boot-text p{margin:0 0 6px;width:0;max-width:100%;overflow:hidden;white-space:nowrap;animation:boot-type .2s steps(var(--chars)) forwards;animation-delay:calc(var(--i) * .2s)}
 .boot-text p:first-child{color:#fff}
-.boot-text p:last-child{color:var(--alert)}
+.boot-text p:last-of-type{color:var(--alert)}
 @keyframes boot-type{to{width:calc(var(--chars) * 1ch)}}
 .boot-cursor{display:inline-block;width:12px;height:20px;background:#c8d4c0;animation:px-blink .8s steps(1) infinite}
 .boot-skip{position:absolute;right:clamp(16px,4vw,40px);bottom:clamp(16px,4vw,40px);min-height:44px;padding:0 12px;border:1px solid #c8d4c0;background:none;color:#c8d4c0;font:18px var(--pixel-font);cursor:pointer}
