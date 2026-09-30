@@ -131,7 +131,7 @@ input[type=checkbox]:disabled,input[type=radio]:disabled{opacity:.5;cursor:not-a
 
 /* ---------- boot: black screen, BIOS text typed line by line ---------- */
 .boot-sequence{background:#000;color:#c8d4c0;align-items:flex-start;justify-content:flex-start;padding:clamp(20px,6vw,64px);font:22px var(--pixel-font);cursor:pointer}
-.boot-text p{margin:0 0 6px;width:0;max-width:100%;overflow:hidden;white-space:nowrap;animation:boot-type .28s steps(var(--chars)) forwards;animation-delay:calc(var(--i) * .3s)}
+.boot-text p{margin:0 0 6px;width:0;max-width:100%;overflow:hidden;white-space:nowrap;animation:boot-type .22s steps(var(--chars)) forwards;animation-delay:calc(var(--i) * .24s)}
 .boot-text p:first-child{color:#fff}
 .boot-text p:last-child{color:var(--alert)}
 @keyframes boot-type{to{width:calc(var(--chars) * 1ch)}}

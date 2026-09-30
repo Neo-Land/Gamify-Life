@@ -23,7 +23,9 @@ void main(){vec2 px=inputSize.zw*2.0;vec2 uv=(floor(vTextureCoord/px)+0.5)*px;fl
 export default function Wallpaper({season}:{season:SeasonalThemeId}){const host=useRef<HTMLDivElement>(null);
  useEffect(()=>{const el=host.current;if(!el||matchMedia('(prefers-reduced-motion: reduce)').matches||document.documentElement.dataset.motion==='reduced')return;
   let dead=false,cleanup=()=>{};
-  void import('pixi.js').then(PIXI=>{if(dead)return;const t=tints[season];let app:InstanceType<typeof PIXI.Application>;
+  // built when the main thread is idle, so the login window paints first
+  const idle=window.requestIdleCallback?.(()=>start(),{timeout:2500})??window.setTimeout(()=>start(),1200);
+  const start=()=>void import('pixi.js').then(PIXI=>{if(dead)return;const t=tints[season];let app:InstanceType<typeof PIXI.Application>;
    try{app=new PIXI.Application({resizeTo:el,antialias:false,resolution:1,backgroundColor:0x3f7fd6});}catch{return;/* no WebGL: the CSS gradient stays */}
    // 12fps: a stepped, retro drift, and cheap enough for software-GL browsers and the fanless Air
    app.ticker.maxFPS=12;el.appendChild(app.view as HTMLCanvasElement);
@@ -52,5 +54,5 @@ export default function Wallpaper({season}:{season:SeasonalThemeId}){const host=
    const visibility=()=>document.hidden?app.ticker.stop():app.ticker.start();document.addEventListener('visibilitychange',visibility);
    el.dataset.ready='true';
    cleanup=()=>{clearTimeout(timer);window.removeEventListener('resize',resize);document.removeEventListener('visibilitychange',visibility);app.destroy(true,{children:true,texture:true,baseTexture:true});};});
-  return()=>{dead=true;cleanup();};},[season]);
+  return()=>{dead=true;window.cancelIdleCallback?.(idle);clearTimeout(idle);cleanup();};},[season]);
  return <div ref={host} className="retro-wallpaper" data-season={season} aria-hidden="true"/>;}
