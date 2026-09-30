@@ -1,0 +1,3 @@
+import {S,spritePaths,type SpriteName} from '@/lib/sprites';
+/** A pixel-art icon from `lib/sprites.ts`. Decorative unless `alt` is given. */
+export function PixelSprite({name,size=24,alt='',className=''}:{name:SpriteName|string;size?:number;alt?:string;className?:string}){const map=S[name as SpriteName];if(!map)return null;const w=map[0].length,h=map.length;return <svg className={`pixel-sprite pixel-art ${className}`} width={size} height={size*h/w} viewBox={`0 0 ${w} ${h}`} shapeRendering="crispEdges" {...alt?{role:'img','aria-label':alt}:{'aria-hidden':true}}>{spritePaths(map).map(p=><path key={p.fill} fill={p.fill} d={p.d}/>)}</svg>;}

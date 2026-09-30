@@ -1,0 +1,24 @@
+/* Retro reskin (docs/GamifyLife_Retro_Reskin_Handoff.md). Loaded last; restyles the existing class
+   names rather than replacing them, so markup, tests and behaviour stay put. Colours come from the
+   `--os-*` palette in retro.css, which is what keeps the five colourways working. */
+
+/* ---------- tokens ---------- */
+:root{--title-a:var(--os-title-green);--title-b:color-mix(in srgb,var(--os-title-green),#fff 42%);--panel:var(--os-window);--panel-2:var(--os-panel);--hi:#fff;--lo:var(--os-shadow);--outline:#2c3833;--ink:var(--os-ink);--link:#3434e0;--accent-red:#b02030;--alert:#f2c94a;--taskbar:var(--os-desktop-green);--sky-top:#2f68cc;--sky-bottom:#b9dcf6;
+ --pixel-font:var(--font-pixel),'Courier New',monospace;--reading-font:system-ui,-apple-system,'Segoe UI',sans-serif}
+
+/* ---------- type: VT323 everywhere, scaled up by x-height (VT323 is .40) so every hard-coded size grows ~1.25x over the old Pixelify ---------- */
+body{font-family:var(--pixel-font);font-size-adjust:ex-height .6}
+button,input,select,textarea{font-family:inherit}
+/* long lesson prose stays in a reading face */
+.lesson p,.lesson li,.lesson-section p,.lesson-section li{font-family:var(--reading-font);font-size-adjust:none;-webkit-font-smoothing:auto}
+
+/* ---------- focus: 2px dotted pixel outline in the title-bar dark green ---------- */
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:2px dotted var(--os-focus);outline-offset:2px;box-shadow:0 0 0 4px var(--os-highlight)}
+
+/* ---------- 9-slice pixel frames (art in lib/sprites.ts, files from scripts/ui-frames.mts) ---------- */
+.px-window{border:6px solid transparent;border-image:url(/ui/win.svg) 6 / 6px stretch;background:var(--panel);background-clip:padding-box}
+.px-sunken{border:4px solid transparent;border-image:url(/ui/sunk.svg) 4 / 4px stretch;background-clip:padding-box}
+.px-button{border:4px solid transparent;border-image:url(/ui/btn.svg) 4 / 4px stretch;background:var(--panel);background-clip:padding-box}
+.px-button:active{border-image-source:url(/ui/btnp.svg)}
+.px-lines{background-color:var(--panel-2);background-image:repeating-linear-gradient(0deg,#0000 0 2px,#00000010 2px 4px)}
+.pixel-sprite{display:inline-block;vertical-align:middle;flex:none;image-rendering:pixelated}
