@@ -1,3 +1,4 @@
-/** Original 24px application icons, drawn on a shared integer grid. One per dock item: home,
- * hobbies, character, settings. The retired tabs took their icons with them. */
-export function PixelIcon({id}:{id:string}){const colors:Record<string,string>={home:'#8DA876',hobbies:'#D0AE5C',character:'#A996C5',settings:'#A5B4B1'};return <svg viewBox="0 0 24 24" className="pixel-icon pixel-art" aria-hidden="true" shapeRendering="crispEdges"><path d="M4 3h16v2h2v16H2V5h2z" fill="#303D32"/><path d="M4 5h16v14H4z" fill={colors[id]||'#8DA876'}/><path d="M5 6h14v1H5z" fill="#F1EEE2"/>{id==='home'?<g fill="#F1EEE2"><path d="M11 8h2v1h2v1h2v1h1v1h-2v6h-4v-4h-2v4H6v-6H4v-1h1v-1h2V9h2V8z"/></g>:id==='hobbies'?<path d="M6 10h5v5H6zM13 10h5v5h-5zM6 17h12v1H6z" fill="#FAEAC4"/>:id==='character'?<g><path d="M9 8h6v6H9z" fill="#DCAE83"/><path d="M7 14h10v4H7z" fill="#3F5145"/></g>:<path d="M10 8h4v2h3v2h2v2h-2v3h-3v2h-4v-2H7v-3H5v-2h2v-2h3zM10 11v5h4v-5z" fill="#F1EEE2" fillRule="evenodd"/>}</svg>;}
+import {PixelSprite} from './pixel-sprite';
+/** Application icons: one per dock item (home, hobbies, character, settings) plus the calendar's
+ * day markers. Art lives in `lib/sprites.ts`. */
+export function PixelIcon({id}:{id:string}){return <PixelSprite name={({achievements:'star'} as Record<string,string>)[id]||id} className="pixel-icon"/>;}

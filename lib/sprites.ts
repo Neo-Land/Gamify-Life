@@ -25,6 +25,7 @@ export const S={
  character:['............','....kkkk....','...keeeek...','...keeeek...','...keeeek...','....kkkk....','..kkttttkk..','.kttttttttk.','.kttttttttk.','.kttttttttk.','.kkkkkkkkkk.','............'],
  settings:['............','.....kk.....','..k.kddk.k..','...kddddk...','..kddkkddk..','kkddk..kddkk','kkddk..kddkk','..kddkkddk..','...kddddk...','..k.kddk.k..','.....kk.....','............'],
  quests:['............','..kkkkkkkk..','.kwwwwwwwwk.','kwwwwwwwwwwk','kwkkkkkkkwwk','kwwwwwwwwwwk','kwkkkkkwwwwk','.kwwwwwwwwk.','..kkwkkkkk..','...kk.......','............','............'],
+ calendar:['............','kkkkkkkkkkkk','krrrrrrrrrrk','krrrrrrrrrrk','kkkkkkkkkkkk','kwwkwwkwwwwk','kwwkwwkwwwwk','kkkkkkkkkkkk','kwwkwwkwwwwk','kwwkwwkwwrwk','kkkkkkkkkkkk','............'],
  /* chrome */
  close:['rrrrrrrrrr','rwwrrrrwwr','rrwwrrwwrr','rrrwwwwrrr','rrrrwwrrrr','rrrwwwwrrr','rrwwrrwwrr','rwwrrrrwwr','rrrrrrrrrr','kkkkkkkkkk'],
  minimize:['........','........','........','........','........','........','kkkkkk..','kkkkkk..'],

@@ -84,3 +84,38 @@ input[type=checkbox]:disabled,input[type=radio]:disabled{opacity:.5;cursor:not-a
 .modal-overlay{background:#1a1f1c99 repeating-conic-gradient(#0000 0 25%,#0003 0 50%) 0 0/4px 4px;backdrop-filter:none}
 /* the hover hint overlays the preview instead of pushing the character down under the pointer */
 .appearance-preview .painted-part-hint{position:absolute;top:6px;left:6px;right:6px;z-index:2;text-align:center;pointer-events:none;background:var(--alert);border:1px solid var(--outline);padding:0 4px}
+
+/* ---------- menu bar ---------- */
+.os-menubar{background:linear-gradient(var(--panel-2),var(--panel));border-bottom:2px solid var(--outline);box-shadow:inset 0 -2px var(--lo),inset 0 2px #fff;font-family:var(--pixel-font)}
+.os-menubar button{background:none}
+.crt-toggle{display:grid;place-items:center;min-width:44px;padding:0}
+.crt-toggle>.pixel-sprite{padding:3px;border:4px solid transparent;border-image:url(/ui/btn.svg) 4 / 4px stretch;background:var(--panel-2) padding-box;box-sizing:content-box}
+.crt-toggle[aria-pressed=true]>.pixel-sprite{border-image-source:url(/ui/btnp.svg);background-color:var(--alert)}
+.power-menu{border:6px solid transparent;border-image:url(/ui/win.svg) 6 / 6px stretch;background:var(--panel) padding-box;box-shadow:4px 4px 0 #0005}
+.power-menu button:hover{background:var(--title-a);color:#fff}
+
+/* ---------- taskbar: the dock, on whichever edge the player chose ---------- */
+.os-dock{border:6px solid transparent;border-image:url(/ui/win.svg) 6 / 6px stretch;background:linear-gradient(color-mix(in srgb,var(--taskbar),#fff 25%),var(--taskbar) 14%,color-mix(in srgb,var(--taskbar),#000 12%)) padding-box;box-shadow:4px 4px 0 #0005;gap:6px}
+.os-dock button,.os-dock button.active{border:4px solid transparent;border-image:url(/ui/btn.svg) 4 / 4px stretch;background:var(--panel-2) padding-box;color:var(--ink)}
+.os-dock button.active{border-image-source:url(/ui/btnp.svg);background-color:#fff}
+.os-dock button .pixel-icon{image-rendering:pixelated}
+.os-dock button span{font-family:var(--pixel-font)}
+.os-dock button i{background:var(--outline);width:6px;height:3px}
+.dock-badge{position:absolute;top:-10px;right:-8px;width:20px;height:20px}
+@media(prefers-reduced-motion:no-preference){:root:not([data-motion=reduced]) .dock-badge{animation:px-blink 1s steps(1) infinite}}
+@keyframes px-blink{50%{opacity:0}}
+
+/* ---------- CRT: the existing screen-texture preference (html[data-texture]) drives it ---------- */
+[data-texture=on] .computer-screen::after{z-index:500;border-radius:inherit;animation:crt-flicker .1s steps(2) infinite;
+ background:linear-gradient(118deg,#ffffff1c 0%,#ffffff05 28%,#0000 40%),repeating-linear-gradient(0deg,#0000 0 2px,#00000030 2px 3px),repeating-linear-gradient(90deg,#ff00000d 0 1px,#00ff000d 1px 2px,#0000ff0d 2px 3px);box-shadow:inset 0 0 140px #000b,inset 0 0 22px #000d}
+[data-texture=on] .computer-screen::before{content:'';position:absolute;left:0;right:0;height:18%;top:-20%;z-index:501;pointer-events:none;background:linear-gradient(#fff0,#ffffff0e,#fff0);animation:crt-roll 7s linear infinite}
+@keyframes crt-flicker{50%{opacity:.94}}
+@keyframes crt-roll{to{top:120%}}
+/* reduced motion: no CRT at all */
+[data-motion=reduced] .computer-screen::after,[data-motion=reduced] .computer-screen::before{display:none}
+@media(prefers-reduced-motion:reduce){.computer-screen::after,.computer-screen::before{display:none}}
+/* glow: wide screens only, never phones; on the scene and character, not on the text windows */
+@media(min-width:1024px) and (prefers-reduced-motion:no-preference){[data-texture=on]:not([data-motion=reduced]) .hero-workspace{filter:url(#crtGlow)}}
+/* the frame adds 10px per side over the old 2px border; take it back from padding so the workspace keeps its size */
+.os-dock,.os-dock[class*=position-]{padding:0}
+.os-dock button,.os-dock button.active{padding:2px}
