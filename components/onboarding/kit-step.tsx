@@ -1,5 +1,6 @@
 'use client';
 import {useState} from 'react';
+import {PixelSprite} from '../pixel-sprite';
 import {useGame} from '../provider';
 import {gear,hobbies,pricesCheckedAt,usdRange,type GearItem} from '@/lib/content';
 import {firstQuests,type QuickHobby} from '@/lib/quick-start';
@@ -18,7 +19,7 @@ export function KitStep({hobbyIds,onDone}:{hobbyIds:string[];onDone:()=>void}){
    const items=(gear as GearItem[]).filter(g=>g.hobbyId===id&&g.necessity!=='not_needed')
     .sort((a,b)=>ORDER.indexOf(a.necessity as typeof ORDER[number])-ORDER.indexOf(b.necessity as typeof ORDER[number]));
    const r=readiness(state,id);
-   return <section key={id} className="kit-hobby"><h3>{hobby.icon} {hobby.name}</h3>
+   return <section key={id} className="kit-hobby"><h3><PixelSprite name={hobby.id} size={24}/> {hobby.name}</h3>
     {items.map(g=><div key={g.id} className="kit-row">
      <div><strong>{g.name}</strong> <small className="metadata">{g.necessity} · {g.cost.high===0?'Free':usdRange(g.cost.low,g.cost.high)}</small>
       <details className="kit-guidance"><summary>Details</summary><p>{g.guidance}</p>{g.freeAlternative&&<p className="metadata">{g.freeAlternative}</p>}</details></div>

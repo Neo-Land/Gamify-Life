@@ -1,5 +1,6 @@
 'use client';
 import {useEffect,useState} from 'react';
+import {PixelSprite} from '../pixel-sprite';
 import {useGame} from '../provider';
 import {hobbies} from '@/lib/content';
 import {placementQuestions,scorePlacement} from '@/content/placement';
@@ -20,7 +21,7 @@ export function PlacementStep({hobbyIds,onDone,retake=false}:{hobbyIds:string[];
   setAnswers({});setStep(0);
   if(index+1<list.length)setIndex(index+1);else onDone();
  };
- return <><h2>{hobby.icon} {hobby.name}</h2>
+ return <><h2><PixelSprite name={hobby.id} size={28}/> {hobby.name}</h2>
   <p className="metadata">No wrong answers, and no XP either way.</p>
   {!retake&&list.length>1&&<p className="metadata">Hobby {index+1} of {list.length}</p>}
   <fieldset className="placement-question"><legend>{q.prompt}</legend>

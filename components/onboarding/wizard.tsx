@@ -1,6 +1,7 @@
 'use client';
 import {useState} from 'react';
 import {useRouter} from 'next/navigation';
+import {PixelSprite} from '../pixel-sprite';
 import {useGame} from '../provider';
 import {CharacterStep} from './character-step';
 import {HobbyStep} from './hobby-step';
@@ -15,7 +16,7 @@ export function Setup(){
  const [picked,setPicked]=useState<string[]>(state.enrollments);
  const finish=async()=>{if(await run({type:'profile',input:{onboardingComplete:true}}))router.push('/home');};
  return <div className="entry-screen setup-screen"><section className="mac-window setup-window">
-  <div className="titlebar"><h1>{titles[step]}</h1><span>{step+1} / 4</span></div>
+  <div className="titlebar"><PixelSprite name="settings" size={20}/><h1>{titles[step]}</h1><span>{step+1} / 4</span></div>
   <div className="window-pad">
    {error&&<p className="inline-error" role="alert">{error}</p>}
    {step===0&&<CharacterStep onDone={()=>setStep(1)}/>}

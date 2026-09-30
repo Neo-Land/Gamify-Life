@@ -128,3 +128,28 @@ input[type=checkbox]:disabled,input[type=radio]:disabled{opacity:.5;cursor:not-a
 .retro-wallpaper canvas{display:block;width:100%!important;height:100%!important}
 .entry-screen{position:relative;z-index:1;background:transparent}
 .entry-signature{background:var(--panel);color:var(--ink);padding:2px 8px;border:1px solid var(--outline)}
+
+/* ---------- boot: black screen, BIOS text typed line by line ---------- */
+.boot-sequence{background:#000;color:#c8d4c0;align-items:flex-start;justify-content:flex-start;padding:clamp(20px,6vw,64px);font:22px var(--pixel-font);cursor:pointer}
+.boot-text p{margin:0 0 6px;width:0;max-width:100%;overflow:hidden;white-space:nowrap;animation:boot-type .28s steps(var(--chars)) forwards;animation-delay:calc(var(--i) * .3s)}
+.boot-text p:first-child{color:#fff}
+.boot-text p:last-child{color:var(--alert)}
+@keyframes boot-type{to{width:calc(var(--chars) * 1ch)}}
+.boot-cursor{display:inline-block;width:12px;height:20px;background:#c8d4c0;animation:px-blink .8s steps(1) infinite}
+.boot-skip{position:absolute;right:clamp(16px,4vw,40px);bottom:clamp(16px,4vw,40px);min-height:44px;padding:0 12px;border:1px solid #c8d4c0;background:none;color:#c8d4c0;font:18px var(--pixel-font);cursor:pointer}
+.boot-skip:focus-visible{outline-color:#c8d4c0}
+
+/* ---------- login ---------- */
+.login-emblem{font-size:inherit}
+.login-dialog>.titlebar,.setup-window>.titlebar{gap:8px}
+
+/* ---------- setup: one installer window ---------- */
+.setup-window>.titlebar>span::before{content:'SETUP — STEP '}
+.setup-window>.titlebar>span{font-size:18px;white-space:nowrap}
+.setup-actions{justify-content:flex-end;margin-top:18px;padding-top:12px;border-top:2px solid var(--lo);box-shadow:0 -2px 0 #fff inset;box-shadow:inset 0 2px #fff}
+.onboarding-choices button{border:4px solid transparent;border-image:url(/ui/btn.svg) 4 / 4px stretch;border-radius:0;background:var(--panel-2) padding-box;padding:12px;color:var(--ink)}
+.onboarding-choices button.selected,.onboarding-choices button[aria-pressed=true]{border:4px solid transparent;border-image:url(/ui/btnp.svg) 4 / 4px stretch;background:#fff padding-box;padding:12px;outline:2px dotted var(--os-focus);outline-offset:-8px}
+.onboarding-choices button>.pixel-sprite{flex-shrink:0;margin-left:0}
+.onboarding-choices small{font-family:var(--pixel-font);font-size:15px}
+.onboarding-choices small:nth-of-type(2){flex-basis:auto;display:inline-block;padding:0 6px;border:1px solid var(--outline);background:var(--alert);box-shadow:1px 1px 0 #0004}
+@media(max-width:639px){.setup-window>.titlebar>span::before{content:'STEP '}.setup-window>.titlebar>.pixel-sprite{display:none}.setup-window>.titlebar{padding:8px 10px}}
