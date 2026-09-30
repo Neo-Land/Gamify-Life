@@ -1,5 +1,5 @@
 'use client';
-import {useState} from 'react';
+import {useEffect,useRef,useState} from 'react';
 import {PixelSprite} from '../pixel-sprite';
 import {useGame} from '../provider';
 import {gear,hobbies,pricesCheckedAt,usdRange,type GearItem} from '@/lib/content';
@@ -12,8 +12,10 @@ export function KitStep({hobbyIds,onDone}:{hobbyIds:string[];onDone:()=>void}){
  const {state,run,busy}=useGame();
  const list=hobbyIds.length?hobbyIds:state.enrollments;const [index,setIndex]=useState(0);
  // One hobby per page: several hobbies stacked meant scrolling past kit you had already sorted.
+ // A new hobby starts at the top: the page was left scrolled down at the NEXT HOBBY button.
+ const top=useRef<HTMLHeadingElement>(null),shown=useRef(index);useEffect(()=>{if(shown.current===index)return;shown.current=index;top.current?.scrollIntoView({block:'start'});top.current?.focus({preventScroll:true});},[index]);
  const only=list.slice(Math.min(index,list.length-1),Math.min(index,list.length-1)+1),last=index>=list.length-1;
- return <><h2>What do you already have?</h2>
+ return <><h2 ref={top} tabIndex={-1}>What do you already have?</h2>
   <p className="metadata">Borrowing counts. Costs are estimates, checked {pricesCheckedAt}.</p>
   {only.map(id=>{const hobby=hobbies.find(h=>h.id===id);if(!hobby)return null;
    const items=(gear as GearItem[]).filter(g=>g.hobbyId===id&&g.necessity!=='not_needed')

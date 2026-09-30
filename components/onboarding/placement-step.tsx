@@ -1,5 +1,5 @@
 'use client';
-import {useEffect,useState} from 'react';
+import {useEffect,useRef,useState} from 'react';
 import {PixelSprite} from '../pixel-sprite';
 import {useGame} from '../provider';
 import {hobbies} from '@/lib/content';
@@ -13,6 +13,8 @@ import {tiers} from '@/lib/content';
 export function PlacementStep({hobbyIds,onDone,retake=false}:{hobbyIds:string[];onDone:()=>void;retake?:boolean}){
  const {state,run,busy}=useGame();const list=hobbyIds.filter(id=>placementQuestions[id]?.length);const [index,setIndex]=useState(0);const [step,setStep]=useState(0);const [answers,setAnswers]=useState<Record<string,number>>(()=>retake&&list[0]?state.placements[list[0]]?.answers??{}:{});
  useEffect(()=>{if(!list.length)onDone();},[list.length,onDone]);
+ // A new hobby starts at the top, as in KitStep.
+ const top=useRef<HTMLHeadingElement>(null),shown=useRef(index);useEffect(()=>{if(shown.current===index)return;shown.current=index;top.current?.scrollIntoView({block:'start'});top.current?.focus({preventScroll:true});},[index]);
  if(!list.length)return null;
  const hobbyId=list[Math.min(index,list.length-1)],hobby=hobbies.find(h=>h.id===hobbyId)!;
  const questions=placementQuestions[hobbyId],q=questions[Math.min(step,questions.length-1)],last=step>=questions.length-1;
@@ -21,7 +23,7 @@ export function PlacementStep({hobbyIds,onDone,retake=false}:{hobbyIds:string[];
   setAnswers({});setStep(0);
   if(index+1<list.length)setIndex(index+1);else onDone();
  };
- return <><h2><PixelSprite name={hobby.id} size={28}/> {hobby.name}</h2>
+ return <><h2 ref={top} tabIndex={-1}><PixelSprite name={hobby.id} size={28}/> {hobby.name}</h2>
   <p className="metadata">No wrong answers, and no XP either way.</p>
   {!retake&&list.length>1&&<p className="metadata">Hobby {index+1} of {list.length}</p>}
   <fieldset className="placement-question"><legend>{q.prompt}</legend>
