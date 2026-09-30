@@ -76,7 +76,12 @@ Screenshots: `docs/design/screens/before/` and `docs/design/screens/after/`, 14 
 
 **Checked at:** 375×812, 768×1024, 1280×800 and 1920×1080, all four scenes. Nothing stretches; the scenes rebuild on resize.
 
-**Known:** at every size the "YOUR PATH" button overlaps the board's deck like a nameplate. Moving it lower would break the home layout's clearance tests.
+**YOUR PATH placement.** The button used to sit on the board's deck like a nameplate. There is no room under the board on short desktops (at 1280×720 the This-week row starts 31px below the feet), so `pathButtonPlacement` in `lib/home-scene.ts` puts it:
+- beside the nose at deck height on wide canvases;
+- beside the tail when the character stands right of centre, or when the nose side runs out of room;
+- under the deck on phone-width canvases (under 700px, the same cut-off the board uses for its length).
+
+The constellation's connectors start from the button's new position, and its nodes keep clear of it.
 
 **Deleted after the new scene passed e2e and axe:**
 - `components/seasonal-scene.tsx`

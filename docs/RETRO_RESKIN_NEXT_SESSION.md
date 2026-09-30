@@ -77,7 +77,7 @@ Written 2026-09-30 at the end of the reskin session. Read this, then `docs/desig
 
 1. **Pull request:** decide the target branch, then open it with `docs/design/REPORT.md` as the description.
 2. **Journey test:** fix the pre-existing `journey.spec.ts` failure. It's behavioural and was out of scope for a visual pass.
-3. **YOUR PATH button:** it overlaps the surfboard deck like a nameplate. Moving it lower means adjusting the home clearance tests.
+3. ~~**YOUR PATH button**~~: done. It now sits beside the board (under it on phones); see `pathButtonPlacement` in `lib/home-scene.ts`.
 4. **"Jack of All Trades" achievement:** for example, reaching a decent level in several hobbies, next to "Well Rounded" and "Renaissance Beginner". This touches `lib/content.ts` rules and is a behaviour change, so keep it in its own commit.
 5. **Wallpaper unlocks:** extra wallpapers as achievement rewards (the brief's future hook). `lib/wallpapers/index.ts` is the registry.
 6. **Deferred from the brief:**

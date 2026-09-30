@@ -5,9 +5,11 @@ import type {Pixi,Updater} from './kit';
  * element above the canvas: `onRide(dy,roll)` hands it the board's bob and roll each frame.
  * One change from the reference: the board sits at the character's anchor (`cx`,`cy`) from
  * lib/home-scene.ts rather than a fixed (W/2, H*.66), so the character-position setting still works. */
+/** Board length at canvas width `W`; the home places YOUR PATH beside or under it. */
+export const boardLength=(W:number)=>Math.min(W<700?W*.72:W*.34,420);
 export type SurfStyle={sky:string;ground:string;glow:number};
 export function surfboard(PIXI:Pixi,fg:Container,{W,cx,cy,st,rnd,anim,clock,onRide}:{W:number;cx:number;cy:number;st:SurfStyle;rnd:(a:number,b:number)=>number;anim:Updater[];clock:{T:number};onRide?:(dy:number,roll:number)=>void}){
- const L=Math.min(W<700?W*.72:W*.34,420),BW=L*.28,sq=.56,th=L*.024,k=2;           // length, true width, perspective squash, rail depth, supersample
+ const L=boardLength(W),BW=L*.28,sq=.56,th=L*.024,k=2;           // length, true width, perspective squash, rail depth, supersample
  const cw=Math.ceil(L+60),ch=Math.ceil(BW*sq+L*.2+60),ox=cw/2,oy=24+BW*sq/2;
  const c=document.createElement('canvas');c.width=cw*k;c.height=ch*k;const x=c.getContext('2d')!;x.scale(k,k);
  const half=(t:number)=>BW/2*Math.pow(Math.sin(Math.PI*(.04+.96*Math.pow(t,1.12))),.62)*(t<.07?Math.sqrt(Math.max(t,.0005)/.07)*.6+.4:1); // round-pin tail -> pointed nose
