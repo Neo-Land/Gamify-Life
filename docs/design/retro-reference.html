@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retro Messenger v2</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.4.2/pixi.min.js"></script>
+<!--
+  HOW THIS IS BUILT (3 layers, back to front):
+   1. #wall  – PixiJS canvas: procedural painted wallpaper + a custom CRT/dither shader
+   2. #desk  – normal HTML windows skinned with 9-slice PIXEL-ART frames (border-image)
+   3. .crt   – CSS overlay: scanlines, RGB shadow-mask, vignette, glare, flicker, roll bar
+   An SVG filter (#crtGlow) adds bloom + RGB split to layers 1+2 together.
+  All art (frames, avatars, icons) is drawn from the text "pixel maps" in the SPRITES section —
+  edit the letters to redraw them.
+-->
+<style>
+:root{--ink:#161616;--link:#3434e0;--panel:#d6d6d6;--panel2:#e6e6e6;--task:#8db0a3}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{display:grid;place-items:center;background:radial-gradient(circle at 50% 30%,#5a4a38,#1e1812);
+  font-family:'VT323',monospace;font-size:21px;color:var(--ink);overflow:hidden}
+img.px,.px{image-rendering:pixelated}
+
+/* ---------- monitor ---------- */
+.monitor{width:min(1180px,97vw);aspect-ratio:16/10.6;padding:26px 26px 44px;border-radius:22px;position:relative;
+  background:linear-gradient(160deg,#e3dac6,#b9ae96 60%,#9d927b);
+  box-shadow:0 30px 80px #000c,inset 0 2px 0 #fff8,inset 0 -3px 0 #0003}
+.monitor::before{content:"";position:absolute;inset:14px 14px 34px;border-radius:16px;
+  background:linear-gradient(#7d735f,#a59a83);box-shadow:inset 0 3px 8px #0008}
+.chin{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:space-between;padding:0 34px;
+  font-size:16px;letter-spacing:3px;color:#6d6451}
+.led{width:10px;height:10px;border-radius:50%;background:#6f6;box-shadow:0 0 8px #6f6,0 0 2px #fff inset;margin-top:3px}
+.screen{position:relative;width:100%;height:100%;overflow:hidden;border-radius:20px/16px;background:#000}
+.stack{position:absolute;inset:0}
+.stack.glow{filter:url(#crtGlow)}
+#wall{position:absolute;inset:0}
+#wall canvas{display:block;width:100%;height:100%}
+#desk{position:absolute;inset:0}
+
+/* ---------- CRT overlay ---------- */
+.crt{position:absolute;inset:0;pointer-events:none;z-index:500;border-radius:inherit;
+  background:
+    linear-gradient(118deg,#ffffff1c 0%,#ffffff05 28%,#0000 40%),
+    repeating-linear-gradient(0deg,#0000 0 2px,#00000030 2px 3px),
+    repeating-linear-gradient(90deg,#ff00000d 0 1px,#00ff000d 1px 2px,#0000ff0d 2px 3px);
+  box-shadow:inset 0 0 140px #000b,inset 0 0 22px #000d;animation:flicker .1s steps(2) infinite}
+.crt::after{content:"";position:absolute;left:0;right:0;height:18%;top:-20%;
+  background:linear-gradient(#fff0,#ffffff0e,#fff0);animation:roll 7s linear infinite}
+@keyframes flicker{50%{opacity:.94}}
+@keyframes roll{to{top:120%}}
+.off .crt{display:none}
+
+/* ---------- 9-slice pixel frames (images generated in JS) ---------- */
+.win  {border:6px solid transparent;border-image:var(--f-win) 6 fill / 6px stretch}
+.sunk {border:4px solid transparent;border-image:var(--f-sunk) 4 / 4px stretch;background-clip:padding-box}
+.bt   {border:4px solid transparent;border-image:var(--f-btn) 4 fill / 4px stretch;font:inherit;color:inherit;
+       background:none;cursor:pointer;padding:2px 16px}
+.bt:active{border-image-source:var(--f-btnp);transform:translate(1px,1px)}
+.lines{background-color:var(--panel2);background-image:repeating-linear-gradient(0deg,#0000 0 2px,#00000010 2px 4px)}
+
+/* ---------- windows ---------- */
+.window{position:absolute;box-shadow:4px 4px 0 #0005;animation:pop .2s steps(4)}
+@keyframes pop{from{transform:scale(.7);opacity:0}}
+.title{display:flex;align-items:center;gap:6px;height:26px;padding:0 4px 0 6px;margin:-2px -2px 6px;cursor:move;user-select:none;
+  background:var(--f-title) repeat-x;background-size:4px 26px;color:#fff;text-shadow:1px 1px 0 #2c4a3e,2px 2px 0 #2c4a3e55}
+.title img{width:18px;height:18px}
+.title .x{margin-left:auto;width:22px;height:20px;cursor:pointer}
+.av{display:block;width:64px;height:64px}
+
+#buddy{left:2.5%;top:3%;width:330px}
+.me{display:flex;gap:12px;align-items:center;padding:4px 6px 8px;font-size:23px;line-height:1.2}
+.label{padding:0 6px;font-size:19px}
+.tabs{display:flex;gap:6px;padding:2px 6px 0}
+.tab{padding:2px;cursor:pointer}.tab img{width:40px;height:40px;display:block}
+.tab.on{outline:2px solid #6a9483;outline-offset:1px}
+.list{margin:0 6px 6px;padding:4px;height:min(430px,40vh);overflow:auto}
+.row{display:flex;gap:8px;align-items:center;padding:4px;margin-bottom:5px;cursor:pointer}
+.row:hover{filter:brightness(1.06)}
+.row .av{width:52px;height:52px}
+.name{font-size:23px}
+.status{display:flex;align-items:center;gap:6px;font-size:20px;white-space:nowrap;overflow:hidden;max-width:210px;text-overflow:ellipsis}
+.status img{width:22px;height:22px;flex:none}
+
+#warn{right:3%;top:7%;width:360px}
+#warn .body{display:flex;align-items:center;gap:16px;padding:6px 12px 10px}
+#warn .body img{width:84px;height:84px}
+.big{font-size:27px;margin-bottom:6px}
+
+#chat{left:24%;top:14%;width:640px;display:none}
+.cg{display:grid;grid-template-columns:150px 1fr;gap:8px;padding:0 4px 4px}
+.cg .av{width:150px;height:150px}
+.log{height:250px;overflow:auto;padding:8px;display:flex;flex-direction:column}
+.log>:first-child{margin-top:auto}
+.sys{color:#454545}
+.msg{display:flex;gap:8px;margin-top:8px}.msg .av{width:36px;height:36px}
+.who{color:var(--link)}.who.me2{color:#b02030}
+.typing{height:26px;padding:0 8px;color:#444}
+.typing:not(:empty)::after{content:"";animation:dots 1.2s steps(4) infinite}
+@keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+textarea{font:inherit;width:100%;height:96px;resize:none;padding:6px;outline:none;color:inherit}
+
+.taskbar{position:absolute;left:0;right:0;bottom:0;height:74px;display:flex;align-items:center;justify-content:center;gap:18px;
+  background:linear-gradient(#a9c7bc,var(--task) 12%,#7a9d90);border-top:2px solid #d4e6de;box-shadow:0 -2px 0 #5e7f73}
+.ticon{position:relative;padding:4px;cursor:pointer}.ticon img{width:44px;height:44px;display:block}
+.ticon .badge{position:absolute;top:-10px;right:-10px;width:24px;height:24px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.tray{position:absolute;right:18px;display:flex;gap:10px}
+.clock{position:absolute;right:20px;bottom:84px;color:#fff;font-size:24px;text-shadow:1px 1px 0 #000,0 0 6px #0008}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <filter id="crtGlow" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+    <!-- split red channel and nudge it right = chromatic aberration -->
+    <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="r"/>
+    <feOffset in="r" dx="1.2" result="r2"/>
+    <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0" result="gb"/>
+    <feBlend in="r2" in2="gb" mode="screen" result="split"/>
+    <!-- bloom: blurred copy, dimmed, screened back on top -->
+    <feGaussianBlur in="split" stdDeviation="4" result="blur"/>
+    <feComponentTransfer in="blur" result="glow">
+      <feFuncR type="linear" slope=".38"/><feFuncG type="linear" slope=".38"/><feFuncB type="linear" slope=".42"/>
+    </feComponentTransfer>
+    <feBlend in="split" in2="glow" mode="screen"/>
+  </filter>
+</svg>
+
+<div class="monitor">
+  <div class="screen" id="screen">
+    <div class="stack glow" id="stack">
+      <div id="wall"></div>
+      <div id="desk">
+
+        <div class="window win" id="buddy">
+          <div class="title"><img class="px" data-s="bubble">Welcome to RetroIM!<img class="px x" data-s="close"></div>
+          <div class="me"><img class="px av sunk" data-s="me"><div>USERNAME:<br>n30_2k</div></div>
+          <div class="label">BATCHES</div>
+          <div class="tabs"><div class="tab bt on"><img class="px" data-s="rune"></div><div class="tab bt"><img class="px" data-s="moon"></div></div>
+          <div class="list sunk lines" id="list"></div>
+        </div>
+
+        <div class="window win" id="warn">
+          <div class="title"><img class="px" data-s="warnSmall">Warning!</div>
+          <div class="body"><img class="px" data-s="eye">
+            <div style="flex:1;text-align:center"><div class="big">MALWARE FOUND!</div><button class="bt" id="repair">REPAIR</button></div>
+          </div>
+        </div>
+
+        <div class="window win" id="chat">
+          <div class="title"><img class="px" data-s="bubble"><span id="chatTitle"></span><img class="px x" data-s="close" id="closeChat"></div>
+          <div class="cg">
+            <div><img class="px av sunk" id="chatAv"><button class="bt" style="width:100%;margin-top:8px;white-space:nowrap">▤ PROFILE</button></div>
+            <div><div class="log sunk lines" id="log"></div><div class="typing" id="typing"></div></div>
+            <img class="px av sunk" data-s="me" style="height:100px">
+            <textarea class="sunk lines" id="input" placeholder="Type a message, press Enter"></textarea>
+          </div>
+        </div>
+
+        <div class="clock" id="clock">June 30, 1999</div>
+        <div class="taskbar">
+          <div class="ticon bt"><img class="px" data-s="mail"></div>
+          <div class="ticon bt"><img class="px" data-s="cal"></div>
+          <div class="ticon bt" id="chatBtn"><img class="px" data-s="bubble"><img class="px badge" data-s="bang"></div>
+          <div class="tray"><div class="ticon bt" id="crtBtn" title="Toggle CRT"><img class="px" data-s="tv"></div>
+            <div class="ticon bt"><img class="px" data-s="power"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="crt"></div>
+  </div>
+  <div class="chin"><span>VIEWTRON 17</span><span class="led"></span></div>
+</div>
+
+<script>
+/* =========================================================
+   SPRITES — each letter is one pixel, '.' = transparent.
+   ========================================================= */
+const P = { // shared palette
+  K:'#2c3833',W:'#ffffff',L:'#ededed',F:'#d6d6d6',S:'#9c9c9c',D:'#666',
+  k:'#151515',w:'#f4f4f4',y:'#f2c94a',o:'#9a6a12',g:'#b8d86a',G:'#6f8f2c',r:'#d8404e',
+  b:'#1d3d72',s:'#c8d4e6',h:'#e0b040',p:'#e6a6c0',m:'#4a4a4a',l:'#d8d8d8',d:'#8e8e8e',
+  1:'#c6ded4',2:'#abcbbe',3:'#93b9a9',4:'#7ea896',5:'#6c9784',6:'#5b8572'
+};
+const S = {
+  /* 9-slice frames */
+  win:[".KKKKK.","KWWWWDK","KWLLSDK","KWLFSDK","KWSSSDK","KDDDDDK",".KKKKK."],
+  sunk:["DDDDW","DKKLW","DK.LW","DLLLW","WWWWW"],
+  btn:["WWWWK","WLLSK","WLFSK","WSSSK","KKKKK"],
+  btnp:["KKKKW","KSSLW","KSFLW","KLLLW","WWWWW"],
+  title:["11","12","22","21","22","32","33","23","33","43","44","34","44","54","55","45","55","65","66","56","66","66","66","66","66","66"],
+  /* avatars 12x12, first char of the map is the background */
+  goblet:["oooooooooooo","oowyyyyyyooo","ooyyyyyyykoo","ooyyrryyykoo","oooyyyyykooo","ooooyyykoooo","oooooykooooo","oooooykooooo","ooooyyykoooo","oooyyyyykooo","oooooooooooo","oooooooooooo"],
+  flower:["pppppppppppp","ppppwwwwpppp","pppwwwwwwppp","ppwwwyywwwpp","ppwwyyyywwpp","ppwwyyyywwpp","ppwwwyywwwpp","pppwwwwwwppp","ppppwwwwpppp","pppppGGppppp","ppppGGGGGppp","pppppGGppppp"],
+  skull:["rrrrrrrrrrrr","rrrwwwwwwrrr","rrwwwwwwwwrr","rrwwwwwwwwrr","rrwkkwwkkwrr","rrwkkwwkkwrr","rrwwwwwwwwrr","rrrwwkkwwrrr","rrrwwwwwwrrr","rrrwkwwkwrrr","rrrrwwwwrrrr","rrrrrrrrrrrr"],
+  rune:["kkkkkkkkkkkk","kkkkkggkkkkk","kkkgkggkgkkk","kkgggGGgggkk","kkkggGGggkkk","kgggGGGGgggk","kgggGGGGgggk","kkkggGGggkkk","kkgggGGgggkk","kkkgkggkgkkk","kkkkkggkkkkk","kkkkkkkkkkkk"],
+  moon:["kkkkkkkkkkkk","kkkkhhhkkkkk","kkkhhkkkkkkk","kkhhkkkkkhkk","kkhhkkkkhhhk","kkhhkkkkkhkk","kkhhkkkkkkkk","kkkhhkkkkkkk","kkkkhhhkkkkk","kkkkkkkkkkkk","kkkkkkkkkkkk","kkkkkkkkkkkk"],
+  sword:["bbbbbbbbbbbb","bbbbbbbbbssb","bbbbbbbbsssb","bbbbbbbsssbb","bbbbbbsssbbb","bbbbbsssbbbb","bbhhsssbbbbb","bbbhhsbbbbbb","bbhbhhbbbbbb","bhbbbbbbbbbb","hbbbbbbbbbbb","bbbbbbbbbbbb"],
+  heart:["kkkkkkkkkkkk","kkkkkkkkkkkk","kkrrrkkrrrkk","krwrrrrrrrrk","krwrrrrrrrrk","krrrrrrrrrrk","kkrrrrrrrrkk","kkkrrrrrrkkk","kkkkrrrrkkkk","kkkkkrrkkkkk","kkkkkkkkkkkk","kkkkkkkkkkkk"],
+  twins:["ssssssssssss","sskkssssyyss","skkkkssyyyys","skwwkssywwys","skwwkssywwys","sskkssssyyss","srrrrssbbbbs","rrrrrrbbbbbb","rrrrrrbbbbbb","rrrrrrbbbbbb","rrrrrrbbbbbb","ssssssssssss"],
+  me:["mmmmmmmmmmmm","mmmmmllmmmmm","mmmmllldmmmm","mmmllllddmmm","mmllllldddmm","mllllllddddm","mmddddddddmm","mmmddddddmmm","mmmmddddmmmm","mmmmmddmmmmm","mmmmmmmmmmmm","mmmmmmmmmmmm"],
+  /* icons */
+  mail:["............","............","kkkkkkkkkkkk","kwkwwwwwwkwk","kwwkwwwwkwwk","kwwwkwwkwwwk","kwwwwkkwwwwk","kwwwwwwwwwwk","kwwwwwwwwwwk","kkkkkkkkkkkk","............","............"],
+  cal:["............","kkkkkkkkkkkk","krrrrrrrrrrk","krrrrrrrrrrk","kkkkkkkkkkkk","kwwkwwkwwwwk","kwwkwwkwwwwk","kkkkkkkkkkkk","kwwkwwkwwwwk","kwwkwwkwwrwk","kkkkkkkkkkkk","............"],
+  bubble:["............","..kkkkkkkk..",".kwwwwwwwwk.","kwwwwwwwwwwk","kwkkkkkkkwwk","kwwwwwwwwwwk","kwkkkkkwwwwk",".kwwwwwwwwk.","..kkwkkkkk..","...kk.......","............","............"],
+  power:["............",".....bb.....","..b..bb..b..",".bb..bb..bb.","bb...bb...bb","bb...bb...bb","bb........bb","bb........bb",".bb......bb.","..bbbbbbbb..","............","............"],
+  tv:["............","..k.....k...","...k...k....","kkkkkkkkkkkk","kssssssssk.k","ksbbbbbbsksk","ksbbbbbbsk.k","ksbbbbbbsksk","kssssssssk.k","kkkkkkkkkkkk",".kk......kk.","............"],
+  close:["rrrrrrrrrr","rwwrrrrwwr","rrwwrrwwrr","rrrwwwwrrr","rrrrwwrrrr","rrrwwwwrrr","rrwwrrwwrr","rwwrrrrwwr","rrrrrrrrrr","kkkkkkkkkk"],
+  bang:[".kkkkkk.","kyykkyyk","kyykkyyk","kyykkyyk","kyyyyyyk","kyykkyyk",".kkkkkk.","kk......"],
+  off:["..kkkk..",".kSSSSk.","kSllSSSk","kSlSSSSk","kSSSSSDk","kSSSSDDk",".kSDDDk.","..kkkk.."],
+  warnSmall:["....kk....","...kyyk...","...kyyk...","..kykkyk..","..kykkyk..",".kyykkyyk.",".kyyyyyyk.","kyyykkyyyk","kyyyyyyyyk","kkkkkkkkkk"],
+  eye:["...kkkkkk...",".kkwwwwwwkk.",".kwwkkkkwwk.","kwwkwwwwkwwk","kwkwwkkwwkwk","kwkwkkkkwkwk","kwkwkkkkwkwk","kwkwwkkwwkwk","kwwkwwwwkwwk",".kwwkkkkwwk.",".kkwwwwwwkk.","...kkkkkk..."],
+};
+function draw(map, scale=1){
+  const h=map.length,w=map[0].length,c=document.createElement('canvas');
+  c.width=w*scale;c.height=h*scale;const x=c.getContext('2d');
+  map.forEach((row,j)=>{ if(row.length!==w) console.warn('bad row',map,j);
+    [...row].forEach((ch,i)=>{ if(ch==='.')return; x.fillStyle=P[ch]||'#f0f'; x.fillRect(i*scale,j*scale,scale,scale); });});
+  return c.toDataURL();
+}
+// frames at 2x so each art pixel = 2 screen pixels
+const root=document.documentElement.style;
+[['win','f-win'],['sunk','f-sunk'],['btn','f-btn'],['btnp','f-btnp'],['title','f-title']]
+  .forEach(([k,v])=>root.setProperty('--'+v,`url(${draw(S[k],2)})`));
+const URLS={}; const url=k=>URLS[k]??=draw(S[k]);
+document.querySelectorAll('img[data-s]').forEach(i=>i.src=url(i.dataset.s));
+
+/* =========================================================
+   BUDDY LIST + CHAT
+   ========================================================= */
+const buddies=[
+  {name:'Chalice',s:'goblet',last:'So. The Void.',on:1,replies:['Tell me what you saw.','Interesting.','We will speak again.']},
+  {name:'xX SPARKLE Xx',s:'flower',last:'I spilled bubble tea on my keyboard',on:1,replies:['omg','the K key is STICKY now','lolol']},
+  {name:'N00bSlay3r',s:'skull',last:"Where're you from, originally?",on:1,replies:['cool cool','u play any games?','brb mom needs the phone line']},
+  {name:'The Coven',s:'rune',on:0},{name:'Longsword',s:'sword',on:0},
+  {name:'Nightshade ~{@',s:'heart',on:0},{name:'H1gh V0lt4ge',s:'twins',on:0},
+];
+const list=document.getElementById('list');
+buddies.forEach(b=>{
+  const r=document.createElement('div');r.className='row sunk lines';
+  r.innerHTML=`<img class="px av" src="${url(b.s)}"><div><div class="name">${b.name}</div>
+    <div class="status"><img class="px" src="${url(b.on?'bang':'off')}">${b.on?b.last:'Offline'}</div></div>`;
+  r.onclick=()=>openChat(b);list.appendChild(r);
+});
+const chat=$('chat'),log=$('log'),typing=$('typing');let cur;
+function $(id){return document.getElementById(id)}
+function esc(t){return t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function addMsg(who,text,s,mine){
+  log.insertAdjacentHTML('beforeend',`<div class="msg"><img class="px av" src="${url(s)}"><div>
+    <div class="who ${mine?'me2':''}">${who}:</div><div>${esc(text)}</div></div></div>`);
+  log.scrollTop=log.scrollHeight;
+}
+function openChat(b){
+  cur=b;chat.style.display='none';void chat.offsetWidth;chat.style.display='block';front(chat);
+  $('chatTitle').textContent=b.name;$('chatAv').src=url(b.s);
+  log.innerHTML='<div class="sys">Remember, never share your personal information online!</div>';
+  if(b.on){addMsg(b.name,b.last,b.s);typing.textContent=b.name+' is typing';sfx.open();}
+  else{typing.textContent='';log.insertAdjacentHTML('beforeend',`<div class="sys">${b.name} is offline.</div>`)}
+  $('input').focus();
+}
+$('input').addEventListener('keydown',e=>{
+  if(e.key!=='Enter'||e.shiftKey)return;e.preventDefault();
+  const t=e.target.value.trim();if(!t||!cur)return;e.target.value='';
+  addMsg('n30_2k',t,'me',true);sfx.send();
+  if(!cur.on)return;const b=cur;typing.textContent=b.name+' is typing';
+  setTimeout(()=>{if(cur!==b)return;addMsg(b.name,b.replies[Math.random()*b.replies.length|0],b.s);typing.textContent='';sfx.recv();},900+Math.random()*1200);
+});
+$('closeChat').onclick=()=>chat.style.display='none';
+$('chatBtn').onclick=()=>openChat(buddies[0]);
+$('repair').onclick=e=>{const b=e.target;b.textContent='SCANNING';sfx.send();setTimeout(()=>{b.textContent='CLEAN!';sfx.recv()},1600)};
+$('crtBtn').onclick=()=>{$('screen').classList.toggle('off');$('stack').classList.toggle('glow')};
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on')});
+
+/* draggable windows */
+let z=10;function front(w){w.style.zIndex=++z}
+document.querySelectorAll('.window').forEach(w=>{
+  w.addEventListener('pointerdown',()=>front(w));
+  w.querySelector('.title').addEventListener('pointerdown',e=>{
+    if(e.target.classList.contains('x'))return;
+    const dx=e.clientX-w.offsetLeft,dy=e.clientY-w.offsetTop;
+    const mv=ev=>{w.style.left=ev.clientX-dx+'px';w.style.top=ev.clientY-dy+'px';w.style.right='auto'};
+    const up=()=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up)};
+    addEventListener('pointermove',mv);addEventListener('pointerup',up);
+  });
+});
+
+/* clock */
+setInterval(()=>{const d=new Date();$('clock').textContent=`June 30, 1999  ${d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}`},1000);
+
+/* tiny WebAudio sound effects (no files needed) */
+const sfx=(()=>{let ac;const tone=(f,t0,d,type='square',v=.04)=>{ac??=new AudioContext();
+  const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;g.gain.value=v;
+  g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+t0+d);o.connect(g).connect(ac.destination);
+  o.start(ac.currentTime+t0);o.stop(ac.currentTime+t0+d);};
+  return{open:()=>{tone(523,0,.08);tone(784,.08,.12)},send:()=>tone(880,0,.05,'triangle',.05),
+         recv:()=>{tone(988,0,.07);tone(1319,.07,.14)}};})();
+
+/* =========================================================
+   PIXI WALLPAPER + CRT SHADER
+   ========================================================= */
+const CRT_FRAG = `
+precision highp float;
+varying vec2 vTextureCoord;
+uniform sampler2D uSampler;
+uniform vec4 inputSize;   // xy = texture size in px, zw = 1/size (provided by Pixi)
+uniform float uTime;
+float bayer2(vec2 a){a=floor(a);return fract(dot(a,vec2(.5,a.y*.75)));}
+float bayer4(vec2 a){return bayer2(.5*a)*.25+bayer2(a);}          // ordered-dither matrix
+float rand(vec2 c){return fract(sin(dot(c,vec2(12.9898,78.233)))*43758.5453);}
+void main(){
+  vec2 px = inputSize.zw*2.0;                                        // 2px "fat pixels"
+  vec2 uv = (floor(vTextureCoord/px)+0.5)*px;
+  float ca = inputSize.z*2.0;                                        // chromatic aberration
+  vec4 c = texture2D(uSampler,uv);
+  c.r = texture2D(uSampler,uv+vec2(ca,0.0)).r;
+  c.b = texture2D(uSampler,uv-vec2(ca,0.0)).b;
+  vec2 p = floor(vTextureCoord*inputSize.xy/2.0);
+  float L = 14.0;                                                    // colour levels (lower = more 90s)
+  vec3 col = floor(c.rgb*L + (bayer4(p)-0.5) + 0.5)/L;
+  col += (rand(p+fract(uTime*7.0))-0.5)*0.04;                        // animated grain
+  gl_FragColor = vec4(col,1.0);
+}`;
+
+function startWall(){
+  const host=$('wall');
+  const app=new PIXI.Application({resizeTo:host,antialias:true,backgroundColor:0x3f7fd6});
+  host.appendChild(app.view);
+  const world=new PIXI.Container();app.stage.addChild(world);
+  const crt=new PIXI.Filter(undefined,CRT_FRAG,{uTime:0});
+  app.stage.filters=[crt];app.stage.filterArea=app.screen;
+
+  const rnd=(a,b)=>a+Math.random()*(b-a);
+  let clouds=[];
+  function build(){
+    world.removeChildren().forEach(c=>c.destroy({children:true}));clouds=[];
+    const W=app.screen.width,H=app.screen.height;
+    // sky gradient from a tiny canvas
+    const gc=document.createElement('canvas');gc.width=1;gc.height=256;const gx=gc.getContext('2d');
+    const gr=gx.createLinearGradient(0,0,0,256);gr.addColorStop(0,'#2f68cc');gr.addColorStop(.45,'#5d9be6');gr.addColorStop(.8,'#b9dcf6');
+    gx.fillStyle=gr;gx.fillRect(0,0,1,256);
+    const sky=new PIXI.Sprite(PIXI.Texture.from(gc));sky.width=W;sky.height=H;world.addChild(sky);
+
+    // soft nebula swirl + clouds, all blurred together = "painted" look
+    const air=new PIXI.Container();air.filters=[new PIXI.BlurFilter(22,4)];world.addChild(air);
+    const neb=new PIXI.Graphics();
+    [[.33,.32,.16,0xbff6ff,.55],[.42,.44,.12,0xffc4e6,.5],[.36,.52,.1,0xffffff,.6],[.5,.3,.08,0x9ae8ff,.4]]
+      .forEach(([x,y,r,c,a])=>neb.beginFill(c,a).drawCircle(x*W,y*H,r*W).endFill());
+    for(let i=0;i<40;i++){const a=i/40*Math.PI*4,rr=W*.02+i*W*.004;
+      neb.beginFill(i%2?0xffffff:0xd8f8ff,.18).drawCircle(W*.38+Math.cos(a)*rr,H*.42+Math.sin(a)*rr*.6,W*.02).endFill();}
+    air.addChild(neb);
+    const cols=[0xffffff,0xffe4f2,0xd6f4ff,0xf6d0ec];
+    for(let n=0;n<9;n++){
+      const g=new PIXI.Graphics(),cx=rnd(0,W),cy=rnd(H*.05,H*.5),s=rnd(.6,1.4);
+      for(let i=0;i<16;i++)g.beginFill(cols[i%4],rnd(.35,.7)).drawCircle(rnd(-90,90)*s,rnd(-25,25)*s-i*1.5,rnd(22,48)*s).endFill();
+      g.position.set(cx,cy);g.speed=rnd(4,12);air.addChild(g);clouds.push(g);
+    }
+    // big cumulus on the right
+    const cu=new PIXI.Graphics();
+    for(let i=0;i<60;i++)cu.beginFill(i%3?0xe8ecff:0xc4c8ee,.55).drawCircle(W*rnd(.55,.95),H*rnd(.3,.58)-i*1.2,W*rnd(.02,.05)).endFill();
+    air.addChildAt(cu,0);
+
+    // hills
+    const hillY=x=>H*(.52+.09*(x/W)+.05*Math.sin(x/W*Math.PI*1.3+.4));
+    const back=new PIXI.Graphics().beginFill(0x8fb86a);back.moveTo(0,H);
+    for(let x=0;x<=W;x+=8)back.lineTo(x,hillY(x)-H*.04+10*Math.sin(x*.01));back.lineTo(W,H).endFill();
+    back.filters=[new PIXI.BlurFilter(3)];world.addChild(back);
+    const hill=new PIXI.Graphics().beginFill(0x5e9a3c);hill.moveTo(0,H);
+    for(let x=0;x<=W;x+=8)hill.lineTo(x,hillY(x));hill.lineTo(W,H).endFill();world.addChild(hill);
+    // grass strokes, lighter near the top of the hill
+    const grass=new PIXI.Graphics(),gcols=[0x4c8a2e,0x6fae45,0x86c257,0x3e7426,0xa6d46a];
+    for(let i=0;i<5500;i++){
+      const x=rnd(0,W),top=hillY(x),y=rnd(top,H),len=rnd(4,12)*(0.6+(y-top)/(H-top));
+      grass.lineStyle(rnd(1,2.2),gcols[i%5],rnd(.5,.9)).moveTo(x,y).lineTo(x+rnd(-3,3),y-len);
+    }
+    world.addChild(grass);
+    // flowers: yellow speckles + purple lavender patch bottom right
+    const fl=new PIXI.Graphics();
+    for(let i=0;i<260;i++){const x=rnd(0,W),y=rnd(hillY(x)+10,H);fl.beginFill(0xf6e05a,.8).drawCircle(x,y,rnd(1,2.2)).endFill();}
+    for(let i=0;i<900;i++){const x=rnd(W*.55,W),y=rnd(Math.max(hillY(x)+40,H*.72),H);
+      fl.lineStyle(rnd(2,4),i%2?0x9a70c8:0xb890e0,rnd(.4,.8)).moveTo(x,y).lineTo(x+rnd(-2,2),y-rnd(6,18));}
+    world.addChild(fl);
+  }
+  build();
+  let t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(build,200)});
+  app.ticker.add(dt=>{
+    crt.uniforms.uTime+=dt/60;
+    const W=app.screen.width;
+    clouds.forEach(c=>{c.x-=c.speed*dt/60;if(c.x<-200)c.x=W+200});
+  });
+}
+if(window.PIXI)startWall();else console.warn('PixiJS failed to load – wallpaper disabled');
+</script>
+</body>
+</html>
