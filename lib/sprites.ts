@@ -27,6 +27,12 @@ export const S={
  quests:['............','..kkkkkkkk..','.kwwwwwwwwk.','kwwwwwwwwwwk','kwkkkkkkkwwk','kwwwwwwwwwwk','kwkkkkkwwwwk','.kwwwwwwwwk.','..kkwkkkkk..','...kk.......','............','............'],
  calendar:['............','kkkkkkkkkkkk','krrrrrrrrrrk','krrrrrrrrrrk','kkkkkkkkkkkk','kwwkwwkwwwwk','kwwkwwkwwwwk','kkkkkkkkkkkk','kwwkwwkwwwwk','kwwkwwkwwrwk','kkkkkkkkkkkk','............'],
  /* chrome */
+ book:['kkkkkkkkk.','kvvvvvvvk.','kvwwwwwvk.','kvvvvvvvk.','kvwwwwvvk.','kvvvvvvvk.','kvvvvvvvk.','kvvvvvvvk.','kwwwwwwwk.','kkkkkkkkk.'],
+ open:['...kkkkkk.','.....kkkk.','....kkkkk.','...kkk.kk.','..kkk..kk.','.kkk......','kkk.......','kk........','..........','..........'],
+ list:['..........','kk.kkkkkkk','kk.kkkkkkk','..........','kk.kkkkkkk','kk.kkkkkkk','..........','kk.kkkkkkk','kk.kkkkkkk','..........'],
+ shield:['..kkkkkk..','.kGGGGGGk.','.kGGGGwGk.','.kGGGwwGk.','.kGwGwGGk.','.kGwwGGGk.','..kGwGGk..','..kGGGGk..','...kGGk...','....kk....'],
+ download:['....kk....','....kk....','....kk....','.kk.kk.kk.','..kkkkkk..','...kkkk...','....kk....','..........','kkkkkkkkkk','kkkkkkkkkk'],
+ pin:['...kkkk...','..krrrrk..','..krrrrk..','...krrk...','..kkkkkk..','....kk....','....kk....','....kk....','....k.....','..........'],
  close:['rrrrrrrrrr','rwwrrrrwwr','rrwwrrwwrr','rrrwwwwrrr','rrrrwwrrrr','rrrwwwwrrr','rrwwrrwwrr','rwwrrrrwwr','rrrrrrrrrr','kkkkkkkkkk'],
  minimize:['........','........','........','........','........','........','kkkkkk..','kkkkkk..'],
  maximize:['kkkkkkk.','kkkkkkk.','k.....k.','k.....k.','k.....k.','k.....k.','kkkkkkk.','........'],

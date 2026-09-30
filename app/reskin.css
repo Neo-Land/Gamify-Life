@@ -179,3 +179,20 @@ input[type=checkbox]:disabled,input[type=radio]:disabled{opacity:.5;cursor:not-a
 .option-cycle{border-bottom:2px solid var(--lo)}
 @media(max-width:639px){.this-week button{padding:2px 4px;font-size:13px}.this-week button small{font-size:12px}.this-week button .pixel-sprite{width:14px;height:14px}}
 @media(max-width:767px){.current-quest-ribbon{padding:1px}}
+
+/* ---------- skill tree: sunken canvas, nodes as mini windows, stepped edges ---------- */
+.tree-canvas{border:4px solid transparent;border-image:url(/ui/sunk.svg) 4 / 4px stretch;background:var(--os-highlight) padding-box}
+.skill-card,.skill-card[data-tier],.skill-card.locked{border:4px solid transparent;border-image:url(/ui/win.svg) 6 / 4px stretch;border-radius:0;background:var(--panel) padding-box;box-shadow:inset 0 6px var(--hobby,var(--title-a)),3px 3px 0 #0004;color:var(--ink);padding-top:12px}
+.skill-card.locked{background-image:repeating-conic-gradient(#0000 0 25%,#00000012 0 50%);background-size:2px 2px;box-shadow:inset 0 6px var(--lo),3px 3px 0 #0003}
+.skill-card.completed,.skill-card.mastered{box-shadow:inset 0 6px var(--hobby,var(--title-a)),inset 0 -4px #6FA66F,3px 3px 0 #0004}
+.skill-card.mastered:after{content:none}
+.skill-card .node-icon,.skill-card.locked .node-icon{border:4px solid transparent;border-image:url(/ui/sunk.svg) 4 / 4px stretch;border-radius:0;background:var(--os-highlight) padding-box}
+.skill-card[data-suggested],.skill-card.entry-node{outline:2px dotted var(--os-focus);outline-offset:3px}
+.react-flow__edge-path{shape-rendering:crispEdges}
+.react-flow__controls{box-shadow:3px 3px 0 #0004;border:6px solid transparent;border-image:url(/ui/win.svg) 6 / 6px stretch;background:var(--panel) padding-box}
+.react-flow__controls-button{width:32px;height:32px;border:4px solid transparent;border-image:url(/ui/btn.svg) 4 / 4px stretch;background:var(--panel-2) padding-box}
+.react-flow__controls-button:active{border-image-source:url(/ui/btnp.svg)}
+.react-flow__controls-button svg{fill:var(--ink)}
+.start-here b{border:1px solid #000;background:var(--alert);color:var(--ink);box-shadow:3px 3px 0 #0005;font-size:22px}
+.start-here span{width:0;height:0;margin-top:0;border:10px solid transparent;border-top:12px solid #000}
+.map-new-hobby{border-style:dashed!important}
