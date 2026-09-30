@@ -153,3 +153,29 @@ input[type=checkbox]:disabled,input[type=radio]:disabled{opacity:.5;cursor:not-a
 .onboarding-choices small{font-family:var(--pixel-font);font-size:15px}
 .onboarding-choices small:nth-of-type(2){flex-basis:auto;display:inline-block;padding:0 6px;border:1px solid var(--outline);background:var(--alert);box-shadow:1px 1px 0 #0004}
 @media(max-width:639px){.setup-window>.titlebar>span::before{content:'STEP '}.setup-window>.titlebar>.pixel-sprite{display:none}.setup-window>.titlebar{padding:8px 10px}}
+
+/* ---------- home desktop: HUD pieces become small windows and pixel buttons ---------- */
+.home-utilities button,.central-progress,.os-desktop-shell .central-progress{border:4px solid transparent;border-image:url(/ui/btn.svg) 4 / 4px stretch;border-radius:0;background:var(--panel-2) padding-box;box-shadow:2px 2px 0 #0004;color:var(--ink);font-family:var(--pixel-font)}
+.home-utilities button:active,.central-progress:active,.central-progress[aria-expanded=true]{border-image-source:url(/ui/btnp.svg);background-color:var(--os-deep-green);color:#fff}
+.central-progress>span .pixel-sprite{vertical-align:-3px;margin-right:6px}
+.home-greeting{border:1px solid #000;border-radius:0;background:#fff6a8;color:var(--ink);box-shadow:3px 3px 0 #0004;font-family:var(--pixel-font)}
+.current-quest-ribbon{border:6px solid transparent;border-image:url(/ui/win.svg) 6 / 6px stretch;border-radius:0;background:var(--panel) padding-box;box-shadow:4px 4px 0 #0005;padding:3px 7px}
+/* frames are thicker than the old 1-2px borders; padding gives the height back so the home layout keeps its clearances */
+.quest-ribbon-label{color:var(--ink)}
+.this-week button{padding:2px 9px;border:4px solid transparent;border-image:url(/ui/btn.svg) 4 / 4px stretch;border-radius:0;background:var(--panel-2) padding-box;box-shadow:2px 2px 0 #0004;color:var(--ink);font-family:var(--pixel-font)}
+.this-week button .pixel-sprite{vertical-align:-3px}
+/* constellation: pixel icon tiles with a hobby-colour rim */
+.hobby-branch-node,:root .os-desktop-shell .hobby-branch-node,.progress-branch-node,:root .os-desktop-shell .progress-branch-node{border:4px solid transparent;border-image:url(/ui/btn.svg) 4 / 4px stretch;border-radius:0;background:var(--panel-2) padding-box;box-shadow:inset 0 0 0 3px var(--hobby,var(--title-a)),3px 3px 0 #0004;color:var(--ink)}
+.hobby-branch-node[aria-pressed=true],:root .os-desktop-shell .hobby-branch-node[aria-pressed=true]{border-image-source:url(/ui/btnp.svg);background-color:#fff;outline:2px dotted var(--os-focus);outline-offset:2px}
+.hobby-progress-ring{display:grid;place-items:center;border:1px solid var(--outline);background:conic-gradient(var(--hobby,var(--title-a)) var(--ring),var(--os-highlight) 0)}
+.hobby-progress-ring .pixel-sprite{width:14px;height:14px}
+.pixel-connectors path{shape-rendering:crispEdges}
+/* character creator and appearance editor: the preview sits in a sunken frame; closet items are raised tiles */
+.sprite-stage,.appearance-preview{border:4px solid transparent;border-image:url(/ui/sunk.svg) 4 / 4px stretch;background-clip:padding-box}
+.closet-item,.onboarding .closet-item{border:4px solid transparent;border-image:url(/ui/btn.svg) 4 / 4px stretch;border-radius:0;background:var(--panel-2) padding-box;color:var(--ink);font-family:var(--pixel-font)}
+.closet-item.equipped,.closet-item[aria-pressed=true]{border:4px solid transparent;border-image:url(/ui/btnp.svg) 4 / 4px stretch;background:#fff padding-box;outline:2px dotted var(--os-focus);outline-offset:-7px}
+.closet-item:disabled{background-image:repeating-conic-gradient(#0000 0 25%,#0000001a 0 50%);background-size:2px 2px}
+.body-selector{border:4px solid transparent;border-image:url(/ui/sunk.svg) 4 / 4px stretch;background:var(--panel-2) padding-box}
+.option-cycle{border-bottom:2px solid var(--lo)}
+@media(max-width:639px){.this-week button{padding:2px 4px;font-size:13px}.this-week button small{font-size:12px}.this-week button .pixel-sprite{width:14px;height:14px}}
+@media(max-width:767px){.current-quest-ribbon{padding:1px}}
