@@ -22,3 +22,65 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 .px-button:active{border-image-source:url(/ui/btnp.svg)}
 .px-lines{background-color:var(--panel-2);background-image:repeating-linear-gradient(0deg,#0000 0 2px,#00000010 2px 4px)}
 .pixel-sprite{display:inline-block;vertical-align:middle;flex:none;image-rendering:pixelated}
+
+/* ---------- windows: content windows, app windows, dialogs ---------- */
+.mac-window,.app-window,.modal,.app-window-body .mac-window{border:6px solid transparent;border-image:url(/ui/win.svg) 6 / 6px stretch;border-radius:0;background:var(--panel);background-clip:padding-box;box-shadow:4px 4px 0 #0005}
+.app-window{border-width:6px!important}
+.app-window.front{box-shadow:5px 5px 0 #0006}
+.app-window-body,.modal-body{background:var(--panel)}
+.app-window-body .mac-window{box-shadow:2px 2px 0 #0003}
+@media(prefers-reduced-motion:no-preference){:root:not([data-motion=reduced]) :is(.modal,.app-window.front){animation:px-pop .2s steps(4)}}
+/* a wipe, not a scale or fade: layout boxes and colours stay exact for tests and axe */
+@keyframes px-pop{from{clip-path:inset(0 0 100% 0)}}
+
+/* title bars: stepped sage ramp, darkest where the text sits so white text keeps 4.5:1 */
+:root :is(.titlebar,.window-titlebar,.app-window[data-compact=true] .window-topbar){--tb:var(--title-a);background:linear-gradient(var(--title-b) 0 2px,color-mix(in srgb,var(--tb),#fff 28%) 2px 4px,color-mix(in srgb,var(--tb),#fff 14%) 4px 6px,var(--tb) 6px);color:#fff;text-shadow:1px 1px 0 #2c4a3e;border-bottom:0;box-shadow:inset 0 -2px var(--control-title,#0000)}
+:root .front>.window-titlebar,:root .modal .titlebar,:root .login-dialog>.titlebar,:root .setup-window>.titlebar{--tb:var(--os-deep-green)}
+:root .os-desktop-shell .window-titlebar{background-image:linear-gradient(var(--title-b) 0 2px,color-mix(in srgb,var(--tb),#fff 28%) 2px 4px,color-mix(in srgb,var(--tb),#fff 14%) 4px 6px,var(--tb) 6px)}
+.titlebar h1,.titlebar h2,.window-titlebar strong,.window-topbar strong,.modal .titlebar h2{color:#fff;font-family:var(--pixel-font);letter-spacing:.5px}
+.titlebar .title-stripes{display:none}
+.titlebar .window-square{width:18px;height:18px;border:0;box-shadow:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' shape-rendering='crispEdges'%3E%3Cpath fill='%232c3833' d='M1 1h10v10H1z'/%3E%3Cpath fill='%23f4f4f4' d='M2 2h8v8H2z'/%3E%3Cpath fill='%2393b9a9' d='M2 2h8v2H2z'/%3E%3C/svg%3E") center/contain no-repeat;image-rendering:pixelated}
+/* title-bar buttons: small raised pixel buttons, still 44px tap targets */
+.window-titlebar button,.window-topbar button,.modal .titlebar .icon-button{display:grid;place-items:center;min-width:44px;height:44px;padding:0;background:none;border:0;box-shadow:none;color:var(--ink)}
+.window-titlebar button>.pixel-sprite,.window-topbar button>.pixel-sprite,.modal .titlebar .icon-button>.pixel-sprite{box-sizing:content-box;padding:5px;border:4px solid transparent;border-image:url(/ui/btn.svg) 4 / 4px stretch;background:var(--panel-2) padding-box}
+.window-titlebar button:active>.pixel-sprite,.window-topbar button:active>.pixel-sprite,.modal .titlebar .icon-button:active>.pixel-sprite{border-image-source:url(/ui/btnp.svg);translate:1px 1px}
+
+/* ---------- buttons ---------- */
+.button,.os-desktop-shell .button:not(.danger){border:4px solid transparent;border-image:url(/ui/btn.svg) 4 / 4px stretch;border-radius:0;background:var(--panel-2);background-clip:padding-box;box-shadow:none;color:var(--ink);font-family:var(--pixel-font);letter-spacing:.5px}
+.button:hover{background-color:#fff}
+.button:active,.os-desktop-shell .button:not(.danger):active,.button[aria-pressed=true],.os-desktop-shell .button[aria-pressed=true]{border-image-source:url(/ui/btnp.svg);background-color:var(--control-pressed,var(--panel));color:var(--ink);transform:translate(1px,1px);box-shadow:none}
+.button.primary,.os-desktop-shell .button.primary:not(.danger){background-color:var(--os-deep-green);color:#fff;text-shadow:1px 1px 0 #0006}
+.button.primary:hover{background-color:color-mix(in srgb,var(--os-deep-green),#000 12%)}
+.button.danger{color:var(--accent-red)}
+.button:disabled,.button[aria-disabled=true]{color:color-mix(in srgb,var(--ink),transparent 50%);background-image:repeating-conic-gradient(#0000 0 25%,#0000001a 0 50%);background-size:2px 2px;cursor:not-allowed;transform:none}
+.button.primary:disabled{color:#ffffff99}
+.text-button{color:var(--link);font-family:var(--pixel-font);text-decoration-style:dotted}
+.icon-button{background:none}
+
+/* ---------- inputs ---------- */
+:is(input:not([type=checkbox],[type=radio],[type=range],[type=color]),select,textarea){border:4px solid transparent;border-image:url(/ui/sunk.svg) 4 / 4px stretch;background-clip:padding-box!important;background-image:repeating-linear-gradient(0deg,#0000 0 2px,#00000010 2px 4px)!important;box-shadow:none!important;color:var(--ink);font-family:var(--pixel-font)}
+select:not([multiple]){appearance:none;padding-right:34px!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 12 12' shape-rendering='crispEdges'%3E%3Cpath fill='%23fff' d='M0 0h11v1H1v10H0z'/%3E%3Cpath fill='%232c3833' d='M11 0h1v12H0v-1h11z'/%3E%3Cpath fill='%23d6d6d6' d='M1 1h10v10H1z'/%3E%3Cpath fill='%23151515' d='M3 4h6v1H3zM4 5h4v1H4zM5 6h2v1H5z'/%3E%3C/svg%3E"),repeating-linear-gradient(0deg,#0000 0 2px,#00000010 2px 4px)!important;background-repeat:no-repeat,repeat!important;background-position:right 2px center,0 0!important;background-size:24px 24px,auto!important}
+input[type=checkbox],input[type=radio]{appearance:none;width:22px;height:22px;min-width:22px;min-height:22px;margin:0 8px 0 0;vertical-align:middle;border:4px solid transparent;border-image:url(/ui/sunk.svg) 4 / 4px stretch;background:var(--os-highlight) padding-box;cursor:pointer}
+input[type=checkbox]:checked{background:var(--os-highlight) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Cpath fill='%23151515' d='M6 1h1v1H6zM5 2h1v1H5zM4 3h1v1H4zM0 3h1v1H0zM1 4h1v1H1zM3 4h1v1H3zM2 5h1v1H2z'/%3E%3C/svg%3E") center/10px no-repeat padding-box;image-rendering:pixelated}
+input[type=radio]:checked{background:var(--os-highlight) linear-gradient(var(--ink),var(--ink)) center/6px 6px no-repeat padding-box}
+input[type=checkbox]:disabled,input[type=radio]:disabled{opacity:.5;cursor:not-allowed}
+
+/* ---------- tabs: raised pixel tabs, the selected one joins the panel ---------- */
+.closet-tabs,.segmented,.map-hobby-switcher{border:0;border-bottom:2px solid var(--outline);background:none;border-radius:0;gap:2px;overflow:visible}
+.closet-tabs button,.segmented button,.map-hobby-switcher a{border:4px solid transparent;border-bottom:0;border-image:url(/ui/btn.svg) 4 / 4px 4px 0 stretch;border-radius:0;background:var(--panel);background-clip:padding-box;box-shadow:none;margin-bottom:-2px;color:var(--ink)}
+.closet-tabs button[aria-selected=true],.segmented button.selected,.segmented button[aria-selected=true],.map-hobby-switcher a[aria-current=page]{background:var(--panel-2);padding-bottom:calc(.5em + 2px);box-shadow:inset 0 3px var(--hobby,var(--title-a))}
+.segmented button:last-child{border-width:4px 4px 0;border-style:solid;border-color:transparent;border-image:url(/ui/btn.svg) 4 / 4px 4px 0 stretch}
+
+/* ---------- progress: sunken track, block fill in the hobby colour ---------- */
+.xp-track{box-sizing:content-box;height:12px;border:4px solid transparent;border-image:url(/ui/sunk.svg) 4 / 4px stretch;background:var(--os-highlight);background-clip:padding-box;border-radius:0}
+.xp-track>div{background:repeating-linear-gradient(90deg,var(--bar-color,var(--title-a)) 0 8px,transparent 8px 10px);transition:width .4s steps(6)}
+.compact-life-hud .xp-track,.hobby-row .xp-track{height:6px;border-width:3px}
+@media(prefers-reduced-motion:reduce){.xp-track>div{transition:none}}
+
+/* ---------- small pieces ---------- */
+.badge,.xp-pill{border-radius:0;border:1px solid var(--outline);background:var(--alert);color:var(--ink);font-family:var(--pixel-font);box-shadow:1px 1px 0 #0004}
+.empty{border:4px solid transparent;border-image:url(/ui/sunk.svg) 4 / 4px stretch;background-color:var(--panel-2);background-image:repeating-linear-gradient(0deg,#0000 0 2px,#00000010 2px 4px);color:var(--ink)}
+.window-pad,.inset-panel{background:transparent}
+.modal-overlay{background:#1a1f1c99 repeating-conic-gradient(#0000 0 25%,#0003 0 50%) 0 0/4px 4px;backdrop-filter:none}
+/* the hover hint overlays the preview instead of pushing the character down under the pointer */
+.appearance-preview .painted-part-hint{position:absolute;top:6px;left:6px;right:6px;z-index:2;text-align:center;pointer-events:none;background:var(--alert);border:1px solid var(--outline);padding:0 4px}
