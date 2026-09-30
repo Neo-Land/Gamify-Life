@@ -263,3 +263,9 @@ input[type=checkbox]:disabled,input[type=radio]:disabled{opacity:.5;cursor:not-a
 /* the wallpaper fills the whole desktop, under the workspace padding and the dock; .desktop-surface still clips at the screen edge */
 .os-desktop-shell .hero-workspace,.character-centered-home{overflow:visible}
 .desktop-surface{background:#000}
+/* phone menu bar is 36px: the tray buttons keep a 44px tap area but overhang it instead of stretching it */
+@media(max-width:767px){.os-menubar .crt-toggle{height:44px;min-height:44px;margin-block:-4px;flex-shrink:0}.os-menubar .crt-toggle>.pixel-sprite{width:18px;height:18px;padding:2px}}
+/* list rows never shrink to fit the box: a wrapped label pushes the rows below it down */
+.dp-list button{flex-shrink:0;font-size:17px;line-height:1.15;padding:6px 8px}
+@media(max-width:639px){.dp-list button{font-size:15px}}
+@media(max-width:639px),(max-height:760px){.dp-monitor{width:170px;margin:2px auto 16px;padding:6px 6px 10px}.dp-preview{height:78px}.dp-monitor::after{bottom:-10px;height:8px}.dp-list{max-height:170px}.display-properties{gap:6px}}
