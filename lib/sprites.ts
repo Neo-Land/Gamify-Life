@@ -8,6 +8,8 @@ export const S={
  sunk:['DDDDW','DKKLW','DK.LW','DLLLW','WWWWW'],
  btn:['WWWWK','WLLSK','WLFSK','WSSSK','KKKKK'],
  btnp:['KKKKW','KSSLW','KSFLW','KLLLW','WWWWW'],
+ /* the app icon (favicon, manifest) */
+ app:['.KKKKKKKKKKKKKK.','KWWWWWWWWWWWWWDK','KWKKKKKKKKKKKWDK','KWK1111111111KDK','KWK11k1111k11KDK','KWK11k1111k11KDK','KWK1111111111KDK','KWK1k111111k1KDK','KWK11kkkkkk11KDK','KWK1111111111KDK','KWKKKKKKKKKKKKDK','KWWWWWWWWWWWWWDK','KDDDDDDDDDDDDDDK','.KKKKKKKKKKKKKK.','.....KKKKKK.....','...KKKKKKKKKK...'],
  /* hobbies */
  tennis:['....kkkk....','..kkggggkk..','.kgggggwwgk.','.kggggwggGk.','kgggggwgggGk','kggggwggggGk','kgggwwggggGk','kgwwgggggGGk','.kwggggggGk.','.kgggggGGGk.','..kkGGGGkk..','....kkkk....'],
  cycling:['............','..kk....kkk.','...r.....k..','...rrrrrrk..','..r.r...rk..','.kkkr..kkrk.','k..rkrrk.r.k','k.k.k..k.k.k','k...k..k...k','.kkk....kkk.','............','............'],
