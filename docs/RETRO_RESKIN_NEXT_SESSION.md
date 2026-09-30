@@ -36,8 +36,8 @@ Written 2026-09-30 at the end of the reskin session. Read this, then `docs/desig
 - **Full gate.** `pnpm seed:validate && pnpm typecheck && pnpm lint && pnpm test && pnpm test:e2e && pnpm build`. e2e takes about 7 minutes and reuses a dev server on :3000.
 - **Expected results:**
   - Unit: 110 passed, 1 skipped.
-  - e2e: 122 passed, 2 failed, 2 skipped.
-  - The 2 failures are the pre-existing `journey.spec.ts` "mobile journey…" test. It fails the same way on `v0.8-tree-focus`: `.skill-tree-panel` intercepts the node click. A separate fix task was suggested for it.
+  - e2e: 126 passed, 2 skipped.
+  - Under load, a few tests sometimes fail but pass on their own: the polish clearance and avatar-layer tests, and `actions.spec.ts` tree timeouts.
 - **Lighthouse.**
   1. `pnpm build`.
   2. `next start -p 3001` in the background, and note its PID.
@@ -76,7 +76,7 @@ Written 2026-09-30 at the end of the reskin session. Read this, then `docs/desig
 ## Open items and ideas
 
 1. **Pull request:** decide the target branch, then open it with `docs/design/REPORT.md` as the description.
-2. **Journey test:** fix the pre-existing `journey.spec.ts` failure. It's behavioural and was out of scope for a visual pass.
+2. ~~**Journey test**~~: fixed. Its node click could resolve to the tree's screen-reader list (`ul.sr-only`), which renders before the lazy-loaded canvas and can never be clicked. The test now targets `.react-flow__node`.
 3. ~~**YOUR PATH button**~~: done. It now sits beside the board (under it on phones); see `pathButtonPlacement` in `lib/home-scene.ts`.
 4. **"Jack of All Trades" achievement:** for example, reaching a decent level in several hobbies, next to "Well Rounded" and "Renaissance Beginner". This touches `lib/content.ts` rules and is a behaviour change, so keep it in its own commit.
 5. **Wallpaper unlocks:** extra wallpapers as achievement rewards (the brief's future hook). `lib/wallpapers/index.ts` is the registry.
