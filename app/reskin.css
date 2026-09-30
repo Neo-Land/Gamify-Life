@@ -196,3 +196,44 @@ input[type=checkbox]:disabled,input[type=radio]:disabled{opacity:.5;cursor:not-a
 .start-here b{border:1px solid #000;background:var(--alert);color:var(--ink);box-shadow:3px 3px 0 #0005;font-size:22px}
 .start-here span{width:0;height:0;margin-top:0;border:10px solid transparent;border-top:12px solid #000}
 .map-new-hobby{border-style:dashed!important}
+
+/* ---------- this week: quests read as a messenger conversation with the coach ---------- */
+.quest-grid .mac-window .window-pad{background-color:var(--panel-2);background-image:repeating-linear-gradient(0deg,#0000 0 2px,#00000010 2px 4px)}
+.quest-grid .window-pad h2{font-family:var(--pixel-font);color:var(--link)}
+.hobby-sections{margin-right:14px}
+.quest-grid .window-pad>p:not(.metadata):not(.gentle-note):not(.success-note){margin:8px 0;padding:6px 8px;border:1px solid var(--outline);background:#fff;box-shadow:2px 2px 0 #0003}
+.quest-grid .window-pad>p:not(.metadata):not(.gentle-note):not(.success-note)::before{content:'Coach: ' / '';color:var(--accent-red)}
+.quest-grid .badge{color:var(--ink);text-shadow:none}
+.gentle-note,.success-note{border:1px dashed var(--outline);border-radius:0;background:#fff6a8}
+.practice-entry{border-bottom:2px solid var(--lo);padding:6px 0}
+.practice-entry strong{color:var(--link)}
+/* the hobby switcher is the buddy list: a blinking ! marks an open weekly quest */
+.map-hobby-switcher a{position:relative}
+.tab-badge{position:absolute;top:-10px;right:-6px}
+@media(prefers-reduced-motion:no-preference){:root:not([data-motion=reduced]) .tab-badge{animation:px-blink 1s steps(1) infinite}}
+
+/* ---------- gear: an inventory window of grouped sunken lists ---------- */
+.readiness{border:4px solid transparent;border-image:url(/ui/sunk.svg) 4 / 4px stretch;border-radius:0;background:#e9f0e2 padding-box;align-items:center}
+.gear-group{border:4px solid transparent;border-image:url(/ui/sunk.svg) 4 / 4px stretch;background:var(--panel-2) padding-box;padding:4px 10px;margin-bottom:10px}
+.gear-group>summary h3{font-family:var(--pixel-font)}
+.gear-card{border:4px solid transparent;border-image:url(/ui/btn.svg) 4 / 4px stretch;border-radius:0;background:var(--panel) padding-box}
+.gear-card p{color:var(--ink)}
+.kit-readiness{border:1px solid var(--outline);background:#fff6a8;color:var(--ink)}
+
+/* ---------- character + settings: control-panel sections ---------- */
+.settings-section,.equipped-section,.achievements-section{border-top:2px solid var(--lo);box-shadow:inset 0 2px #fff}
+.checkbox-row{align-items:center;min-height:44px;font-size:17px}
+.level-stamp{border:1px solid #000;border-radius:0;background:var(--alert);color:var(--ink);box-shadow:2px 2px 0 #0005}
+.achievement{background:var(--panel-2)}
+.achievement:not(.earned){background-image:repeating-conic-gradient(#0000 0 25%,#00000012 0 50%);background-size:2px 2px}
+.hobby-card-art{image-rendering:pixelated;border-bottom:2px solid var(--outline)}
+.hobby-card-art>span:first-child{display:grid;place-items:center}
+.more-hobbies button,.more-hobbies a{border-radius:0}
+
+/* ---------- reward toasts: a small window that steps in, like the reference's warning popup ---------- */
+.reward-toast{border:6px solid transparent;border-image:url(/ui/win.svg) 6 / 6px stretch;border-radius:0;background:var(--panel) padding-box;box-shadow:4px 4px 0 #0005;padding:0 10px 10px;color:var(--ink);font-family:var(--pixel-font)}
+.reward-toast[data-level]{border-width:6px;box-shadow:0 0 0 3px var(--alert),5px 5px 0 #0005}
+.reward-title{display:flex;align-items:center;gap:6px;margin:0 -10px 8px!important;padding:4px 40px 4px 8px;background:linear-gradient(var(--title-b) 0 2px,var(--os-deep-green) 2px);color:#fff;text-shadow:1px 1px 0 #2c4a3e;font-size:18px;letter-spacing:.5px}
+.reward-dismiss{top:0;right:0;min-width:36px;min-height:32px;display:grid;place-items:center}
+.reward-xp{font-size:24px}
+@media(prefers-reduced-motion:no-preference){:root:not([data-motion=reduced]) .reward-toast:not([data-leaving]){animation:px-pop .25s steps(4)}}
