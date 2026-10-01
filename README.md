@@ -2,6 +2,8 @@
 
 **A retro desktop RPG for real-life hobbies.** Pick what you want to get better at (tennis, cycling, drawing, running…), follow a skill tree of small real-world actions, log practice, and watch a pixel-art character level up with you.
 
+**[▶ Try the live demo](https://gamify-life-amber.vercel.app)**. No sign-up needed: choose *Continue as guest*.
+
 ![Home screen: a chibi pixel character on a surfboard over a meadow, with weekly hobby goals and the next action](docs/design/screens/after/home-1280.png)
 
 | Skill tree | Character editor | Mobile |
