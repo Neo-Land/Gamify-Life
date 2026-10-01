@@ -2,6 +2,7 @@
   "name": "gamify-life",
   "version": "0.1.0",
   "private": true,
+  "license": "AGPL-3.0-only",
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1",
     "build": "tsx scripts/validate-scene.ts && next build",
