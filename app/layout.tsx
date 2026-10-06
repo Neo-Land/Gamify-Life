@@ -8,6 +8,6 @@ import {RetroComputerFrame} from '@/components/computer-frame';
 import {App} from '@/components/app';
 import {Provider} from '@/components/provider';
 const pixel=VT323({weight:'400',subsets:['latin'],variable:'--font-pixel'});
-export const metadata:Metadata={title:'Gamify.Life — A little better, every adventure',description:'Your hobbies, a little more intentional. Learn, practice and grow in a cozy personal skill-tree desktop.',manifest:'/manifest.webmanifest',icons:{icon:'/icon.svg'}};
+export const metadata:Metadata={metadataBase:new URL('https://gamify-life-amber.vercel.app'),openGraph:{type:'website',url:'/',siteName:'Gamify.Life',title:'Gamify.Life — A little better, every adventure',description:'Your hobbies, a little more intentional. Learn, practice and grow in a cozy personal skill-tree desktop.'},twitter:{card:'summary_large_image'},title:'Gamify.Life — A little better, every adventure',description:'Your hobbies, a little more intentional. Learn, practice and grow in a cozy personal skill-tree desktop.',manifest:'/manifest.webmanifest',icons:{icon:'/icon.svg'}};
 export const viewport:Viewport={width:'device-width',initialScale:1,themeColor:'#8DB0A3'};
 export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en" className={pixel.variable}><body><Provider><RetroComputerFrame><App/>{children}</RetroComputerFrame></Provider></body></html>;}
