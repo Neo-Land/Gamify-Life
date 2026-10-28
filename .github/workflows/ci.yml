@@ -1,0 +1,48 @@
+# Runs on every push and PR. Backs up CLAUDE.md mechanically:
+#   Rule 2 (don't break what works) -> typecheck catches renamed fields / broken callers
+#   Rule 3 (prove it works)         -> content validation, unit + DB/RLS tests (PGlite), production build
+name: CI
+
+on:
+  push:
+    branches: [main, design/retro-reskin]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4 # version comes from "packageManager" in package.json
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate content
+        run: pnpm seed:validate
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Unit, DB and RLS tests
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
