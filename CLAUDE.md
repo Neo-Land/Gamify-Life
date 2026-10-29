@@ -50,6 +50,21 @@ pnpm test:e2e        # after UI or flow changes
 
 "Should work" is not done.
 
+## Model routing
+
+Match the model to the work. Delegate to the subagents in `.claude/agents/`:
+
+| Work | Delegate to | Model |
+|---|---|---|
+| Finding files, tracing usages before a change (Rule 2) | `explorer` | haiku |
+| Running `pnpm` checks and reporting results (Rule 3) | `checker` | haiku |
+| Routine, well-specified edits: UI copy, styling, content entries, boilerplate | `implementer` | sonnet |
+| Reviewing a diff before commit or PR | `reviewer` | opus |
+
+Keep these in the main session and never delegate them down: planning and design decisions; anything touching `lib/progression.ts`, `lib/rewards.ts`, the XP ledger, `/api/*`, the repository adapters, auth, RLS, or `supabase/migrations/`; and deciding whether a failing test is wrong. Run `reviewer` on any change to those areas before committing.
+
+If a cheaper model's result looks wrong or incomplete, redo that step in the main session instead of retrying the same subagent.
+
 ## Security
 
 - `SUPABASE_SERVICE_ROLE_KEY` is server-only. Never prefix it with `NEXT_PUBLIC_`, log it, or send it to the browser.
